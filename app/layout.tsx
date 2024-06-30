@@ -7,7 +7,7 @@ import React from 'react';
 const moon = localFont({
   src: [
     {
-      path: '/fonts/HalvarBreit-Rg.woff2',
+      path: '../public/fonts/HalvarBreit-Rg.woff2',
       weight: '400',
       style: 'normal',
     },
