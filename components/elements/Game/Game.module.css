@@ -1,0 +1,94 @@
+.Game {
+  @apply relative flex h-[277px] w-[273px] flex-col items-center justify-center rounded-[15px];
+  background: #49229b;
+  background: radial-gradient(
+    circle farthest-corner at center center,
+    #49229b 0%,
+    #4f2a9a 84%,
+    #1f0d44 100%
+  );
+}
+
+.Inner {
+  @apply absolute flex h-full w-full flex-col items-center justify-center gap-[13px] bg-[#0A0517]/90 opacity-0 transition-opacity duration-300;
+}
+.Inner:hover {
+  @apply opacity-100;
+}
+
+.Link {
+  @apply flex flex-col items-center gap-[20px] text-[20px] font-bold;
+}
+
+.LinkIcon {
+  @apply flex h-[86px] w-[86px] items-center justify-center rounded-[15px] bg-[#4F2A9A];
+}
+
+.Image {
+  @apply max-h-[172px] max-w-[172px];
+}
+
+.Name {
+  @apply text-[32px] font-extrabold;
+}
+
+@media (max-width: 1200px) {
+  .Game {
+    @apply h-[200px] w-[200px] rounded-[12px];
+  }
+  .Link {
+    @apply gap-[16px] text-[16px];
+  }
+  .LinkIcon {
+    @apply h-[60px] w-[60px] rounded-[12px];
+  }
+  .LinkIcon svg {
+    @apply max-h-[30px];
+  }
+  .Image {
+    @apply max-h-[140px] max-w-[140px];
+  }
+  .Name {
+    @apply text-[24px];
+  }
+}
+@media (max-width: 768px) {
+  .Game {
+    @apply h-[120px] w-[120px] rounded-[8px];
+  }
+  .Link {
+    @apply gap-[12px] text-[12px];
+  }
+  .LinkIcon {
+    @apply h-[60px] w-[60px] rounded-[12px];
+  }
+  .LinkIcon svg {
+    @apply max-h-[30px];
+  }
+  .Image {
+    @apply max-h-[70px] max-w-[70px];
+  }
+  .Name {
+    @apply text-[16px];
+  }
+}
+@media (max-width: 480px) {
+  .Game {
+    @apply h-[88px] w-[88px] rounded-[6px];
+  }
+  .Link {
+    @apply gap-[6px] text-[8px];
+  }
+  .LinkIcon {
+    @apply h-[20px] w-[20px] rounded-[6px];
+  }
+  .LinkIcon svg {
+    @apply max-h-[12px];
+  }
+  .Image {
+    @apply max-h-[40px] max-w-[40px];
+  }
+  .Name {
+    @apply text-[12px];
+  }
+} /*# sourceMappingURL=Game.module.css.map */

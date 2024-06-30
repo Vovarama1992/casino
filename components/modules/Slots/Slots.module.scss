@@ -1,0 +1,51 @@
+.SlotList {
+  @apply grid grid-cols-5 gap-[15px];
+}
+
+.MoreButton {
+  @apply mx-auto mt-[46px] block rounded-[15px] bg-[#2F136D] px-[30px] py-[26px] text-[20px] font-medium transition-colors duration-300;
+
+  @media (hover: hover) {
+    &:hover {
+      @apply bg-[#1F0A4D];
+    }
+  }
+}
+
+@media (min-width: 2048px) {
+  .SlotList {
+    @apply grid-cols-6;
+  }
+}
+
+@media (min-width: 2400px) {
+  .SlotList {
+    @apply grid-cols-7;
+  }
+}
+
+@media (max-width: 1024px) {
+  .SlotList {
+    @apply grid grid-cols-4;
+  }
+
+  .MoreButton {
+    @apply mt-[30px] rounded-[12px] px-[20px] py-[16px] text-[16px];
+  }
+}
+
+@media (max-width: 768px) {
+  .SlotList {
+    @apply gap-[10px];
+  }
+
+  .MoreButton {
+    @apply rounded-[6px] px-[15px] py-[13px] text-[10px];
+  }
+}
+
+@media (max-width: 480px) {
+  .SlotList {
+    @apply gap-[4px];
+  }
+}

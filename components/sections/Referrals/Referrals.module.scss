@@ -1,0 +1,284 @@
+.Referrals {
+  @apply mb-[96px] mt-[102px];
+}
+
+.Wrapper {
+  @apply mt-[20px] flex flex-col gap-[20px];
+}
+
+.Item {
+  @apply relative rounded-[20px];
+
+  background: rgb(13, 6, 28);
+  background: linear-gradient(227deg, rgb(13, 6, 28) 62%, rgb(30, 15, 63) 130%);
+}
+
+.Title {
+  @apply text-[32px] font-extrabold;
+}
+
+.DecorImage {
+  @apply absolute;
+}
+
+.Link {
+  @apply flex items-center justify-between pb-[7px] pl-[24px] pr-[54px] pt-[12px];
+}
+
+.LinkInfo {
+  @apply flex flex-col;
+}
+
+.LinkInfoTitle {
+  @apply text-[20px] font-extrabold;
+}
+
+.LinkInfoDescription {
+  @apply max-w-[533px] text-[14px] font-medium text-[#3A1F76];
+}
+
+.LinkInputBox {
+  @apply border-l border-[#2D175B] pb-[21px] pl-[42px] pt-[16px];
+}
+
+.LinkInput {
+  @apply rounded-[10px] bg-[#160B2F] py-[21px] pl-[96px] pr-[41px] text-[20px] font-medium text-[#3A1F76] outline-none;
+}
+
+.LinkCopyButton {
+  @apply absolute left-0 top-0 flex h-full w-[65px] items-center justify-center rounded-[10px] bg-[#3A1F76];
+
+  svg {
+    @apply h-[31px] w-[31px];
+  }
+
+  &:hover {
+    @apply bg-[#220F4E];
+  }
+}
+
+.Statistics {
+  @apply flex gap-[20px];
+
+  .Item {
+    &:nth-child(1) {
+      width: 70%;
+    }
+    &:nth-child(2) {
+      width: 30%;
+    }
+  }
+}
+
+.ChartBox {
+  @apply py-[56px] pl-[24px];
+}
+
+.TotalStatistics {
+  @apply px-[38px] py-[56px];
+
+  .DecorImage {
+    @apply bottom-[-47px] right-[-72px] w-[230px];
+  }
+}
+
+.StatisticsList {
+  @apply mt-[52px] flex flex-col gap-[30px];
+}
+
+.StatisticsListItem {
+  @apply flex flex-col gap-[10px];
+
+  h4 {
+    @apply text-[24px] font-medium;
+  }
+
+  span {
+    @apply w-fit min-w-[120px] rounded-[10px] px-[32px] py-[20px] text-center text-[20px] font-medium;
+
+    background: #241051;
+    background: radial-gradient(at center, #241051, #160b2f);
+  }
+}
+
+@media (max-width: 1740px) {
+  .TotalStatistics {
+    .DecorImage {
+      @apply bottom-[-90px] right-[-72px] w-[210px];
+    }
+  }
+}
+
+@media (max-width: 1440px) {
+  .Referrals {
+    @apply mb-[70px] mt-[80px];
+  }
+
+  .Wrapper {
+    @apply gap-[16px];
+  }
+
+  .Item {
+    @apply rounded-[16px];
+  }
+
+  .Title {
+    @apply text-[24px];
+  }
+
+  .Link {
+    @apply px-[20px] pb-[7px] pt-[12px];
+  }
+
+  .LinkInfoTitle {
+    @apply text-[16px];
+  }
+
+  .LinkInfoDescription {
+    @apply max-w-[480px] text-[12px];
+  }
+
+  .LinkInputBox {
+    @apply pb-[17px] pl-[30px] pt-[14px];
+  }
+
+  .LinkInput {
+    @apply rounded-[8px] py-[21px] pl-[80px] pr-[30px] text-[16px];
+  }
+
+  .LinkCopyButton {
+    @apply w-[54px] rounded-[8px];
+
+    svg {
+      @apply h-[24px] w-[24px];
+    }
+  }
+
+  .Statistics {
+    @apply gap-[16px];
+  }
+
+  .ChartBox {
+    @apply py-[40px] pl-[20px];
+  }
+
+  .TotalStatistics {
+    @apply px-[32px] py-[40px];
+
+    .DecorImage {
+      @apply bottom-[-70px] right-[-72px] w-[190px];
+    }
+  }
+
+  .StatisticsList {
+    @apply mt-[32px] gap-[20px];
+  }
+
+  .StatisticsListItem {
+    @apply gap-[6px];
+
+    h4 {
+      @apply text-[20px];
+    }
+
+    span {
+      @apply min-w-[100px] rounded-[8px] px-[24px] py-[16px] text-[16px];
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .Referrals {
+    @apply mb-[50px] mt-[60px];
+  }
+
+  .Statistics {
+    @apply flex-col;
+
+    .Item {
+      width: 100% !important;
+    }
+  }
+
+  .TotalStatistics {
+    .DecorImage {
+      @apply bottom-[0] right-[-72px] w-[280px];
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .Item {
+    @apply rounded-[8px];
+  }
+
+  .Link {
+    @apply flex-col items-start gap-[22px] px-[20px] pb-[7px] pt-[12px];
+  }
+
+  .LinkInfoDescription {
+    @apply max-w-full text-[10px];
+  }
+
+  .LinkInputBox {
+    @apply border-none py-0 pl-0;
+  }
+
+  .LinkInput {
+    @apply rounded-[8px] py-[13px] pl-[70px] pr-[13px] text-[12px];
+  }
+
+  .LinkCopyButton {
+    @apply w-[39px] rounded-[8px];
+
+    svg {
+      @apply h-[20px] w-[20px];
+    }
+  }
+
+  .ChartBox {
+    @apply pl-0;
+  }
+}
+
+@media (max-width: 480px) {
+  .Referrals {
+    @apply mb-[11px] mt-[46px];
+  }
+
+  .Title {
+    @apply pl-[20px] text-[16px];
+  }
+
+  .Link {
+    @apply py-[17px];
+  }
+
+  .Statistics {
+    @apply gap-[10px];
+  }
+
+  .TotalStatistics {
+    @apply py-[17px] pl-0 pr-[20px];
+
+    .DecorImage {
+      @apply bottom-[-24px] right-[-72px] w-[180px];
+    }
+  }
+
+  .StatisticsList {
+    @apply mt-[32px] gap-[20px] pl-[20px];
+  }
+
+  .StatisticsListItem {
+    @apply gap-[6px];
+
+    h4 {
+      @apply text-[12px];
+    }
+
+    span {
+      @apply min-w-[60px] rounded-[5px] px-[11px] py-[10px] text-[10px];
+    }
+  }
+}

@@ -1,0 +1,15 @@
+.GameList {
+  @apply flex flex-wrap gap-[15px];
+}
+
+@media (max-width: 768px) {
+  .GameList {
+    @apply gap-[10px];
+  }
+}
+
+@media (max-width: 480px) {
+  .GameList {
+    @apply gap-[4px];
+  }
+}

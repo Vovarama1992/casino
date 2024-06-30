@@ -1,0 +1,53 @@
+.Copy {
+  @apply text-primary flex w-max items-center gap-[11px] text-[20px] font-medium;
+
+  svg {
+    @apply h-[22px] w-[22px];
+  }
+}
+
+@media (max-width: 1200px) {
+  .Copy {
+    @apply gap-[6px] text-[16px];
+
+    svg {
+      @apply h-[14px] w-[14px];
+    }
+  }
+}
+
+@media (max-width: 960px) {
+  .Copy {
+    @apply text-[14px];
+
+    svg {
+      @apply h-[12px] w-[12px];
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .Copy {
+    @apply gap-[4px] text-[12px];
+
+    svg {
+      @apply h-[10px] w-[10px];
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .Copy {
+    @apply text-[8px];
+  }
+}
+
+@media (max-width: 480px) {
+  .Copy {
+    @apply gap-[2px] text-[6px];
+
+    svg {
+      @apply h-[8px] w-[8px];
+    }
+  }
+}

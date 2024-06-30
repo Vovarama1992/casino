@@ -1,0 +1,77 @@
+.Title {
+  @apply flex items-center gap-[25px];
+
+  svg {
+    @apply h-[40px] w-[40px];
+  }
+}
+
+.TabList {
+  @apply mb-[32px] mt-[30px] flex w-[1002px] justify-between rounded-[15px] bg-[#180B36];
+}
+
+.Tab {
+  @apply w-full cursor-pointer select-none rounded-[15px] bg-transparent py-[28px] text-center text-[24px] font-medium transition-colors duration-300;
+}
+
+.TabActive {
+  @apply bg-[#24114F];
+}
+
+@media (max-width: 1200px) {
+  .Title {
+    @apply gap-[16px];
+
+    svg {
+      @apply h-[32px] w-[32px];
+    }
+  }
+
+  .TabList {
+    @apply mb-[22px] mt-[20px] w-[720px] rounded-[12px];
+  }
+
+  .Tab {
+    @apply rounded-[12px] py-[20px] text-[20px];
+  }
+}
+
+@media (max-width: 768px) {
+  .WalletModal {
+    @apply w-full;
+  }
+
+  .Title {
+    @apply gap-[12px];
+
+    svg {
+      @apply h-[20px] w-[20px];
+    }
+  }
+
+  .TabList {
+    @apply mb-[18px] mt-[16px] w-full rounded-[8px];
+  }
+
+  .Tab {
+    @apply rounded-[8px] py-[18px] text-[16px];
+  }
+}
+
+@media (max-width: 600px) {
+  .Title {
+    @apply gap-[6px];
+
+    svg {
+      @apply h-[17px] w-[17px];
+    }
+  }
+
+  .TabList {
+    @apply mb-[11px] mt-[8px] w-full rounded-[5px];
+  }
+
+  .Tab {
+    @apply rounded-[5px] py-[8.5px] text-[10px];
+  }
+}

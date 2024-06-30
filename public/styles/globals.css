@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root {
+  --header-height: 126px;
+  --main-margin: 60px;
+  --mobile-menu-height: 82.5px;
+}
+
+@media (max-width: 1440px) {
+  :root {
+    --main-margin: 40px;
+  }
+}
+@media (max-width: 1200px) {
+  :root {
+    --header-height: 97px;
+  }
+}
+@media (max-width: 1024px) {
+  :root {
+    --main-margin: 30px;
+  }
+}
+@media (max-width: 768px) {
+  :root {
+    --header-height: 72px;
+  }
+}
+@media (max-width: 600px) {
+  :root {
+    --header-height: 58.5px;
+    --main-margin: 10px;
+  }
+}
+@media (max-width: 480px) {
+  :root {
+    --header-height: 50px;
+    --main-margin: 10px;
+  }
+}
+html,
+body {
+  @apply flex min-h-screen flex-col bg-background font-moon text-[20px] font-normal leading-[1.15] text-white;
+}
+
+.wrapper {
+  @apply flex flex-grow;
+}
+
+.main {
+  width: calc(100% - var(--sidebar-width));
+  margin-top: var(--header-height);
+  padding: 0 var(--main-margin);
+  overflow: hidden;
+}
+
+footer {
+  @apply flex-grow-0;
+}
+
+a,
+button {
+  @apply select-none transition-colors duration-300;
+}
+
+img,
+svg {
+  @apply select-none;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #1e0f47;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #5d33b4;
+  border-radius: 20px;
+}
+
+section {
+  @apply relative;
+} /*# sourceMappingURL=globals.css.map */

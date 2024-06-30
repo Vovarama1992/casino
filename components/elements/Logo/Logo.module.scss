@@ -1,0 +1,37 @@
+.Logo {
+  img {
+    @apply w-[182px];
+  }
+}
+
+@media (max-width: 1200px) {
+  .Logo {
+    img {
+      @apply w-[140px];
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .Logo {
+    img {
+      @apply w-[90px];
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .Logo {
+    img {
+      @apply w-[70px];
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .Logo {
+    img {
+      @apply w-[58px];
+    }
+  }
+}

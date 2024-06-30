@@ -1,0 +1,126 @@
+.Form {
+  @apply mt-[50px] flex flex-col gap-[18px];
+}
+
+.Input {
+  @apply w-[560px] text-[24px];
+}
+
+.AuthButtons {
+  @apply mt-[18px] flex justify-between;
+}
+
+.RegistrationButtons {
+  @apply mb-[40px];
+}
+
+.AuthButton {
+  @apply relative rounded-[15px] bg-[#2F136D] px-[48px] py-[18px] text-[24px];
+}
+.AuthButton:hover {
+  @apply bg-[#220F4E];
+}
+.AuthButton:hover .AuthViaSocialMediaIcon {
+  @apply bg-[#3B1A84];
+}
+
+.AuthViaSocialMedia {
+  @apply pl-[22px] pr-[88px];
+}
+
+.AuthViaSocialMediaIcon {
+  @apply absolute right-0 top-0 flex h-[63px] w-[63px] items-center justify-center rounded-[15px] bg-[#260F57] transition-colors duration-300;
+}
+.AuthViaSocialMediaIcon svg {
+  @apply h-[31px] w-[31px];
+}
+.AuthViaSocialMediaIcon:hover {
+  @apply bg-[#3B1A84];
+}
+
+.ChangeAuthMode {
+  @apply mb-[20px] mt-[43px] flex flex-col items-center gap-[11px];
+}
+.ChangeAuthMode span {
+  @apply text-[20px] font-medium;
+}
+.ChangeAuthMode button {
+  @apply rounded-[15px] bg-[#140A2E] px-[43px] py-[18px] text-[16px] font-medium text-[#4F2A9A];
+}
+.ChangeAuthMode button:hover {
+  @apply bg-[#4F2A9A] text-white;
+}
+
+@media (max-width: 1200px) {
+  .Form {
+    @apply mt-[30px] gap-[12px];
+  }
+  .Input {
+    @apply w-[400px] text-[18px];
+  }
+  .AuthButtons {
+    @apply mt-[12px];
+  }
+  .RegistrationButtons {
+    @apply mb-[30px];
+  }
+  .AuthButton {
+    @apply rounded-[10px] px-[36px] py-[12px] text-[18px];
+  }
+  .AuthViaSocialMedia {
+    @apply pl-[18px] pr-[60px];
+  }
+  .AuthViaSocialMediaIcon {
+    @apply h-[45px] w-[45px] rounded-[10px];
+  }
+  .AuthViaSocialMediaIcon svg {
+    @apply h-[20px] w-[20px];
+  }
+  .ChangeAuthMode {
+    @apply mb-[16px] mt-[32px] gap-[8px];
+  }
+  .ChangeAuthMode span {
+    @apply text-[16px];
+  }
+  .ChangeAuthMode button {
+    @apply rounded-[10px] px-[36px] py-[12px] text-[14px];
+  }
+}
+@media (max-width: 480px) {
+  .AuthModal {
+    @apply w-full;
+  }
+  .Form {
+    @apply mt-[25px] gap-[10px];
+  }
+  .Input {
+    @apply w-full text-[14px];
+  }
+  .AuthButtons {
+    @apply mt-[10px];
+  }
+  .RegistrationButtons {
+    @apply mb-[20px];
+  }
+  .AuthButton {
+    @apply px-[30px] py-[13px] text-[14px];
+  }
+  .AuthViaSocialMedia {
+    @apply pl-[13px] pr-[50px];
+  }
+  .AuthViaSocialMediaIcon {
+    @apply h-[42px] w-[39px];
+  }
+  .AuthViaSocialMediaIcon svg {
+    @apply h-[20px] w-[20px];
+  }
+  .ChangeAuthMode {
+    @apply mb-0 mt-[19px] gap-[5px];
+  }
+  .ChangeAuthMode span {
+    @apply text-[12px];
+  }
+  .ChangeAuthMode button {
+    @apply px-[26px] py-[12px] text-[10px];
+  }
+} /*# sourceMappingURL=AuthModal.module.css.map */

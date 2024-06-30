@@ -1,0 +1,129 @@
+.Dice {
+  @apply mb-[31px] mt-[164px] flex gap-[20px];
+}
+
+.Game {
+  @apply w-[70%] rounded-[20px] px-[158px] pb-[72px] pt-[120px];
+  background: rgb(13, 6, 28);
+  background: linear-gradient(227deg, rgb(13, 6, 28) 62%, rgb(30, 15, 63) 130%);
+}
+
+.WinningBox {
+  @apply relative mb-[83px] flex flex-col items-center;
+}
+
+.WinningValue {
+  @apply z-[2] flex items-center gap-[20px] text-[128px] font-bold;
+}
+.WinningValue img {
+  @apply h-[93px] w-[93px];
+}
+
+.WinningBackgroundValue {
+  @apply absolute top-[-40px] z-0 text-[256px] font-bold text-[#0d071d];
+  text-shadow: 0px 1px 4px rgba(255, 255, 255, 0.07);
+}
+
+.WinningInfo {
+  @apply z-[2] text-[32px] font-medium text-[#2E176C];
+}
+
+.Buttons {
+  @apply flex items-center gap-[28px];
+}
+
+.ButtonBox {
+  @apply flex w-full flex-col items-center gap-[15px] text-[24px] font-medium;
+}
+
+.Button {
+  @apply w-full rounded-[15px] bg-[#2F136D] py-[32px];
+}
+
+.Result {
+  @apply mt-[13px] flex w-full items-center justify-center rounded-[15px] py-[27px] text-[32px] font-medium;
+}
+
+@media (max-width: 1780px) {
+  .Dice {
+    @apply mb-[20px] mt-[140px] gap-[16px];
+  }
+  .Game {
+    @apply w-[70%] rounded-[20px] px-[40px] pb-[60px] pt-[80px];
+  }
+  .WinningBox {
+    @apply mb-[83px];
+  }
+  .WinningValue {
+    @apply gap-[16px] text-[80px];
+  }
+  .WinningValue img {
+    @apply h-[70px] w-[70px];
+  }
+  .WinningBackgroundValue {
+    @apply top-[-30px] text-[160px];
+  }
+  .WinningInfo {
+    @apply text-[24px];
+  }
+  .Buttons {
+    @apply gap-[20px];
+  }
+  .ButtonBox {
+    @apply gap-[15px] text-[20px];
+  }
+  .Button {
+    @apply py-[24px];
+  }
+  .Result {
+    @apply mt-[8px] rounded-[12px] py-[20px] text-[24px];
+  }
+}
+@media (max-width: 1440px) {
+  .Dice {
+    @apply flex-col-reverse;
+  }
+  .Game {
+    @apply w-full;
+  }
+}
+@media (max-width: 768px) {
+  .Dice {
+    @apply mb-[11px] mt-[40px] gap-[10px];
+  }
+  .Game {
+    @apply rounded-[12px] px-[20px] pb-[30px] pt-[50px];
+  }
+  .WinningBox {
+    @apply mb-[40px];
+  }
+  .WinningValue {
+    @apply gap-[9px] text-[48px];
+  }
+  .WinningValue img {
+    @apply h-[38px] w-[38px];
+  }
+  .WinningBackgroundValue {
+    @apply hidden;
+  }
+  .WinningInfo {
+    @apply text-[12px];
+  }
+  .Buttons {
+    @apply gap-[7px];
+  }
+  .ButtonBox {
+    @apply gap-[5px] text-[10px];
+  }
+  .Button {
+    @apply rounded-[10px] py-[16px] text-[14px];
+  }
+  .Result {
+    @apply mt-[5px] rounded-[10px] py-[12px] text-[12px];
+  }
+}
+@media (max-width: 480px) {
+  .Dice {
+    @apply pt-[57px];
+  }
+} /*# sourceMappingURL=Dice.module.css.map */

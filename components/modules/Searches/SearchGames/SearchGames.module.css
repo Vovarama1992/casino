@@ -1,0 +1,33 @@
+.SearchGames {
+  @apply relative;
+}
+.SearchGames svg {
+  @apply absolute left-[28px] top-[28px] h-[44px] w-[44px];
+}
+
+.Input {
+  @apply h-[99px] w-full rounded-[15px] bg-[#0A0517] pl-[95px] pr-[30px] text-[20px] font-medium text-white outline-none;
+}
+.Input::-moz-placeholder {
+  @apply text-[#4F2A9A];
+}
+.Input::placeholder {
+  @apply text-[#4F2A9A];
+}
+
+@media (max-width: 1200px) {
+  .SearchGames svg {
+    @apply absolute left-[20px] top-[22px] h-[30px] w-[30px];
+  }
+  .Input {
+    @apply h-[70px] rounded-[10px] pl-[65px] pr-[20px] text-[16px];
+  }
+}
+@media (max-width: 768px) {
+  .SearchGames svg {
+    @apply left-[20px] top-[16px] h-[20px] w-[20px];
+  }
+  .Input {
+    @apply h-[48px] rounded-[8px] pl-[56px] text-[12px];
+  }
+} /*# sourceMappingURL=SearchGames.module.css.map */

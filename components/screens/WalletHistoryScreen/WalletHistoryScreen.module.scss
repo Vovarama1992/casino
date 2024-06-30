@@ -1,0 +1,297 @@
+.WalletHistoryList {
+  @apply relative flex w-full flex-col gap-[21px];
+}
+
+.WalletHistoryItem {
+  @apply flex items-center justify-between rounded-[15px] py-[7px] pl-[21px] pr-[13px];
+}
+
+.PaymentSystem {
+  @apply flex items-center gap-[17px] border-r border-[#2D175B] py-[4px] pr-[70px];
+}
+
+.PaymentSystemIcon {
+  @apply flex h-[60px] w-[60px] items-center justify-center rounded-[10px] bg-[#1E0D44];
+
+  svg {
+    @apply max-h-[40px] max-w-[40px];
+  }
+}
+
+.PaymentSystemAddress {
+  @apply text-[20px] font-medium text-[#2F136D];
+}
+
+.PaymentDate {
+  @apply pl-[10px] pr-[10px] text-[20px] font-medium text-[#2F136D];
+}
+
+.PaymentAmount {
+  @apply flex items-center gap-[10px] text-[20px] font-medium;
+}
+
+.PaymentAmountIcon {
+  @apply flex h-[50px] w-[50px] items-center justify-center rounded-[10px] bg-[#1E0D44];
+
+  img {
+    @apply h-[29px] w-[29px];
+  }
+}
+
+.PaymentStatusBox {
+  @apply flex w-[168px] justify-end;
+}
+
+.PaymentStatus {
+  @apply rounded-[10px] px-[12px] py-[13px] text-[20px] font-medium;
+}
+
+.Pagination {
+  @apply mt-[23px] flex justify-center gap-[12px];
+}
+
+.PaginationButton {
+  @apply text-[24px] font-medium text-[#190D37];
+}
+
+.PaginationButtonActive {
+  @apply text-[32px] text-white;
+}
+
+.NavigationButton {
+  @apply absolute bottom-[31px] flex h-[50px] w-[50px] items-center justify-center rounded-[10px] bg-[#0D061C];
+
+  svg {
+    @apply h-[16px] w-[16px];
+  }
+
+  &:nth-child(1) {
+    @apply left-[20px];
+  }
+  &:nth-child(2) {
+    @apply right-[20px] rotate-180;
+  }
+}
+
+@media (max-width: 1200px) {
+  .WalletHistoryList {
+    @apply gap-[16px];
+  }
+
+  .WalletHistoryItem {
+    @apply rounded-[10px] pl-[16px] pr-[10px];
+  }
+
+  .PaymentSystem {
+    @apply gap-[12px] py-[2px] pr-[40px];
+  }
+
+  .PaymentSystemIcon {
+    @apply h-[48px] w-[48px] rounded-[6px];
+
+    svg {
+      @apply max-h-[32px] max-w-[32px];
+    }
+  }
+
+  .PaymentSystemAddress {
+    @apply text-[16px];
+  }
+
+  .PaymentDate {
+    @apply pl-[6px] pr-[6px] text-[16px];
+  }
+
+  .PaymentAmount {
+    @apply gap-[10px] text-[16px];
+  }
+
+  .PaymentAmountIcon {
+    @apply h-[40px] w-[40px];
+
+    img {
+      @apply h-[24px] w-[24px];
+    }
+  }
+
+  .PaymentStatusBox {
+    @apply w-[127px];
+  }
+
+  .PaymentStatus {
+    @apply rounded-[6px] px-[6px] py-[8px] text-[16px];
+  }
+
+  .Pagination {
+    @apply mt-0 gap-[8px];
+  }
+
+  .PaginationButton {
+    @apply text-[20px];
+  }
+
+  .PaginationButtonActive {
+    @apply text-[24px];
+  }
+
+  .NavigationButton {
+    @apply bottom-[20px] h-[36px] w-[36px];
+
+    svg {
+      @apply h-[12px] w-[12px];
+    }
+
+    &:nth-child(1) {
+      @apply left-[16px];
+    }
+    &:nth-child(2) {
+      @apply right-[16px];
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .WalletHistoryList {
+    @apply gap-[8px];
+  }
+
+  .WalletHistoryItem {
+    @apply rounded-[5px] pl-[10px] pr-[6px];
+  }
+
+  .PaymentSystem {
+    @apply gap-[6px] py-[2px] pr-[20px];
+  }
+
+  .PaymentSystemIcon {
+    @apply h-[32px] w-[32px] rounded-[5px];
+
+    svg {
+      @apply max-h-[20px] max-w-[20px];
+    }
+  }
+
+  .PaymentSystemAddress {
+    @apply text-[12px];
+  }
+
+  .PaymentDate {
+    @apply pl-[6px] pr-[6px] text-[12px];
+  }
+
+  .PaymentAmount {
+    @apply gap-[4px] text-[10px];
+  }
+
+  .PaymentAmountIcon {
+    @apply h-[28px] w-[28px] rounded-[5px];
+
+    img {
+      @apply h-[20px] w-[20px];
+    }
+  }
+
+  .PaymentStatusBox {
+    @apply w-[105px];
+  }
+
+  .PaymentStatus {
+    @apply rounded-[6px] px-[6px] py-[8px] text-[12px];
+  }
+
+  .Pagination {
+    @apply mt-0 gap-[8px];
+  }
+
+  .PaginationButton {
+    @apply text-[16px];
+  }
+
+  .PaginationButtonActive {
+    @apply text-[24px];
+  }
+
+  .NavigationButton {
+    @apply bottom-[4px] h-[30px] w-[30px];
+
+    svg {
+      @apply h-[12px] w-[12px];
+    }
+
+    &:nth-child(1) {
+      @apply left-[16px];
+    }
+    &:nth-child(2) {
+      @apply right-[16px];
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .WalletHistoryList {
+    @apply gap-[5px];
+  }
+
+  .WalletHistoryItem {
+    @apply pl-[8px] pr-[5px];
+  }
+
+  .PaymentSystem {
+    @apply gap-[4px] pr-[12px];
+  }
+
+  .PaymentSystemIcon {
+    @apply h-[24px] w-[24px];
+
+    svg {
+      @apply max-h-[12px] max-w-[12px];
+    }
+  }
+
+  .PaymentSystemAddress {
+    @apply text-[8px];
+  }
+
+  .PaymentDate {
+    @apply pl-[6px] pr-[6px] text-[8px];
+  }
+
+  .PaymentAmount {
+    @apply gap-[3px] text-[6px];
+  }
+
+  .PaymentAmountIcon {
+    @apply h-[20px] w-[20px];
+
+    img {
+      @apply h-[12px] w-[12px];
+    }
+  }
+
+  .PaymentStatusBox {
+    @apply w-[58px];
+  }
+
+  .PaymentStatus {
+    @apply rounded-[5px] px-[7px] py-[7px] text-[6px];
+  }
+
+  .Pagination {
+    @apply gap-[15px];
+  }
+
+  .NavigationButton {
+    &:nth-child(1) {
+      @apply left-[14px];
+    }
+    &:nth-child(2) {
+      @apply right-[14px];
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .WalletHistoryList {
+    @apply min-h-[315px];
+  }
+}

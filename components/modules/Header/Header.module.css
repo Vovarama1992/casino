@@ -1,0 +1,140 @@
+.Header {
+  @apply absolute right-0 flex w-full items-center justify-end;
+  height: var(--header-height);
+  padding: 0 var(--main-margin);
+}
+
+.Logo {
+  @apply absolute left-2/4 -translate-x-2/4;
+}
+
+.ProfileBlock {
+  @apply flex items-center gap-[20px];
+}
+
+.AuthBlock {
+  @apply flex items-center gap-[12px];
+}
+
+.Button {
+  @apply min-w-[143px] rounded-[10px] px-[21px] py-[16px] text-[16px] font-medium;
+}
+
+.RegistrationButton {
+  @apply bg-[#150A30] text-[#2F136D];
+}
+
+.AuthButton {
+  @apply bg-[#2F136D] text-white;
+}
+
+.WalletBox {
+  @apply flex items-center gap-[20px];
+}
+
+.WalletButton {
+  @apply flex h-[54px] w-[54px] items-center justify-center rounded-[10px] bg-[#2F136D];
+}
+
+.Balance {
+  @apply flex items-center gap-[9px] text-[16px] font-medium;
+}
+.Balance img {
+  @apply h-[30px] w-[30px];
+}
+
+.DepositButton {
+  @apply rounded-[10px] bg-[#2F136D] px-[21px] py-[16px] text-[16px] font-medium;
+}
+
+.Profile {
+  @apply flex items-center gap-[23px];
+}
+
+.ProfileAvatar {
+  @apply h-[68px] w-[68px] rounded-full border-[3px] border-[#2F136D];
+}
+
+.ProfileName {
+  @apply text-[24px];
+}
+
+@media (max-width: 1640px) {
+  .LogoProfileMode {
+    @apply relative left-[initial] mr-[40px] translate-x-[initial];
+  }
+}
+@media (max-width: 1440px) {
+  .ProfileBlock {
+    @apply gap-[16px];
+  }
+}
+@media (max-width: 1024px) {
+  .Header {
+    @apply w-full justify-between;
+  }
+  .Logo {
+    @apply relative left-[initial] mr-[40px] translate-x-[initial];
+  }
+}
+@media (max-width: 960px) {
+  .WalletButton {
+    @apply h-[40px] w-[40px] rounded-[8px];
+  }
+  .WalletButton svg {
+    @apply h-[20px] w-[20px];
+  }
+  .DepositButton {
+    @apply rounded-[8px] px-[16px] py-[12px] text-[12px];
+  }
+  .Profile {
+    @apply flex items-center gap-[14px];
+  }
+  .ProfileAvatar {
+    @apply h-[40px] w-[40px] border-[2px];
+  }
+  .ProfileName {
+    @apply text-[20px];
+  }
+  .Balance {
+    @apply gap-[6px] text-[12px];
+  }
+  .Balance img {
+    @apply h-[20px] w-[20px];
+  }
+}
+@media (max-width: 768px) {
+  .Header {
+    @apply mt-[10px] h-fit;
+  }
+  .WalletBox {
+    @apply gap-[15px];
+  }
+  .ProfileName,
+  .WalletButton {
+    @apply hidden;
+  }
+  .DepositButton {
+    @apply order-[-1] p-[10px] text-[10px];
+  }
+  .AuthBlock {
+    @apply gap-[6px];
+  }
+  .Button {
+    @apply min-w-[74px] rounded-[5px] px-[11px] py-[7px] text-[10px];
+  }
+}
+@media (max-width: 600px) {
+  .WalletButton {
+    @apply h-[33px] w-[33px] rounded-[6px];
+  }
+  .WalletButton svg {
+    @apply h-[15px] w-[15px];
+  }
+  .ProfileAvatar {
+    @apply h-[34px] w-[34px] border-[2px];
+  }
+  .Balance img {
+    @apply h-[16px] w-[16px];
+  }
+} /*# sourceMappingURL=Header.module.css.map */

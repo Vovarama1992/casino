@@ -1,0 +1,107 @@
+.Chat {
+  @apply mt-[15px] flex h-[350px] flex-col gap-[15px] overflow-auto rounded-[15px] bg-[#0F0821] px-[20px] py-[30px];
+}
+
+.InputBox {
+  @apply relative mt-[12px];
+}
+
+.Input {
+  @apply w-full rounded-[15px] bg-[#0F0821] py-[24px] pl-[24px] pr-[250px] text-[20px] font-medium text-white outline-none;
+
+  &::placeholder {
+    @apply text-[#26144C];
+  }
+}
+
+.InputButtons {
+  @apply absolute right-[20px] top-2/4 flex -translate-y-2/4 items-center gap-[10px];
+}
+
+.AttachMediaButton {
+  @apply flex h-[45px] w-[45px] items-center justify-center rounded-[10px] bg-[#201044];
+
+  svg {
+    @apply h-[22px] w-[22px];
+  }
+
+  &:hover {
+    @apply bg-[#281555];
+  }
+}
+
+.SendButton {
+  @apply rounded-[10px] bg-[#2F136D] px-[24px] py-[14px] text-[14px] font-bold;
+
+  &:hover {
+    @apply bg-[#220F4E];
+  }
+}
+
+@media (max-width: 1780px) {
+  .Chat {
+    @apply mt-[10px] h-[300px] gap-[12px] rounded-[12px] px-[16px] py-[20px];
+  }
+
+  .InputBox {
+    @apply mt-[8px];
+  }
+
+  .Input {
+    @apply rounded-[12px] py-[20px] pl-[20px] pr-[200px] text-[16px];
+  }
+
+  .InputButtons {
+    @apply right-[16px];
+  }
+
+  .AttachMediaButton {
+    @apply h-[34px] w-[34px];
+
+    svg {
+      @apply h-[16px] w-[16px];
+    }
+  }
+
+  .SendButton {
+    @apply px-[20px] py-[14px] text-[12px];
+  }
+}
+
+@media (max-width: 1440px) {
+  .Chat {
+    @apply mt-[6px] h-[220px] gap-[8px] rounded-[8px] px-[10px] py-[12px];
+  }
+
+  .InputBox {
+    @apply mt-[5px];
+  }
+
+  .SendButton {
+    @apply px-[20px] py-[14px] text-[12px];
+  }
+}
+
+@media (max-width: 768px) {
+  .Chat {
+    @apply h-[385px];
+  }
+
+  .Input {
+    @apply pr-[100px];
+  }
+
+  .SendButton {
+    @apply flex h-[34px] w-[34px] items-center justify-center bg-[#1D0E3E] p-0;
+
+    svg {
+      @apply w-[19px];
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .Input {
+    @apply text-[10px];
+  }
+}

@@ -1,0 +1,129 @@
+.GameBet {
+  @apply w-fit rounded-[20px] bg-[#0D061C] p-[28px];
+}
+
+.Title {
+  @apply flex items-center gap-[9px] text-[24px] font-extrabold;
+}
+.Title svg {
+  @apply max-h-[50px] max-w-[50px];
+}
+
+.Options {
+  @apply mt-[65px] flex flex-col gap-[35px];
+}
+
+.Button {
+  @apply mt-[35px] rounded-[10px] bg-[#2F136D] px-[58px] py-[19px] text-[20px] font-bold;
+}
+.Button:hover {
+  @apply bg-[#220F4E];
+}
+
+.OptionTitle {
+  @apply text-[20px] font-medium;
+}
+
+.OptionButtons {
+  @apply mt-[15px] flex w-fit gap-[5px] rounded-[10px] bg-[#100822] px-[10px] py-[7px];
+}
+
+.OptionButton {
+  @apply flex h-[45px] w-[60px] items-center justify-center rounded-[10px] text-[18px] font-medium;
+  background: #241051;
+  background: radial-gradient(at center, #241051, #160b2f);
+}
+.OptionButton:hover {
+  background: #401b94;
+  background: radial-gradient(at center, #401b94, #160b2f);
+}
+
+.OptionInput {
+  @apply h-[45px] w-[91px] rounded-[10px] bg-[#140A28] px-[10px] text-center text-[18px] font-medium text-white outline-none;
+}
+
+.EditOptionInput {
+  @apply w-[255px];
+}
+
+@media (max-width: 1800px) {
+  .OptionInput {
+    @apply w-[75px];
+  }
+  .EditOptionInput {
+    @apply w-[255px];
+  }
+}
+@media (max-width: 1440px) {
+  .GameBet {
+    @apply w-full;
+  }
+  .OptionButtons {
+    @apply w-full justify-between;
+  }
+  .Button {
+    @apply w-fit;
+  }
+}
+@media (max-width: 768px) {
+  .GameBet {
+    @apply rounded-[12px] p-[16px];
+  }
+  .Title {
+    @apply text-[20px];
+  }
+  .Title svg {
+    @apply max-h-[42px] max-w-[42px];
+  }
+  .Options {
+    @apply mt-[30px] gap-[30px];
+  }
+  .Button {
+    @apply mt-[30px] rounded-[6px] px-[30px] py-[12px] text-[16px];
+  }
+  .OptionTitle {
+    @apply text-[14px];
+  }
+  .OptionButtons {
+    @apply mt-[10px] justify-center gap-[3px] rounded-[6px] px-[6px] py-[4px];
+  }
+  .OptionButton {
+    @apply h-[36px] w-[45px] rounded-[6px] text-[14px];
+  }
+  .OptionInput {
+    @apply h-[36px] w-[50px] rounded-[6px] px-[6px] text-[14px];
+  }
+  .EditOptionInput {
+    @apply w-[190px];
+  }
+}
+@media (max-width: 480px) {
+  .GameBet {
+    @apply p-0;
+  }
+  .Title {
+    @apply absolute left-[16px] top-[14px] text-[16px];
+  }
+  .Title svg {
+    @apply max-h-[35px] max-w-[35px];
+  }
+  .Button {
+    @apply -order-1 mx-[10px] mt-[15px] py-[16px];
+    width: calc(100% - 20px);
+  }
+  .Options {
+    @apply mt-[15px] gap-[15px];
+  }
+  .OptionTitle {
+    @apply text-center text-[10px];
+  }
+  .OptionButtons {
+    @apply mt-[5px] rounded-[5px] px-[20px] py-[5px];
+  }
+  .OptionButton {
+    @apply h-[29px] w-[34px] rounded-[5px] text-[12px];
+  }
+  .OptionInput {
+    @apply h-[29px] rounded-[5px] px-[10px] text-[10px];
+  }
+} /*# sourceMappingURL=GameBet.module.css.map */

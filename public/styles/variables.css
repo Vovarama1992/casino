@@ -1,0 +1,38 @@
+:root {
+  --header-height: 126px;
+  --main-margin: 60px;
+  --mobile-menu-height: 82.5px;
+}
+
+@media (max-width: 1440px) {
+  :root {
+    --main-margin: 40px;
+  }
+}
+@media (max-width: 1200px) {
+  :root {
+    --header-height: 97px;
+  }
+}
+@media (max-width: 1024px) {
+  :root {
+    --main-margin: 30px;
+  }
+}
+@media (max-width: 768px) {
+  :root {
+    --header-height: 72px;
+  }
+}
+@media (max-width: 600px) {
+  :root {
+    --header-height: 58.5px;
+    --main-margin: 10px;
+  }
+}
+@media (max-width: 480px) {
+  :root {
+    --header-height: 50px;
+    --main-margin: 10px;
+  }
+} /*# sourceMappingURL=variables.css.map */

@@ -1,0 +1,28 @@
+.Title {
+  @apply relative w-fit px-[15px] pb-[21px] text-[36px] font-extrabold;
+}
+.Title:after {
+  @apply absolute bottom-0 left-0 h-[2px] w-full min-w-[580px] rounded-[15px] content-[""];
+  background: #2f146d;
+  background: radial-gradient(at center top, #2f146d, rgba(47, 20, 109, 0));
+}
+
+@media (max-width: 1440px) {
+  .Title {
+    @apply px-[10px] pb-[16px] text-[30px];
+  }
+}
+@media (max-width: 1024px) {
+  .Title {
+    @apply w-full text-center;
+  }
+  .Title::after {
+    @apply w-screen min-w-min;
+    left: calc(-1 * var(--main-margin));
+  }
+}
+@media (max-width: 600px) {
+  .Title {
+    @apply pb-[10px] text-[20px];
+  }
+} /*# sourceMappingURL=PageTitle.module.css.map */

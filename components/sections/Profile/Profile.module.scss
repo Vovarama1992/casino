@@ -1,0 +1,735 @@
+.Profile {
+  @apply mb-[63px] mt-[102px];
+
+  .Button,
+  .Link {
+    @apply bg-[#2F136D] text-white;
+
+    &:hover {
+      @apply bg-[#220F4E];
+    }
+  }
+}
+
+.Wrapper {
+  @apply relative mt-[88px] flex flex-col gap-[25px];
+}
+
+.Top {
+  @apply flex gap-[15px];
+
+  .Item {
+    @apply h-[471px];
+
+    width: calc(100% / 3);
+  }
+}
+
+.Item {
+  @apply rounded-[20px];
+
+  background: rgb(13, 6, 28);
+  background: linear-gradient(227deg, rgb(13, 6, 28) 62%, rgb(30, 15, 63) 130%);
+}
+
+h2.Title {
+  @apply text-[36px] font-bold;
+}
+
+h3.Title {
+  @apply text-[32px] font-bold;
+}
+
+.Description {
+  @apply text-[20px] font-medium text-[#5D33B4];
+}
+
+.MobileDecor {
+  @apply hidden;
+}
+
+.DecorImage {
+  @apply absolute;
+}
+
+.Info {
+  @apply relative flex flex-col items-center pb-[25px] pt-[45px];
+
+  .DecorImage {
+    @apply left-[-72px] top-[53px] h-[182px] w-[182px];
+  }
+}
+
+.ProfileData {
+  @apply flex flex-col items-center;
+}
+
+.ProfileAvatar {
+  @apply h-[156px] w-[156px] rounded-full border-[5px] border-[#2F136D];
+}
+
+.ProfileName {
+  @apply mt-[20px] text-[32px] font-bold;
+}
+
+.ProfileDate {
+  @apply mt-[5px] text-[18px] text-[#5D33B4];
+}
+
+.LogoutButton {
+  @apply mt-[88px] rounded-[15px] bg-[#180B36] px-[43px] py-[22px] text-[24px] font-medium text-[#5D33B4];
+
+  &:hover {
+    @apply bg-[#4F2A9A] text-[#462788];
+  }
+}
+
+.Settings {
+  @apply px-[30px] pt-[50px];
+}
+
+.SettingForm {
+  @apply mt-[48px] flex flex-col gap-[14px];
+}
+
+.SettingFormTitle {
+  @apply text-[24px] font-medium;
+}
+
+.SettingFormInput {
+  @apply w-full text-[20px];
+}
+
+.SettingFormButton {
+  @apply w-fit rounded-[15px] px-[69px] py-[18px];
+}
+
+.SocialMedia {
+  @apply relative px-[27px] pb-[41px] pt-[50px];
+
+  .DecorImage {
+    @apply right-[-72px] top-[79px] h-[190px] w-[190px];
+  }
+}
+
+.SocialMediaList {
+  @apply mt-[50px] flex max-h-[220px] flex-col gap-[20px] overflow-auto;
+}
+
+.SocialMediaListItem {
+  @apply flex items-center gap-[26px];
+}
+
+.SocialMediaListItemIcon {
+  @apply flex h-[85px] w-[85px] items-center justify-center rounded-[10px];
+
+  background: #241051;
+  background: radial-gradient(at center, #241051, #160b2f);
+
+  svg {
+    @apply h-[47px] w-[47px];
+  }
+}
+
+.SocialMediaLinkedButton {
+  @apply flex h-[50px] w-[135px] items-center justify-center rounded-[10px] text-[16px] font-bold;
+}
+
+.SocialMediaLinkedButtonActive {
+  @apply bg-[#220F4E];
+}
+
+.SocialMediaInfo {
+  @apply absolute bottom-[41px] max-w-[90%] text-[16px] font-medium text-[#5D33B4];
+}
+
+.Bottom {
+  @apply flex gap-[15px];
+
+  .Item {
+    @apply h-[306px];
+
+    width: calc(100% / 2);
+  }
+}
+
+.AvatarChangeMain {
+  @apply mt-[30px] flex items-center gap-[29px];
+}
+
+.AvatarChange {
+  @apply px-[32px] pt-[55px];
+}
+
+.AvatarList {
+  @apply flex w-[500px] justify-between gap-[10px] overflow-auto;
+}
+
+.Avatar {
+  @apply relative flex h-[104px] w-[104px] cursor-pointer items-center justify-center rounded-full border-[2px] border-[#2F136D];
+
+  img {
+    @apply h-[78px] w-[78px] transition-opacity duration-200;
+  }
+
+  &:hover {
+    img {
+      @apply opacity-40;
+    }
+  }
+}
+
+.AvatarSelect {
+  img {
+    @apply opacity-40;
+  }
+
+  &::after {
+    @apply absolute left-2/4 top-2/4 h-[20px] w-[29px] -translate-x-2/4 -translate-y-2/4 bg-contain bg-no-repeat content-[''];
+
+    background-image: url('./images/checkmark.svg');
+  }
+}
+
+.ChangeButton {
+  @apply flex h-[59px] w-[235px] items-center justify-center rounded-[15px] text-[20px] font-bold;
+}
+
+.Questions {
+  @apply flex flex-col items-center justify-center gap-[32px] px-[20px];
+}
+
+.QuestionsLinks {
+  @apply flex gap-[13px];
+}
+
+.QuestionsLink {
+  @apply flex h-[73px] w-[300px] items-center justify-center rounded-[15px] text-[24px] font-bold;
+}
+
+@media (max-width: 1820px) {
+  .Wrapper {
+    @apply gap-[20px];
+  }
+
+  .Top {
+    @apply gap-[12px];
+
+    .Item {
+      @apply h-[390px];
+    }
+  }
+
+  .Item {
+    @apply rounded-[20px];
+  }
+
+  h2.Title {
+    @apply text-[32px];
+  }
+
+  h3.Title {
+    @apply text-[24px];
+  }
+
+  .Description {
+    @apply text-[18px];
+  }
+
+  .Info {
+    @apply pb-[25px] pt-[45px];
+
+    .DecorImage {
+      @apply h-[160px] w-[160px];
+    }
+  }
+
+  .ProfileAvatar {
+    @apply h-[140px] w-[140px];
+  }
+
+  .ProfileName {
+    @apply mt-[12px] text-[24px];
+  }
+
+  .ProfileDate {
+    @apply text-[16px];
+  }
+
+  .LogoutButton {
+    @apply mt-[60px] px-[30px] py-[16px] text-[20px];
+  }
+
+  .Settings {
+    @apply px-[20px] pt-[40px];
+  }
+
+  .SettingForm {
+    @apply mt-[30px] gap-[10px];
+  }
+
+  .SettingFormTitle {
+    @apply text-[20px];
+  }
+
+  .SettingFormInput {
+    @apply text-[14px];
+
+    padding-top: 24px !important;
+    padding-bottom: 24px !important;
+  }
+
+  .SettingFormButton {
+    @apply rounded-[10px] px-[30px] py-[12px];
+  }
+
+  .SocialMedia {
+    @apply px-[20px] pb-[36px] pt-[40px];
+
+    .DecorImage {
+      @apply h-[170px] w-[170px];
+    }
+  }
+
+  .SocialMediaList {
+    @apply mt-[40px] max-h-[200px] gap-[16px];
+  }
+
+  .SocialMediaListItem {
+    @apply gap-[20px];
+  }
+
+  .SocialMediaListItemIcon {
+    @apply h-[85px] w-[85px];
+
+    svg {
+      @apply h-[47px] w-[47px];
+    }
+  }
+
+  .SocialMediaLinkedButton {
+    @apply h-[50px] w-[135px] items-center justify-center rounded-[10px] text-[16px] font-bold;
+  }
+
+  .SocialMediaInfo {
+    @apply bottom-[41px] max-w-[90%] text-[16px] font-medium text-[#5D33B4];
+  }
+
+  .Bottom {
+    @apply gap-[15px];
+
+    .Item {
+      @apply h-[260px];
+
+      width: calc(100% / 2);
+    }
+  }
+
+  .AvatarChangeMain {
+    @apply mt-[20px] gap-[20px];
+  }
+
+  .AvatarChange {
+    @apply px-[32px] pt-[50px];
+  }
+
+  .AvatarList {
+    @apply gap-[6px];
+  }
+
+  .Avatar {
+    @apply h-[80px] w-[80px];
+
+    img {
+      @apply h-[60px] w-[60px];
+    }
+  }
+
+  .ChangeButton {
+    @apply h-[59px] w-[235px] text-[20px];
+  }
+
+  .Questions {
+    @apply gap-[20px];
+
+    .Description {
+      @apply text-center;
+    }
+  }
+
+  .QuestionsLinks {
+    @apply gap-[10px];
+  }
+
+  .QuestionsLink {
+    @apply h-[50px] w-[200px] rounded-[12px] text-[20px];
+  }
+}
+
+@media (max-width: 1500px) {
+  .Profile {
+    @apply mb-[40px] mt-[60px];
+  }
+
+  .Wrapper {
+    @apply mt-[60px] gap-[16px];
+  }
+
+  .Top {
+    @apply gap-[12px];
+
+    .Item {
+      @apply h-[300px];
+    }
+  }
+
+  .Item {
+    @apply rounded-[20px];
+  }
+
+  h2.Title {
+    @apply text-[24px];
+  }
+
+  h3.Title {
+    @apply text-[20px];
+  }
+
+  .Description {
+    @apply text-[14px];
+  }
+
+  .Info {
+    @apply pb-[25px] pt-[35px];
+
+    .DecorImage {
+      @apply left-[-62px] top-[30px] h-[140px] w-[140px];
+    }
+  }
+
+  .ProfileAvatar {
+    @apply h-[120px] w-[120px];
+  }
+
+  .ProfileName {
+    @apply mt-[8px] text-[20px];
+  }
+
+  .ProfileDate {
+    @apply text-[14px];
+  }
+
+  .LogoutButton {
+    @apply mt-[30px] px-[20px] py-[12px] text-[16px];
+  }
+
+  .Settings {
+    @apply px-[16px] pt-[20px];
+  }
+
+  .SettingForm {
+    @apply mt-[20px] gap-[10px];
+  }
+
+  .SettingFormTitle {
+    @apply text-[16px];
+  }
+
+  .SettingFormInput {
+    @apply text-[12px];
+
+    padding-top: 16px !important;
+    padding-bottom: 16px !important;
+  }
+
+  .SettingFormButton {
+    @apply px-[20px] py-[10px];
+  }
+
+  .SocialMedia {
+    @apply px-[16px] pb-[24px] pt-[30px];
+
+    .DecorImage {
+      @apply right-[-64px] top-[30px] h-[160px] w-[160px];
+    }
+  }
+
+  .SocialMediaList {
+    @apply mt-[30px] max-h-[140px] gap-[10px];
+  }
+
+  .SocialMediaListItem {
+    @apply gap-[12px];
+  }
+
+  .SocialMediaListItemIcon {
+    @apply h-[60px] w-[60px];
+
+    svg {
+      @apply h-[36px] w-[36px];
+    }
+  }
+
+  .SocialMediaLinkedButton {
+    @apply h-[50px] w-[135px] rounded-[10px] text-[16px];
+  }
+
+  .SocialMediaInfo {
+    @apply bottom-[30px] text-[12px];
+  }
+
+  .Bottom {
+    @apply gap-[15px];
+
+    .Item {
+      @apply h-[230px];
+
+      width: calc(100% / 2);
+    }
+  }
+
+  .AvatarChangeMain {
+    @apply mt-[20px] gap-[20px];
+  }
+
+  .AvatarChange {
+    @apply px-[32px] pt-[50px];
+  }
+
+  .AvatarList {
+    @apply gap-[6px];
+  }
+
+  .Avatar {
+    @apply h-[70px] w-[70px];
+
+    img {
+      @apply h-[47px] w-[47px];
+    }
+  }
+
+  .ChangeButton {
+    @apply h-[48px] w-[160px] text-[14px];
+  }
+
+  .Questions {
+    @apply gap-[16px];
+  }
+
+  .QuestionsLinks {
+    @apply gap-[10px];
+  }
+
+  .QuestionsLink {
+    @apply h-[40px] w-[160px] rounded-[8px] text-[16px];
+  }
+}
+
+@media (max-width: 1200px) {
+  .Top,
+  .Bottom {
+    @apply flex-col;
+
+    .Item {
+      @apply w-full;
+    }
+  }
+
+  .SocialMedia,
+  .AvatarChange,
+  .Settings {
+    @apply flex flex-col items-center;
+  }
+
+  .AvatarList {
+    @apply w-[330px];
+  }
+
+  .SettingForm {
+    @apply items-center;
+  }
+
+  .SettingFormInput {
+    @apply w-[400px];
+  }
+}
+
+@media (max-width: 600px) {
+  .Wrapper,
+  .Top,
+  .Bottom {
+    @apply gap-[10px];
+  }
+
+  .Wrapper {
+    @apply mt-[15px];
+  }
+
+  .Info {
+    @apply pt-[15px];
+
+    height: 200px !important;
+
+    .DecorImage {
+      @apply hidden;
+    }
+  }
+
+  .Profile {
+    @apply mb-[11px] mt-[40px];
+  }
+
+  .ProfileAvatar {
+    @apply h-[70px] w-[70px];
+  }
+
+  .ProfileName {
+    @apply mt-[10px] text-[16px];
+  }
+
+  .ProfileDate {
+    @apply mt-[3px] text-[10px];
+  }
+
+  .LogoutButton {
+    @apply mt-[34px] rounded-[10px] py-[8px] text-[14px];
+  }
+
+  .Settings {
+    @apply px-[10px] pt-[15px];
+
+    height: 200px !important;
+  }
+
+  .SettingForm {
+    @apply mt-[29px] gap-[5px];
+  }
+
+  .SettingFormInput {
+    font-size: 8px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    padding-left: 10px !important;
+    padding-right: 40px !important;
+  }
+
+  .SettingFormInputButton {
+    svg {
+      width: 16px !important;
+      height: 16px !important;
+    }
+  }
+
+  .SettingFormButton {
+    @apply mt-[10px] px-[18px] py-[8px] text-[8px];
+  }
+
+  h2.Title,
+  h3.Title {
+    @apply text-[16px];
+  }
+
+  .Description {
+    @apply text-[10px];
+  }
+
+  .SocialMedia {
+    @apply px-[50px] py-[15px];
+
+    height: 240px !important;
+
+    .DecorImage {
+      @apply hidden;
+    }
+  }
+
+  .SocialMediaList {
+    @apply mt-[20px];
+  }
+
+  .SocialMediaListItem {
+    @apply gap-[17px];
+  }
+
+  .SocialMediaListItemIcon {
+    @apply h-[56px] w-[56px];
+  }
+
+  .SocialMediaLinkedButton {
+    @apply h-[33px] w-[100px] text-[12px];
+  }
+
+  .SocialMediaInfo {
+    @apply text-center text-[10px];
+  }
+
+  .AvatarChange {
+    @apply pt-[20px];
+    height: 220px !important;
+
+    .Description {
+      @apply mt-[9px];
+    }
+  }
+
+  .AvatarChangeMain {
+    @apply mt-[10px] flex-col gap-[20px];
+  }
+
+  .Avatar {
+    @apply h-[64px] w-[64px];
+  }
+
+  .ChangeButton {
+    @apply w-[118px] text-[12px];
+  }
+
+  .Questions {
+    @apply h-[128px] gap-[12px];
+
+    height: 128px !important;
+  }
+
+  .QuestionsLinks {
+    @apply gap-[5px];
+  }
+
+  .QuestionsLink {
+    @apply w-[146px] text-[14px];
+  }
+
+  .MobileDecor {
+    @apply block;
+
+    .DecorImage {
+      &:nth-child(1) {
+        @apply left-[-120px] top-[-90px] w-[230px];
+      }
+
+      &:nth-child(2) {
+        @apply right-[-65px] top-[-50px] w-[170px];
+      }
+
+      &:nth-child(3) {
+        @apply bottom-[360px] left-[-100px] w-[190px];
+      }
+
+      &:nth-child(4) {
+        @apply bottom-[90px] right-[-76px] w-[210px];
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .SettingFormInput {
+    @apply w-[230px];
+  }
+
+  .AvatarChange {
+    height: 290px !important;
+  }
+  .AvatarList {
+    @apply grid w-[150px] grid-cols-2 gap-x-[18px] gap-y-[10px] overflow-x-visible;
+  }
+}

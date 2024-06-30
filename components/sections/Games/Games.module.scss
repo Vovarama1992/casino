@@ -1,0 +1,49 @@
+.Games {
+  @apply mt-[20px] rounded-[20px] bg-[#0D061C] px-[27px] pb-[46px] pt-[31px];
+
+  h2 {
+    @apply mb-[31px] text-[36px] font-medium;
+  }
+}
+
+.MoonGames {
+  @apply mt-[51px];
+}
+
+.Slots {
+  @apply mt-[31px];
+}
+
+@media (max-width: 1200px) {
+  .Games {
+    @apply mt-[10px] rounded-[15px] px-[10px] pb-[30px] pt-[10px];
+
+    h2 {
+      @apply mb-[15px] text-[24px];
+    }
+  }
+
+  .MoonGames {
+    @apply mt-[30px];
+  }
+
+  .Slots {
+    @apply mt-[30px];
+  }
+}
+
+@media (max-width: 768px) {
+  .Games {
+    h2 {
+      @apply mb-[10px] text-[18px];
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .Games {
+    h2 {
+      @apply text-[14px];
+    }
+  }
+}

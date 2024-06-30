@@ -1,0 +1,212 @@
+.Banners {
+  margin-top: 52px;
+  padding-top: 32px !important;
+}
+
+.Banner {
+  @apply rounded-[35px] bg-cover bg-center bg-no-repeat;
+
+  height: 465px !important;
+
+  &[data-swiper-slide-index='0'] {
+    background-image: url('./images/1.jpg');
+  }
+  &[data-swiper-slide-index='1'] {
+    background-image: url('./images/2.jpg');
+  }
+  &[data-swiper-slide-index='2'] {
+    background-image: url('./images/4.jpg');
+  }
+}
+
+.BannerTextBox {
+  @apply absolute left-[41px] top-[116px] max-h-[180px] max-w-[366px] overflow-clip;
+}
+
+.BannerTitle {
+  @apply flex flex-col text-[36px] font-extrabold;
+}
+
+.BannerTitleLarge {
+  @apply text-[48px];
+}
+
+.BannerDescription {
+  @apply mt-[17px] text-[20px] font-medium;
+}
+
+.BannerButton {
+  @apply absolute bottom-[67px] left-[41px] flex h-[67px] w-fit min-w-[188px] items-center justify-center rounded-[15px] bg-white px-[15px] text-[20px] font-medium text-primary;
+
+  box-shadow: 0px -1px 7px 1px #ffffff;
+}
+
+.Pagination {
+  @apply absolute left-2/4 top-0 z-[2] flex -translate-x-2/4 gap-[12px];
+}
+
+.PaginationBullet {
+  @apply h-[17px] w-[17px] cursor-pointer rounded-full bg-[#13092D];
+}
+
+.PaginationBulletActive {
+  @apply bg-white;
+}
+
+.PrevButton,
+.NextButton {
+  @apply absolute top-2/4 z-[5] flex h-[78px] w-[50px] -translate-y-2/4 items-center justify-center rounded-[10px] bg-[#130B29] transition-colors duration-300;
+
+  @media (hover: hover) {
+    &:hover {
+      @apply bg-[#1E1241];
+    }
+  }
+}
+
+.PrevButton {
+  @apply left-[-25px];
+
+  svg {
+    @apply rotate-180;
+  }
+}
+
+.NextButton {
+  @apply right-[-25px];
+}
+
+@media (max-width: 1640px) {
+  .Banner {
+    height: 360px !important;
+  }
+
+  .BannerTextBox {
+    @apply left-[20px] top-[60px] max-h-[120px] max-w-[300px];
+  }
+
+  .BannerTitle {
+    @apply text-[24px];
+  }
+
+  .BannerTitleLarge {
+    @apply text-[36px];
+  }
+
+  .BannerDescription {
+    @apply mt-[12px] text-[16px];
+  }
+
+  .BannerButton {
+    @apply bottom-[40px] left-[20px] h-[56px] min-w-[140px] rounded-[12px] px-[12px] text-[16px];
+  }
+
+  .PrevButton,
+  .NextButton {
+    @apply h-[64px] w-[40px] rounded-[8px];
+  }
+
+  .PrevButton {
+    @apply left-[-30px];
+  }
+
+  .NextButton {
+    @apply right-[-30px];
+  }
+}
+
+@media (max-width: 1200px) {
+  .Banner {
+    @apply rounded-[20px];
+
+    height: 240px !important;
+  }
+
+  .BannerTextBox {
+    @apply top-[40px] max-h-[100px] max-w-[220px];
+  }
+
+  .BannerTitle {
+    @apply text-[20px];
+  }
+
+  .BannerTitleLarge {
+    @apply text-[24px];
+  }
+
+  .BannerDescription {
+    @apply mt-[8px] text-[14px];
+  }
+
+  .BannerButton {
+    @apply bottom-[26px] h-[40px] min-w-[120px] rounded-[10px] px-[10px] text-[14px];
+  }
+}
+
+@media (max-width: 1024px) {
+  .PrevButton,
+  .NextButton {
+    @apply hidden;
+  }
+}
+
+@media (max-width: 768px) {
+  .Banners {
+    margin-top: 20px;
+    padding-top: 24px !important;
+  }
+
+  .Banner {
+    @apply rounded-[16px];
+
+    height: 160px !important;
+  }
+
+  .BannerTextBox {
+    @apply top-[26px] max-h-[70px] max-w-[140px];
+  }
+
+  .BannerTitle {
+    @apply text-[12px];
+  }
+
+  .BannerTitleLarge {
+    @apply text-[14px];
+  }
+
+  .BannerDescription {
+    @apply mt-[7px] text-[8px];
+  }
+
+  .BannerButton {
+    @apply h-[28px] min-w-[93px] rounded-[5px] text-[10px];
+
+    box-shadow: 0px -1px 2px 1px #ffffff;
+  }
+
+  .Pagination {
+    @apply gap-[6px];
+  }
+
+  .PaginationBullet {
+    @apply h-[10px] w-[10px];
+  }
+}
+
+@media (max-width: 480px) {
+  .Banners {
+    padding-top: 0 !important;
+  }
+
+  .Banner {
+    height: 138px !important;
+  }
+
+  .Pagination {
+    @apply bottom-[5px] top-[initial] gap-[3px];
+  }
+
+  .PaginationBullet {
+    @apply h-[5px] w-[5px];
+  }
+}

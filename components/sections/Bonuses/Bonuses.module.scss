@@ -1,0 +1,632 @@
+.Bonuses {
+  @apply mt-[102px];
+}
+
+.Wrapper {
+  @apply mt-[48px] flex items-center gap-[17px];
+}
+
+.Item {
+  @apply h-[324px] rounded-[20px];
+
+  background: rgb(13, 6, 28);
+  background: linear-gradient(227deg, rgb(13, 6, 28) 62%, rgb(30, 15, 63) 130%);
+
+  &:nth-child(1),
+  &:nth-child(3) {
+    width: 25%;
+  }
+
+  &:nth-child(2) {
+    width: 50%;
+  }
+}
+
+.DecorImage {
+  @apply absolute;
+}
+
+.GetBonus {
+  @apply relative flex flex-col justify-between px-[16px] pb-[20px] pt-[40px];
+
+  .DecorImage {
+    @apply left-[-60px] top-[110px] w-[120px];
+  }
+}
+
+.GetBonusTop {
+  @apply flex gap-[10px];
+}
+
+.GetBonusTimer {
+  @apply flex h-[63px] w-full max-w-[140px] items-center justify-center rounded-[10px] text-[20px] font-medium;
+
+  background: #241051;
+  background: radial-gradient(at center, #241051, #160b2f);
+}
+
+.GetBonusTopText {
+  @apply flex flex-col gap-[12px];
+}
+
+.GetBonusTopTitle {
+  @apply text-[16px] font-bold;
+}
+
+.GetBonusTopDescription {
+  @apply text-[14px] font-medium text-[#3A1F76];
+}
+
+.GetBonusButton,
+.PromoCodeButton {
+  @apply relative z-[3] flex h-[54px] w-[270px] items-center justify-center rounded-[10px] bg-[#2F136D] text-[16px] font-bold;
+
+  &:hover {
+    @apply bg-[#220F4E];
+  }
+}
+
+.LinkSocialMedia {
+  @apply relative flex flex-col items-center justify-between px-[20px] py-[46px];
+
+  .DecorImageAstronaut {
+    @apply bottom-[-50px] left-[-150px] z-[2] w-[235px];
+  }
+
+  .DecorImagePlanet {
+    @apply right-[40%] top-[-50px] z-[2] w-[120px] rotate-[40deg];
+  }
+}
+
+.LinkSocialMediaTitle {
+  @apply max-w-[570px] text-center text-[40px] font-extrabold;
+}
+
+.SocialMediaList {
+  @apply flex gap-[20px] relative z-[4];
+}
+
+.SocialMediaListItem {
+  @apply flex flex-row-reverse items-center gap-[13px];
+}
+
+.SocialMediaListItemIcon {
+  @apply flex h-[85px] w-[85px] items-center justify-center rounded-[10px];
+
+  background: #241051;
+  background: radial-gradient(at center, #241051, #160b2f);
+
+  svg {
+    @apply h-[47px] w-[47px];
+  }
+}
+
+.SocialMediaLinkedButton {
+  @apply flex h-[50px] w-[135px] items-center justify-center rounded-[10px] bg-[#2F136D] text-[16px] font-bold;
+}
+
+.SocialMediaLinkedButtonActive {
+  @apply bg-[#220F4E];
+}
+
+.LinkSocialMediaDecorBackground {
+  @apply absolute left-0 top-0 h-full w-full overflow-hidden z-[1];
+
+  .DecorImage {
+    &:nth-child(1) {
+      @apply bottom-[-40px] left-[-30px] z-[1] w-[235px];
+    }
+    &:nth-child(2) {
+      @apply bottom-[-40px] right-[-30px] z-[1] w-[235px];
+    }
+  }
+}
+
+.PromoCode {
+  @apply relative flex flex-col items-end pb-[20px] pl-[11px] pr-[34px] pt-[34px];
+
+  .DecorImage {
+    @apply bottom-[72px] right-[-20px] w-[70px] rotate-[30deg];
+  }
+}
+
+.PromoCodeTop {
+  @apply flex gap-[8px];
+}
+
+.PromoCodeTopText {
+  @apply flex flex-col justify-between;
+}
+
+.PromoCodeTopTitle {
+  @apply text-right text-[24px] font-bold;
+}
+
+.PromoCodeTopDescription {
+  @apply flex flex-col items-end text-right text-[14px] text-[#3A1F76];
+}
+
+.PromoCodeIcon {
+  @apply flex h-[85px] w-[85px] items-center justify-center rounded-[10px];
+
+  background: #241051;
+  background: radial-gradient(at center, #241051, #160b2f);
+
+  svg {
+    @apply h-[50px] w-[50px];
+  }
+}
+
+.PromoCodeInputBox {
+  @apply relative mt-[25px] w-fit;
+}
+
+.PromoCodeInput {
+  @apply h-[46px] w-[261px] rounded-[10px] bg-[#160B2F] px-[51px] text-right text-[16px] font-medium text-white outline-none;
+
+  &::placeholder {
+    @apply text-[#3A1F76];
+  }
+}
+
+.PromoCodeInputIcon {
+  @apply absolute right-[14px] top-2/4 -translate-y-2/4;
+
+  svg {
+    @apply h-[27px] w-[27px];
+  }
+}
+
+.PromoCodeInputButton {
+  @apply absolute left-0 top-0 flex h-[46px] w-[46px] items-center justify-center rounded-[10px] bg-[#3A1F76];
+
+  svg {
+    @apply h-[11px] w-[15px];
+  }
+}
+
+.PromoCodeButton {
+  @apply mt-[52px];
+}
+
+@media (max-width: 1720px) {
+  .Bonuses {
+    @apply mt-[60px];
+  }
+
+  .Wrapper {
+    @apply mt-[40px] gap-[12px];
+  }
+
+  .Item {
+    @apply h-[240px];
+  }
+
+  .GetBonus {
+    @apply px-[12px] pb-[16px] pt-[30px];
+
+    .DecorImage {
+      @apply left-[-50px] top-[90px] w-[100px];
+    }
+  }
+
+  .GetBonusTop {
+    @apply gap-[6px];
+  }
+
+  .GetBonusTimer {
+    @apply h-[48px] max-w-[110px] rounded-[8px] text-[16px];
+  }
+
+  .GetBonusTopText {
+    @apply gap-[8px];
+  }
+
+  .GetBonusTopTitle {
+    @apply text-[14px];
+  }
+
+  .GetBonusTopDescription,
+  .PromoCodeTopDescription {
+    @apply text-[12px];
+  }
+
+  .GetBonusButton,
+  .PromoCodeButton {
+    @apply h-[50px] w-[220px] rounded-[10px] text-[14px];
+  }
+
+  .LinkSocialMedia {
+    @apply px-[16px] py-[36px];
+
+    .DecorImageAstronaut {
+      @apply bottom-[-50px] left-[-50px] w-[180px];
+    }
+
+    .DecorImagePlanet {
+      @apply top-[-60px] w-[100px];
+    }
+  }
+
+  .LinkSocialMediaTitle {
+    @apply max-w-[500px] text-[32px];
+  }
+
+  .SocialMediaList {
+    @apply gap-[16px];
+  }
+
+  .SocialMediaListItem {
+    @apply gap-[10px];
+  }
+
+  .SocialMediaListItemIcon {
+    @apply h-[60px] w-[60px];
+
+    svg {
+      @apply h-[40px] w-[40px];
+    }
+  }
+
+  .SocialMediaLinkedButton {
+    @apply h-[40px] w-[105px] text-[14px];
+  }
+
+  .LinkSocialMediaDecorBackground {
+    .DecorImage {
+      &:nth-child(1) {
+        @apply bottom-[-40px] left-[-30px] w-[200px];
+      }
+      &:nth-child(2) {
+        @apply bottom-[-40px] right-[-30px] w-[200px];
+      }
+    }
+  }
+
+  .PromoCode {
+    @apply pb-[16px] pl-[8px] pr-[24px] pt-[24px];
+
+    .DecorImage {
+      @apply bottom-[72px] right-[-20px] w-[70px] rotate-[30deg];
+    }
+  }
+
+  .PromoCodeTop {
+    @apply gap-[6px];
+  }
+
+  .PromoCodeTopTitle {
+    @apply text-[20px];
+  }
+
+  .PromoCodeIcon {
+    @apply h-[60px] w-[60px];
+
+    svg {
+      @apply h-[40px] w-[40px];
+    }
+  }
+
+  .PromoCodeInputBox {
+    @apply mt-[20px];
+  }
+
+  .PromoCodeInput {
+    @apply h-[40px] w-[220px] px-[40px] text-[14px];
+  }
+
+  .PromoCodeInputIcon {
+    @apply right-[14px];
+
+    svg {
+      @apply h-[27px] w-[27px];
+    }
+  }
+
+  .PromoCodeInputButton {
+    @apply h-[40px] w-[40px];
+
+    svg {
+      @apply h-[8px] w-[12px];
+    }
+  }
+
+  .PromoCodeButton {
+    @apply mt-[40px];
+  }
+}
+
+@media (max-width: 1440px) {
+  .Bonuses {
+    @apply mt-[40px];
+  }
+
+  .Wrapper {
+    @apply mt-[30px] gap-[8px];
+  }
+
+  .Item {
+    @apply h-[240px];
+  }
+
+  .GetBonus {
+    @apply px-[10px] pb-[16px] pt-[20px];
+
+    .DecorImage {
+      @apply left-[-30px] top-[90px] w-[80px];
+    }
+  }
+
+  .GetBonusTimer {
+    @apply h-[40px] max-w-[100px] rounded-[8px] text-[14px];
+  }
+
+  .GetBonusTopTitle {
+    @apply text-[12px];
+  }
+
+  .GetBonusTopDescription,
+  .PromoCodeTopDescription {
+    @apply text-[10px];
+  }
+
+  .GetBonusButton,
+  .PromoCodeButton {
+    @apply h-[40px] w-[180px] text-[12px];
+  }
+
+  .LinkSocialMedia {
+    @apply px-[12px] py-[30px];
+
+    .DecorImageAstronaut {
+      @apply bottom-[-30px] left-[-10px] w-[120px];
+    }
+
+    .DecorImagePlanet {
+      @apply top-[-60px] w-[80px];
+    }
+  }
+
+  .LinkSocialMediaTitle {
+    @apply max-w-[420px] text-[24px];
+  }
+
+  .SocialMediaList {
+    @apply gap-[10px];
+  }
+
+  .SocialMediaListItem {
+    @apply gap-[8px];
+  }
+
+  .SocialMediaListItemIcon {
+    @apply h-[50px] w-[50px];
+
+    svg {
+      @apply h-[28px] w-[28px];
+    }
+  }
+
+  .SocialMediaLinkedButton {
+    @apply h-[30px] w-[100px] rounded-[6px] text-[12px];
+  }
+
+  .LinkSocialMediaDecorBackground {
+    .DecorImage {
+      &:nth-child(1) {
+        @apply bottom-[-40px] left-[-30px] w-[160px];
+      }
+      &:nth-child(2) {
+        @apply bottom-[-40px] right-[-30px] w-[160px];
+      }
+    }
+  }
+
+  .PromoCode {
+    @apply pb-[12px] pl-[6px] pr-[16px] pt-[16px];
+
+    .DecorImage {
+      @apply bottom-[60px] right-[-10px] w-[70px];
+    }
+  }
+
+  .PromoCodeTop {
+    @apply gap-[6px];
+  }
+
+  .PromoCodeTopTitle {
+    @apply text-[16px];
+  }
+
+  .PromoCodeIcon {
+    @apply h-[40px] w-[40px];
+
+    svg {
+      @apply h-[30px] w-[30px];
+    }
+  }
+
+  .PromoCodeInputBox {
+    @apply mt-[20px];
+  }
+
+  .PromoCodeInput {
+    @apply h-[30px] w-[160px] px-[40px] text-[12px];
+  }
+
+  .PromoCodeInputIcon {
+    @apply right-[12px];
+
+    svg {
+      @apply h-[20px] w-[20px];
+    }
+  }
+
+  .PromoCodeInputButton {
+    @apply h-[30px] w-[30px] rounded-[6px];
+
+    svg {
+      @apply h-[6px] w-[10px];
+    }
+  }
+
+  .PromoCodeButton {
+    @apply mt-[30px];
+  }
+}
+
+@media (max-width: 1200px) {
+  .Bonuses {
+    @apply mt-[30px];
+  }
+
+  .Wrapper {
+    @apply mt-[15px] flex-col gap-[6px];
+  }
+
+  .Item {
+    @apply h-[200px];
+
+    width: 100% !important;
+  }
+
+  .GetBonus {
+    .DecorImage {
+      @apply top-[65px];
+    }
+  }
+
+  .LinkSocialMedia {
+    .DecorImageAstronaut {
+      @apply hidden;
+    }
+  }
+
+  .PromoCode {
+    .DecorImage {
+      @apply right-[-45px];
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .GetBonus {
+    @apply h-fit;
+
+    .DecorImage {
+      @apply left-[initial] right-[-30px] top-[-55px] w-[110px];
+    }
+  }
+
+  .GetBonusTop {
+    @apply flex-col gap-[16px];
+  }
+
+  .GetBonusTopText {
+    @apply gap-[4px];
+  }
+
+  .GetBonusTopDescription {
+    @apply max-w-[150px];
+  }
+
+  .GetBonusTimer {
+    @apply h-[63px] max-w-[140px] text-[20px];
+  }
+
+  .GetBonusTopTitle {
+    @apply text-[16px];
+  }
+
+  .GetBonusButton {
+    @apply mt-[14px] h-[34px] w-[172px] text-[12px];
+  }
+
+  .LinkSocialMedia {
+    @apply h-fit gap-[25px];
+
+    .DecorImagePlanet {
+      @apply left-[-55px] right-[initial] top-[50px] w-[100px];
+    }
+  }
+
+  .LinkSocialMediaTitle {
+    @apply max-w-[230px] text-[16px];
+  }
+
+  .SocialMediaList {
+    @apply flex-col;
+  }
+
+  .SocialMediaListItem {
+    @apply flex-row gap-[17px];
+  }
+
+  .SocialMediaListItemIcon {
+    @apply h-[56px] w-[56px];
+
+    svg {
+      @apply h-[37px] w-[37px];
+    }
+  }
+
+  .SocialMediaLinkedButton {
+    @apply h-[33px];
+  }
+
+  .LinkSocialMediaDecorBackground {
+    .DecorImage {
+      &:nth-child(1) {
+        @apply w-[110px];
+      }
+      &:nth-child(2) {
+        @apply w-[110px];
+      }
+    }
+  }
+
+  .PromoCode {
+    @apply h-fit items-start;
+
+    .DecorImage {
+      @apply bottom-[-6px] right-[-40px];
+    }
+  }
+
+  .PromoCodeIcon {
+    @apply h-[85px] w-[85px];
+
+    svg {
+      @apply h-[53px] w-[53px];
+    }
+  }
+
+  .PromoCodeTop {
+    @apply flex-row-reverse;
+  }
+
+  .PromoCodeTopText,
+  .PromoCodeTopDescription {
+    @apply items-start;
+  }
+
+  .PromoCodeButton {
+    @apply mt-[20px] h-[34px] w-[172px];
+  }
+
+  .PromoCodeInput {
+    @apply w-[180px] text-left;
+  }
+
+  .PromoCodeInputButton {
+    @apply left-[initial] right-0;
+
+    svg {
+      @apply h-[8px] w-[14px];
+    }
+  }
+
+  .PromoCodeInputIcon {
+    @apply left-[14px] right-[initial];
+  }
+}

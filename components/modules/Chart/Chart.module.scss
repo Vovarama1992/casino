@@ -1,0 +1,53 @@
+.Chart {
+  @apply relative z-[2] mt-[60px];
+
+  height: 203px !important;
+  width: 100% !important;
+}
+
+.ChartLabels {
+  @apply absolute bottom-[-5px] left-0 z-[3] flex w-full justify-between border-t-[2px] border-[#2D175B];
+}
+
+.ChartLabel {
+  @apply relative pt-[14px] text-[14px] font-medium text-[#48268F];
+
+  &::before {
+    @apply absolute top-[-1px] h-[13px] w-[2px] rounded-b-[2px] bg-[#2D175B] content-[''];
+  }
+
+  &:nth-child(1) {
+    &::before {
+      @apply left-0;
+    }
+  }
+
+  &:nth-child(2),
+  &:nth-child(3) {
+    &::before {
+      @apply left-2/4 -translate-x-2/4;
+    }
+  }
+
+  &:nth-child(4) {
+    &::before {
+      @apply right-0;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .Chart {
+    @apply mt-[20px];
+  }
+
+  .ChartLabel {
+    @apply text-[10px];
+  }
+}
+
+@media (max-width: 480px) {
+  .ChartLabel {
+    @apply text-[8px];
+  }
+}

@@ -1,0 +1,62 @@
+.TogglePasswordButton {
+  @apply absolute right-[22px] top-2/4 -translate-y-2/4;
+}
+.TogglePasswordButton svg {
+  @apply h-[37px] w-[37px];
+}
+.TogglePasswordButton svg path {
+  @apply transition-colors duration-300;
+}
+
+.Input {
+  @apply relative rounded-[15px] bg-[#080413] px-[20px] pb-[31px] pt-[28px] font-medium text-white outline-none;
+}
+.Input::-moz-placeholder {
+  @apply text-[#4F2A9A];
+}
+.Input::placeholder {
+  @apply text-[#4F2A9A];
+}
+
+.PasswordInput {
+  @apply pr-[80px];
+}
+
+.InputError {
+  @apply border border-[#891212];
+}
+
+.Error {
+  @apply ml-[20px] mt-[12px] text-[20px] font-medium text-[#891212];
+}
+
+@media (max-width: 1200px) {
+  .TogglePasswordButton {
+    @apply right-[22px];
+  }
+  .TogglePasswordButton svg {
+    @apply h-[30px] w-[30px];
+  }
+  .Input {
+    @apply rounded-[12px] px-[16px] pb-[20px] pt-[24px] text-[18px];
+  }
+  .Error {
+    @apply ml-[12px] mt-[8px] text-[16px];
+  }
+}
+@media (max-width: 768px) {
+  .Error {
+    @apply ml-[8px] mt-[6px] text-[10px];
+  }
+}
+@media (max-width: 480px) {
+  .TogglePasswordButton {
+    @apply right-[15px];
+  }
+  .TogglePasswordButton svg {
+    @apply h-[23px] w-[23px];
+  }
+  .Input {
+    @apply rounded-[10px] px-[13px] py-[17px];
+  }
+} /*# sourceMappingURL=Input.module.css.map */

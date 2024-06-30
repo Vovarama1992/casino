@@ -1,0 +1,217 @@
+.Footer {
+  @apply pb-[37px] pt-[45px];
+}
+
+.Inner {
+  @apply mx-auto flex max-w-[1615px] px-[15px];
+}
+
+.Left {
+  @apply border-primary flex w-fit flex-col gap-[11px] border-r pb-[46px] pr-[106px] pt-[39px];
+}
+
+.Navigation {
+  @apply mt-[24px] flex w-full justify-between pl-[106px];
+}
+
+.NavigationItemTitle {
+  @apply mb-[8px] text-[32px] font-extrabold text-white;
+}
+
+.NavigationItemList {
+  @apply flex flex-col gap-[8px];
+
+  li {
+    display: contents;
+  }
+}
+
+.NavigationItemListLink {
+  @apply text-primary text-[24px];
+
+  @media (hover: hover) {
+    &:hover {
+      @apply text-[#5D33B4];
+    }
+  }
+}
+
+.NavigationItemSocialList {
+  @apply mt-[20px] flex gap-[20px];
+}
+
+.NavigationItemSocialListLink {
+  @apply bg-primary flex h-[78px] w-[78px] items-center justify-center rounded-[10px];
+
+  svg {
+    @apply h-[44px] w-[44px];
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      @apply bg-[#1E0E3F];
+    }
+  }
+}
+
+@media (max-width: 1440px) {
+  .Left {
+    @apply pr-[40px];
+  }
+  .Navigation {
+    @apply pl-[40px];
+  }
+}
+
+@media (max-width: 1200px) {
+  .Left {
+    @apply pr-[30px];
+  }
+  .Navigation {
+    @apply pl-[30px];
+  }
+
+  .NavigationItemTitle {
+    @apply mb-[8px] text-[24px];
+  }
+
+  .NavigationItemList {
+    @apply gap-[6px];
+  }
+
+  .NavigationItemListLink {
+    @apply text-[20px];
+  }
+
+  .NavigationItemSocialList {
+    @apply mt-[14px] gap-[14px];
+  }
+
+  .NavigationItemSocialListLink {
+    @apply h-[60px] w-[60px];
+
+    svg {
+      @apply h-[30px] w-[30px];
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .Footer {
+    margin-bottom: var(--mobile-menu-height);
+  }
+}
+
+@media (max-width: 960px) {
+  .Footer {
+    @apply pb-[20px] pt-[25px];
+  }
+
+  .Left {
+    @apply items-center gap-[16px] pr-[20px];
+  }
+
+  .Navigation {
+    @apply mt-[9px] pl-[20px];
+  }
+
+  .NavigationItemTitle {
+    @apply text-[20px];
+  }
+
+  .NavigationItemListLink {
+    @apply text-[16px];
+  }
+
+  .NavigationItemSocialListLink {
+    @apply h-[50px] w-[50px];
+
+    svg {
+      @apply h-[25px] w-[25px];
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .Footer {
+    @apply pb-[17px] pt-[14px];
+  }
+
+  .Left {
+    @apply pb-[13px] pr-[13px] pt-[9px];
+  }
+
+  .NavigationItemTitle {
+    @apply text-[14px];
+  }
+
+  .NavigationItemListLink {
+    @apply text-[12px];
+  }
+
+  .NavigationItemSocialList {
+    @apply mt-0 gap-[6px];
+  }
+
+  .NavigationItemSocialListLink {
+    @apply h-[40px] w-[40px] rounded-[6px];
+
+    svg {
+      @apply h-[20px] w-[20px];
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .NavigationItemTitle {
+    @apply text-[12px];
+  }
+
+  .NavigationItemListLink {
+    @apply text-[10px];
+  }
+}
+
+@media (max-width: 480px) {
+  .NavigationItemTitle {
+    @apply text-[8px];
+  }
+
+  .NavigationItemListLink {
+    @apply text-[8px];
+  }
+
+  .NavigationItemSocialListLink {
+    @apply h-[29px] w-[29px];
+
+    svg {
+      @apply h-[17.5px] w-[17.5px];
+    }
+  }
+}
+
+@media (max-width: 360px) {
+  .Left {
+    @apply pr-[8px];
+  }
+
+  .Navigation {
+    @apply pl-[10px];
+  }
+
+  .NavigationItemTitle {
+    @apply text-[7px];
+  }
+
+  .NavigationItemListLink {
+    @apply text-[7px];
+  }
+
+  .NavigationItemSocialListLink {
+    @apply h-[20px] w-[20px] rounded-[3px];
+
+    svg {
+      @apply h-[14px] w-[14px];
+    }
+  }
+}

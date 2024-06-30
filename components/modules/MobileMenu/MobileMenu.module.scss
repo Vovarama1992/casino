@@ -1,0 +1,88 @@
+.MobileMenu {
+  @apply fixed bottom-0 z-10 hidden h-fit w-full bg-[#130929] px-[27px] py-[14px];
+}
+
+.List {
+  @apply flex items-center justify-between;
+}
+
+.Link {
+  @apply flex flex-col items-center gap-[3px] text-[10px] font-medium text-primary;
+}
+
+.LinkIcon {
+  @apply flex h-[40px] w-[40px] items-center justify-center rounded-[5px] bg-[#1E0F47];
+
+  svg {
+    @apply h-[20px] max-w-[22px];
+  }
+}
+
+.ProfileAvatar {
+  @apply h-[22px] w-[22px] rounded-full border border-[#2F136D] bg-[#150931];
+}
+
+.NavigationMenu {
+  @apply fixed z-10 hidden h-fit w-full overflow-auto bg-[#0C061D] py-[12px] pl-[14px] pr-[19px];
+
+  bottom: var(--mobile-menu-height);
+}
+
+.Part {
+  @apply flex flex-col gap-[3px];
+
+  &:not(:last-child) {
+    @apply mb-[10px] border-b border-[#150B30] pb-[10px];
+  }
+}
+
+.PartList {
+  @apply flex flex-col gap-[3px];
+
+  li {
+    @apply mr-[22px];
+  }
+}
+
+.PartExpandButton {
+  @apply relative h-[38px] bg-[#1E0F47] px-[9px] py-[12px] text-left text-[12px] font-medium text-[#5D33B4];
+
+  width: calc(100% - 22px);
+
+  &::before {
+    @apply absolute right-[14px] top-2/4 h-[6px] w-[13px] -translate-y-2/4 rotate-180 bg-contain bg-no-repeat transition-transform content-[''];
+
+    background-image: url('../../../data/icons/navigation/Arrow.svg');
+  }
+}
+
+.PartCollapseButton {
+  &::before {
+    @apply rotate-0;
+  }
+}
+
+.PartListLink {
+  @apply flex items-center gap-[10px] rounded-[6px] bg-[#1E0F47] px-[8px] py-[5px] text-[12px] font-medium text-[#4F2A9A];
+
+  svg {
+    @apply h-[26px] w-[26px];
+  }
+}
+
+.PartListLinkActive {
+  @apply bg-[#1E0F47] text-[#5D33B4];
+}
+
+@media (max-width: 1024px) {
+  .MobileMenu,
+  .NavigationMenu {
+    @apply block;
+  }
+}
+
+@media (max-width: 360px) {
+  .MobileMenu {
+    @apply px-[10px];
+  }
+}

@@ -1,0 +1,35 @@
+.Title {
+  @apply mb-[31px] text-[36px] font-medium;
+}
+
+.List {
+  @apply grid grid-cols-5 gap-[20px];
+}
+
+.Slot {
+  @apply h-[304px];
+}
+
+@media (max-width: 1600px) {
+  .Slot {
+    @apply h-[260px];
+  }
+}
+
+@media (max-width: 1440px) {
+  .Slot {
+    @apply h-[220px];
+  }
+}
+
+@media (max-width: 1200px) {
+  .Slot {
+    @apply h-[180px];
+  }
+}
+
+@media (max-width: 1024px) {
+  .RelatedGamesSlotPage {
+    @apply hidden;
+  }
+}

@@ -1,0 +1,124 @@
+.Bubbles {
+  @apply mb-[30px] mt-[164px] flex gap-[20px];
+}
+
+.Game {
+  @apply relative h-[674px] w-[70%] overflow-hidden rounded-[20px] bg-cover bg-center bg-no-repeat;
+  background-image: url('./images/game-background.jpg');
+}
+
+.HistoryList {
+  @apply mx-[30px] mt-[32px] flex justify-between gap-[5px];
+}
+
+.HistoryListItem {
+  @apply flex h-[62px] w-fit min-w-[118px] items-center justify-center rounded-[10px] bg-[#0D061C] px-[24px] text-center text-[20px] font-medium;
+}
+.HistoryListItem:nth-child(even) {
+  @apply text-[#4F1FBB];
+}
+.HistoryListItem:nth-child(odd) {
+  @apply text-[#200F45];
+}
+
+.HistoryListItemTitle {
+  @apply text-[16px];
+  color: white !important;
+}
+
+.GameResult {
+  @apply absolute bottom-0 left-2/4 flex h-[61px] w-[327px] -translate-x-2/4 items-center justify-center rounded-t-[50px] bg-[#2D1465]/80 text-[32px] font-medium bg-blend-multiply;
+}
+
+.Astronaut {
+  @apply absolute bottom-[105px] left-2/4 w-[265px] -translate-x-2/4;
+  animation: astronaut infinite 5s;
+}
+
+@keyframes astronaut {
+  0% {
+    transform: translate(-50%, 0);
+  }
+  50% {
+    transform: translate(-50%, -10vw);
+  }
+  100% {
+    transform: translate(-50%, 0);
+  }
+}
+@media (min-width: 1920px) {
+  .Game {
+    @apply h-[35vw] w-full;
+  }
+  .HistoryListItem {
+    @apply h-[3.23vw] min-w-[6.15vw] px-[1.25vw] text-[1.04vw];
+  }
+}
+@media (max-width: 1800px) {
+  .Bubbles {
+    @apply mb-[20px] mt-[120px];
+  }
+  .HistoryList {
+    @apply flex-col;
+  }
+  .HistoryListItem {
+    @apply min-w-[130px] px-[10px];
+  }
+}
+@media (max-width: 1440px) {
+  .Bubbles {
+    @apply mb-[14px] mt-[80px] flex-col-reverse;
+  }
+  .Game {
+    @apply w-full;
+  }
+  .HistoryList {
+    @apply flex-row;
+  }
+}
+@media (max-width: 768px) {
+  .Bubbles {
+    @apply mb-[11px] mt-[60px] gap-[12px];
+  }
+  .Game {
+    @apply h-[400px] rounded-[16px];
+  }
+  .HistoryList {
+    @apply mx-[12px] mt-[16px] gap-[5px];
+  }
+  .HistoryListItem {
+    @apply h-[40px] min-w-fit rounded-[6px] px-[10px] text-[14px];
+  }
+  .HistoryListItemTitle {
+    @apply text-[12px];
+  }
+  .GameResult {
+    @apply h-[40px] w-[240px] rounded-t-[30px] text-[24px];
+  }
+  .Astronaut {
+    @apply bottom-[50px] w-[160px];
+  }
+}
+@media (max-width: 480px) {
+  .Bubbles {
+    @apply mt-[40px] gap-0 rounded-[15px] bg-[#0D061C] pb-[10px] pt-[60px];
+  }
+  .Game {
+    @apply h-[218px] rounded-[10px];
+  }
+  .HistoryList {
+    @apply m-[10px] gap-[2px];
+  }
+  .HistoryListItem {
+    @apply h-[23px] rounded-[5px] px-[13px] text-[8px];
+  }
+  .HistoryListItemTitle {
+    @apply text-[6px];
+  }
+  .GameResult {
+    @apply h-[24px] w-[106px] rounded-t-[25px] text-[12px];
+  }
+  .Astronaut {
+    @apply bottom-[44px] w-[85px];
+  }
+} /*# sourceMappingURL=Bubbles.module.css.map */

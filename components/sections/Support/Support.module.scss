@@ -1,0 +1,443 @@
+.Support {
+  @apply mb-[70px] mt-[103px];
+}
+
+.Wrapper {
+  @apply mt-[20px] flex gap-[25px] rounded-[20px] bg-[#0D061C] px-[41px] py-[36px];
+}
+
+.Appeals,
+.Main {
+  @apply relative h-full min-h-[575px] rounded-[20px] bg-[#160B2F];
+}
+
+.Appeals {
+  @apply flex flex-col justify-between  px-[27px] py-[40px];
+}
+
+.BackButton {
+  @apply ml-[20px] mt-[15px] hidden items-center gap-[8px] rounded-[10px] bg-[#1F1040] px-[18px] py-[10px] text-[10px] font-bold text-[#4F2A9A];
+
+  svg {
+    @apply w-[12.5px];
+  }
+}
+
+.Main {
+  @apply w-[70%];
+}
+
+.AppealList {
+  @apply mb-[30px] flex max-h-[330px] flex-col gap-[12px] overflow-auto;
+}
+
+.AppealListItem {
+  @apply relative h-[100px] w-full cursor-pointer rounded-[15px] bg-[#201044] pl-[27px] pr-[10px] pt-[22px] transition-colors duration-300;
+
+  &:hover {
+    @apply bg-[#211045];
+  }
+}
+
+.AppealStatus {
+  @apply absolute right-[13px] top-[15px] h-[10px] w-[26px] rounded-[7px];
+}
+
+.AppealTitle {
+  @apply max-w-full overflow-clip text-[24px] font-extrabold transition-colors duration-300;
+}
+
+.AppealDate {
+  @apply text-[20px] font-medium text-[#3A1F76] transition-colors duration-300;
+}
+
+.AppealsButton {
+  @apply w-full rounded-[15px] bg-[#2F136D] px-[10px] py-[28px];
+
+  &:hover {
+    @apply bg-[#220F4E];
+  }
+}
+
+.SelectedAppeal {
+  @apply pb-[18px] pl-[40px] pr-[48px] pt-[40px];
+}
+
+.SelectedAppealTop {
+  @apply flex items-center justify-between;
+}
+
+.SelectedAppealTopInfo {
+  @apply flex flex-col;
+}
+
+.SelectedAppealTitle {
+  @apply text-[32px] font-extrabold;
+}
+
+.SelectedAppealDate {
+  @apply text-[28px] font-medium text-[#3A1F76];
+}
+
+.SelectedAppealCloseButton {
+  @apply rounded-[15px] bg-[#201044] px-[24px] py-[22px] text-[14px] font-bold text-[#4F2A9A];
+
+  &:hover {
+    @apply bg-[#2A1659] text-white;
+  }
+}
+
+.SelectedAppealMessageBox {
+  @apply relative mr-[46px] flex min-h-[111px] flex-col gap-[5px] rounded-[15px] bg-[#160B2F] px-[20px] py-[30px];
+}
+
+.SelectedAppealMessageBoxInterlocutor {
+  @apply ml-[46px] mr-0 items-end;
+
+  .SelectedAppealChatDate {
+    @apply left-[20px] right-[initial];
+  }
+}
+
+.SelectedAppealChatName {
+  @apply text-[20px] font-medium;
+}
+
+.SelectedAppealChatMessage {
+  @apply text-[20px] font-medium text-[#4F2A9A];
+}
+
+.SelectedAppealChatDate {
+  @apply absolute bottom-[10px] right-[20px] text-[16px] font-medium text-[#4F2A9A];
+}
+
+.NewAppeal {
+  @apply flex flex-col gap-[20px] px-[48px] py-[39px];
+}
+
+.NewAppealTitle {
+  @apply text-[32px] font-bold;
+}
+
+.NewAppealInput,
+.NewAppealTextarea {
+  @apply w-full rounded-[15px] bg-[#0F0821] px-[24px] py-[28px] text-[20px] font-medium text-white outline-none;
+
+  &::placeholder {
+    @apply text-[#4F2A9A];
+  }
+}
+
+.NewAppealTextarea {
+  @apply h-[248px] resize-none;
+}
+
+.NewAppealButtons {
+  @apply flex items-center justify-end gap-[18px];
+}
+
+.AttachMediaButton {
+  @apply flex h-[72px] w-[72px] items-center justify-center rounded-[15px] bg-[#201044];
+
+  svg {
+    @apply h-[34px] w-[34px];
+  }
+
+  &:hover {
+    @apply bg-[#281555];
+  }
+}
+
+.CreateNewAppealButton {
+  @apply rounded-[15px] bg-[#2F136D] px-[28px] py-[24px] text-[20px] font-bold;
+
+  &:hover {
+    @apply bg-[#220F4E];
+  }
+}
+
+.TipToCreate {
+  @apply absolute left-2/4 top-2/4 w-max -translate-x-2/4 -translate-y-2/4 text-center text-[24px] font-bold text-white;
+
+  button {
+    @apply text-[#4F2A9A];
+
+    &:hover {
+      @apply text-[#2F136D];
+    }
+  }
+}
+
+@media (max-width: 1780px) {
+  .Support {
+    @apply mb-[40px] mt-[70px];
+  }
+
+  .Wrapper {
+    @apply mt-[16px] gap-[20px] rounded-[14px] px-[30px] py-[24px];
+  }
+
+  .Appeals,
+  .Main {
+    @apply min-h-[500px] rounded-[16px];
+  }
+
+  .Appeals {
+    @apply px-[27px] py-[40px];
+  }
+
+  .AppealList {
+    @apply mb-[20px] max-h-[320px] gap-[8px];
+  }
+
+  .AppealListItem {
+    @apply h-[90px] rounded-[12px] pl-[20px] pr-[10px] pt-[16px];
+  }
+
+  .AppealStatus {
+    @apply right-[10px] top-[12px] h-[8px] w-[18px] rounded-[5px];
+  }
+
+  .AppealTitle {
+    @apply text-[20px];
+  }
+
+  .AppealDate {
+    @apply text-[16px];
+  }
+
+  .AppealsButton {
+    @apply rounded-[12px] px-[8px] py-[20px];
+  }
+
+  .SelectedAppeal {
+    @apply pb-[14px] pl-[30px] pr-[34px] pt-[30px];
+  }
+
+  .SelectedAppealTitle {
+    @apply text-[24px];
+  }
+
+  .SelectedAppealDate {
+    @apply text-[20px];
+  }
+
+  .SelectedAppealCloseButton {
+    @apply rounded-[12px] px-[20px] py-[18px] text-[12px];
+  }
+
+  .SelectedAppealMessageBox {
+    @apply mr-[20px] min-h-[90px] rounded-[12px] px-[16px] py-[20px];
+  }
+
+  .SelectedAppealMessageBoxInterlocutor {
+    @apply ml-[20px] mr-0;
+
+    .SelectedAppealChatDate {
+      @apply left-[16px] right-[initial];
+    }
+  }
+
+  .SelectedAppealChatName {
+    @apply text-[16px];
+  }
+
+  .SelectedAppealChatMessage {
+    @apply text-[16px];
+  }
+
+  .SelectedAppealChatDate {
+    @apply bottom-[8px] right-[16px] text-[14px];
+  }
+
+  .NewAppeal {
+    @apply gap-[14px] px-[30px] py-[24px];
+  }
+
+  .NewAppealTitle {
+    @apply text-[28px];
+  }
+
+  .NewAppealInput,
+  .NewAppealTextarea {
+    @apply rounded-[12px] px-[20px] py-[24px] text-[16px];
+  }
+
+  .NewAppealTextarea {
+    @apply h-[200px];
+  }
+
+  .NewAppealButtons {
+    @apply gap-[10px];
+  }
+
+  .AttachMediaButton {
+    @apply h-[60px] w-[60px] rounded-[12px];
+
+    svg {
+      @apply h-[28px] w-[28px];
+    }
+  }
+
+  .CreateNewAppealButton {
+    @apply rounded-[12px] px-[24px] py-[20px] text-[16px];
+  }
+
+  .TipToCreate {
+    @apply text-[20px];
+  }
+}
+
+@media (max-width: 1440px) {
+  .Support {
+    @apply mb-[11px] mt-[40px];
+  }
+
+  .Wrapper {
+    @apply gap-[14px] rounded-[10px] px-[20px] py-[15px];
+  }
+
+  .Appeals,
+  .Main {
+    @apply min-h-[390px] rounded-[10px];
+  }
+
+  .Appeals {
+    @apply px-[20px] py-[30px];
+  }
+
+  .AppealList {
+    @apply gap-[6px];
+  }
+
+  .AppealListItem {
+    @apply h-[80px] rounded-[10px] pl-[15px] pr-[10px] pt-[13px];
+  }
+
+  .AppealStatus {
+    @apply right-[9px] top-[10px] h-[6px];
+  }
+
+  .AppealTitle {
+    @apply text-[16px];
+  }
+
+  .AppealDate {
+    @apply text-[14px];
+  }
+
+  .AppealsButton {
+    @apply rounded-[10px] px-[8px] py-[16px] text-[16px];
+  }
+
+  .SelectedAppeal {
+    @apply pb-[14px] pl-[30px] pr-[34px] pt-[30px];
+  }
+
+  .SelectedAppealTitle {
+    @apply text-[20px];
+  }
+
+  .SelectedAppealDate {
+    @apply text-[16px];
+  }
+
+  .SelectedAppealCloseButton {
+    @apply rounded-[8px] px-[12px] py-[14px] text-[10px];
+  }
+
+  .SelectedAppealMessageBox {
+    @apply mr-[12px] min-h-[60px] rounded-[8px] px-[12px] py-[14px];
+  }
+
+  .SelectedAppealMessageBoxInterlocutor {
+    @apply ml-[12px] mr-0;
+
+    .SelectedAppealChatDate {
+      @apply left-[10px] right-[initial];
+    }
+  }
+
+  .SelectedAppealChatName {
+    @apply text-[12px];
+  }
+
+  .SelectedAppealChatMessage {
+    @apply text-[10px];
+  }
+
+  .SelectedAppealChatDate {
+    @apply bottom-[4px] right-[10px] text-[8px];
+  }
+
+  .NewAppeal {
+    @apply px-[20px] py-[24px];
+  }
+
+  .NewAppealTitle {
+    @apply text-[24px];
+  }
+
+  .NewAppealInput,
+  .NewAppealTextarea {
+    @apply rounded-[12px] px-[20px] py-[24px] text-[14px];
+  }
+
+  .NewAppealTextarea {
+    @apply h-[160px];
+  }
+
+  .NewAppealButtons {
+    @apply gap-[10px];
+  }
+
+  .AttachMediaButton {
+    @apply h-[40px] w-[40px] rounded-[8px];
+
+    svg {
+      @apply h-[20px] w-[20px];
+    }
+  }
+
+  .CreateNewAppealButton {
+    @apply rounded-[8px] px-[16px] py-[12px] text-[12px];
+  }
+
+  .TipToCreate {
+    @apply text-[16px];
+  }
+}
+
+@media (max-width: 1200px) {
+  .Main {
+    @apply min-h-[440px] w-full;
+  }
+
+  .BackButton {
+    @apply flex;
+  }
+
+  .TipToCreate {
+    @apply hidden;
+  }
+}
+
+@media (max-width: 768px) {
+  .SelectedAppeal {
+    @apply px-[15px] pt-[20px];
+  }
+}
+
+@media (max-width: 600px) {
+  .SelectedAppealDate {
+    @apply hidden;
+  }
+
+  .SelectedAppealCloseButton {
+    @apply hidden;
+  }
+
+  .NewAppealTitle {
+    @apply text-[16px];
+  }
+}

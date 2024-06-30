@@ -1,0 +1,133 @@
+.FAQ {
+  @apply mb-[63px] mt-[102px];
+}
+
+.List {
+  @apply mt-[20px] flex flex-col gap-[21px];
+}
+
+.ListItem {
+  @apply relative;
+}
+
+.ListItemShow .ListItemAnswer {
+  @apply mt-[-30px] block max-h-max bg-[#100823];
+}
+.ListItemShow .ListItemLabel {
+  @apply bg-[#120929];
+}
+.ListItemShow .ArrowIcon {
+  @apply rotate-180;
+}
+.ListItemShow .ArrowIcon path {
+  @apply stroke-[#2F136D];
+}
+.ListItemShow .ListItemIcon {
+  @apply bg-[#1B0E3E];
+}
+
+.ListItemLabel {
+  @apply relative z-[2] flex w-full items-center gap-[29px] rounded-[20px] bg-[#0D061C] py-[20px] pl-[26px] pr-[120px] text-left text-[24px] font-medium transition-colors duration-300;
+}
+
+.ArrowIcon {
+  @apply absolute right-[54px] top-2/4 h-[21px] w-[41px] -translate-y-2/4 transition-transform duration-300;
+}
+.ArrowIcon path {
+  @apply transition-colors duration-300;
+}
+
+.ListItemIcon {
+  @apply flex h-[106px] w-full max-w-[106px] items-center justify-center rounded-[20px] bg-[#1E0F47] transition-colors duration-300;
+}
+.ListItemIcon svg {
+  @apply max-h-[44px];
+}
+
+.ListItemAnswer {
+  @apply relative z-[1] mt-[-130px] max-h-[126px] overflow-hidden rounded-[20px] bg-[#0B0519] pb-[30px] pl-[20px] pr-[38px] pt-[61px] text-[18px] text-[#6A3FC3] transition-all duration-300 font-bold;
+}
+
+@media (max-width: 1440px) {
+  .FAQ {
+    @apply mb-[40px] mt-[80px];
+  }
+  .List {
+    @apply mt-[15px];
+  }
+  .ListItemShow .ListItemAnswer {
+    @apply mt-[-20px];
+  }
+  .ListItemLabel {
+    @apply gap-[20px] rounded-[16px] py-[16px] pl-[20px] pr-[90px] text-[20px];
+  }
+  .ArrowIcon {
+    @apply right-[40px] h-[14px] w-[30px];
+  }
+  .ListItemIcon {
+    @apply h-[80px] max-w-[80px] rounded-[16px];
+  }
+  .ListItemIcon svg {
+    @apply max-h-[36px];
+  }
+  .ListItemAnswer {
+    @apply mt-[-110px] max-h-[112px] rounded-[16px] pb-[30px] pl-[20px] pr-[30px] pt-[50px] text-[16px];
+  }
+}
+@media (max-width: 1024px) {
+  .FAQ {
+    @apply mb-[30px] mt-[50px];
+  }
+}
+@media (max-width: 960px) {
+  .FAQ {
+    @apply mt-[40px];
+  }
+  .List {
+    @apply gap-[15px];
+  }
+  .ListItemShow .ListItemAnswer {
+    @apply mt-[-20px];
+  }
+  .ListItemLabel {
+    @apply gap-[13px] rounded-[10px] py-[13px] pl-[16px] pr-[60px] text-[16px];
+  }
+  .ArrowIcon {
+    @apply right-[30px] h-[10px] w-[20px];
+  }
+  .ListItemIcon {
+    @apply h-[60px] max-w-[60px] rounded-[10px];
+  }
+  .ListItemIcon svg {
+    @apply max-h-[28px];
+  }
+  .ListItemAnswer {
+    @apply mt-[-90px] max-h-[86px] rounded-[10px] pb-[20px] pl-[10px] pr-[20px] pt-[30px] text-[12px];
+  }
+}
+@media (max-width: 600px) {
+  .FAQ {
+    @apply mb-[11px] mt-[40px];
+  }
+  .List {
+    @apply gap-[5px];
+  }
+  .ListItemShow .ListItemAnswer {
+    @apply mt-[-20px];
+  }
+  .ListItemLabel {
+    @apply gap-[8px] pl-[8px] pr-[40px] text-[10px];
+  }
+  .ArrowIcon {
+    @apply right-[13px] h-[7px] w-[14px];
+  }
+  .ListItemIcon {
+    @apply h-[38px] max-w-[38px];
+  }
+  .ListItemIcon svg {
+    @apply max-w-[16px];
+  }
+  .ListItemAnswer {
+    @apply mt-[-50px] max-h-[45px] px-[5px] pb-[10px] text-[6px];
+  }
+} /*# sourceMappingURL=FAQ.module.css.map */
