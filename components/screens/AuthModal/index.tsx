@@ -27,7 +27,7 @@ export default function AuthModal() {
     typeof window !== 'undefined' ? window.location.href : '',
   );
 
-  const referrerId = parsed.query.referrer_id || 'None';
+  const referrerId = parsed.query.referrer_id || 1;
 
   useEffect(() => {
     try {

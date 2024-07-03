@@ -10,7 +10,7 @@ export const signUpFx = createEffect(
     formData.append('username', username);
     formData.append('password', password);
     formData.append('fingerprint', fingerprint);
-    const data = await api.post(url, formData);
+    const { data } = await api.post(url, formData);
     console.log('data: ' + data);
     return data;
   },
@@ -19,11 +19,14 @@ export const signUpFx = createEffect(
 export const signInFx = createEffect(
   async ({ url, username, password }: ISignInFx) => {
     const formData = new FormData();
+    console.log('username: ' + username);
+    console.log('password: ' + password);
 
     formData.append('username', username);
     formData.append('password', password);
 
     const { data } = await api.post(url, formData);
+
     console.log('data: ' + data);
     return data;
   },
