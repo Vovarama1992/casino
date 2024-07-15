@@ -10,7 +10,7 @@ import { IAppeal } from '@/types/profile';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import ArrowIcon from './icons/ArrowIcon';
 import { toast } from 'react-toastify';
-import { createTicket, getTicket, getTickets } from '@/api/support';
+//import { createTicket, getTicket, getTickets } from '@/api/support';
 import { formatDateToText } from '@/utils/formatDate';
 import { useUnit } from 'effector-react';
 import { $user } from '@/context/user';
@@ -23,14 +23,34 @@ export default function Support() {
   const [createAppealMode, setCreateAppealMode] = useState(false);
   const [subject, setSubject] = useState('');
   const [firstMessage, setFirstMessage] = useState('');
-  const [tickets, setTickets] = useState([]);
+  const [tickets, setTickets] = useState<IAppeal[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await getTickets({
-          url: `/tickets?limit=30&page=1`,
-        });
+        // Закомментировано для использования статических данных
+        // const response = await getTickets({
+        //   url: `/tickets?limit=30&page=1`,
+        // });
+
+        // Использование статических данных вместо вызова API
+        const response: IAppeal[] = [
+          {
+            id: 1,
+            subject: 'Test Ticket 1',
+            created_at: new Date().toISOString(),
+            status: 'open',
+            updated_at: new Date().toISOString(),
+          },
+          {
+            id: 2,
+            subject: 'Test Ticket 2',
+            created_at: new Date().toISOString(),
+            status: 'closed',
+            updated_at: new Date().toISOString(),
+          },
+        ];
+
         setTickets(response);
       } catch (error: any) {
         console.error(error);
@@ -42,23 +62,26 @@ export default function Support() {
 
   const openAppeal = async ({ id }: { id: number }) => {
     try {
-      const response = await getTicket({
-        url: `/ticket/${id}`,
-      });
+      // Закомментировано для использования статических данных
+      // const response = await getTicket({
+      //   url: `/ticket/${id}`,
+      // });
+
+      // Использование статических данных вместо вызова API
+      const response: IAppeal = {
+        id,
+        subject: `Test Ticket ${id}`,
+        created_at: new Date().toISOString(),
+        status: 'open',
+        updated_at: new Date().toISOString(),
+      };
+
       setSelectedAppeal(response);
       console.log(response);
     } catch (error: any) {
       console.error(error);
       toast.error('Произошла ошибка. Повторите позже');
     }
-
-    //   const response = await generateChat({
-    //     url: `/support/chat`,
-    //   });
-    //   setChat(response);
-    // } catch (error: any) {
-    //   console.error(error);
-    //   toast.error('Произошла ошибка. Повторите позже');
   };
 
   const handleChangeAppealMode = () => {
@@ -78,18 +101,28 @@ export default function Support() {
   const createAppeal = async () => {
     if (subject && firstMessage) {
       try {
-        await createTicket({
-          url: '/tickets',
-          subject: subject,
-          message: firstMessage,
-        });
+        // Закомментировано для использования статических данных
+        // await createTicket({
+        //   url: '/tickets',
+        //   subject: subject,
+        //   message: firstMessage,
+        // });
+
+        // Логирование вместо создания тикета
+        console.log(
+          'Creating ticket with subject:',
+          subject,
+          'and message:',
+          firstMessage,
+        );
+
         handleBackButton();
         setSubject('');
         setFirstMessage('');
       } catch (error: any) {
         console.error(error);
         toast.error(
-          error.response.data.detail || 'Произошла ошибка. Повторите позже',
+          error.response?.data?.detail || 'Произошла ошибка. Повторите позже',
         );
       }
     } else {
@@ -192,7 +225,7 @@ export default function Support() {
                   className={styles.CreateNewAppealButton}
                   onClick={createAppeal}
                 >
-                  Создать обращениееее
+                  Создать обращение
                 </button>
               </div>
             </div>
