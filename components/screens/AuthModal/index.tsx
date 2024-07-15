@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import VKIcon from '@/data/icons/social-media/VKIcon';
 import PasswordInput from '@/components/elements/Inputs/PasswordInput';
 import LoginInput from '@/components/elements/Inputs/LoginInput';
-import { signInFx, signUpFx } from '@/api/auth';
+import { signInFx, signUpFx } from '../../../api/auth';
 import { toast } from 'react-toastify';
 import queryString from 'query-string';
 
@@ -27,7 +27,7 @@ export default function AuthModal() {
     typeof window !== 'undefined' ? window.location.href : '',
   );
 
-  const referrerId = parsed.query.referrer_id || 1;
+  const referrerId = parsed.query.referrer_id || 3;
 
   useEffect(() => {
     try {
@@ -93,6 +93,7 @@ export default function AuthModal() {
           password: password,
           fingerprint: String(fingerprint),
         });
+
         clearInputs();
         toast.success(
           'Регистрация прошла успешно! Самое время авторизоваться.',
@@ -150,6 +151,7 @@ export default function AuthModal() {
         });
         clearInputs();
         localStorage.setItem('accessToken', data.access_token);
+        console.log('token: ' + data.access_token);
         toast.success('Вы успешно авторизовались');
         closeAuthModal();
         {

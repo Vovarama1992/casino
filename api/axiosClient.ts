@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const api = axios.create({
   withCredentials: true,
-  baseURL: '/api',
+  baseURL: '/api', // проксирование запросов через Next.js
   headers: {
     'Content-Type': 'application/json',
   },

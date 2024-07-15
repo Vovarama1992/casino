@@ -13,6 +13,7 @@ const ChatInterface = ({ ticket }: { ticket: IAppeal }) => {
   const [currentMessage, setCurrentMessage] = useState('');
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const accessToken = localStorage.getItem('accessToken');
+  console.log('inchat: ' + accessToken);
 
   useEffect(() => {
     const socketUrl = `wss://${process.env.NEXT_PUBLIC_SOCKET_URL}/ticket/chat/ws?ticket_id=${encodeURIComponent(ticket.id)}&token=${encodeURIComponent(accessToken || '')}`;
@@ -113,6 +114,7 @@ const ChatInterface = ({ ticket }: { ticket: IAppeal }) => {
             className={styles.SendButton}
             onClick={() => {
               if (socket) {
+                console.log('sent try');
                 sendMessage(socket, currentMessage);
               }
             }}
