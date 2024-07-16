@@ -154,9 +154,8 @@ export default function AuthModal() {
         console.log('token: ' + data.access_token);
         toast.success('Вы успешно авторизовались');
         closeAuthModal();
-        {
-          /*location.reload();*/
-        }
+
+        location.reload();
       } catch (error: any) {
         console.error(error);
         console.error(error.response.data.detail);
