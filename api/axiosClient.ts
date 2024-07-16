@@ -12,7 +12,7 @@ const token =
   typeof window !== 'undefined' && localStorage.getItem('accessToken');
 
 export const protectedApi = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
+  baseURL: '/api',
   headers: {
     Authorization: token ? `Bearer ${token}` : '',
   },
