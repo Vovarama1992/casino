@@ -10,7 +10,7 @@ import { IAppeal } from '@/types/profile';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import ArrowIcon from './icons/ArrowIcon';
 import { toast } from 'react-toastify';
-//import { createTicket, getTicket, getTickets } from '@/api/support';
+import { createTicket, getTicket, getTickets } from '@/api/support';
 import { formatDateToText } from '@/utils/formatDate';
 import { useUnit } from 'effector-react';
 import { $user } from '@/context/user';
@@ -28,28 +28,9 @@ export default function Support() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Закомментировано для использования статических данных
-        // const response = await getTickets({
-        //   url: `/tickets?limit=30&page=1`,
-        // });
-
-        // Использование статических данных вместо вызова API
-        const response: IAppeal[] = [
-          {
-            id: 1,
-            subject: 'Test Ticket 1',
-            created_at: new Date().toISOString(),
-            status: 'open',
-            updated_at: new Date().toISOString(),
-          },
-          {
-            id: 2,
-            subject: 'Test Ticket 2',
-            created_at: new Date().toISOString(),
-            status: 'closed',
-            updated_at: new Date().toISOString(),
-          },
-        ];
+        const response = await getTickets({
+          url: `/tickets?limit=30&page=1`,
+        });
 
         setTickets(response);
       } catch (error: any) {
@@ -59,22 +40,12 @@ export default function Support() {
 
     fetchData();
   }, [createAppealMode]);
-
+ 
   const openAppeal = async ({ id }: { id: number }) => {
     try {
-      // Закомментировано для использования статических данных
-      // const response = await getTicket({
-      //   url: `/ticket/${id}`,
-      // });
-
-      // Использование статических данных вместо вызова API
-      const response: IAppeal = {
-        id,
-        subject: `Test Ticket ${id}`,
-        created_at: new Date().toISOString(),
-        status: 'open',
-        updated_at: new Date().toISOString(),
-      };
+      const response = await getTicket({
+        url: `/ticket/${id}`,
+      });
 
       setSelectedAppeal(response);
       console.log(response);
@@ -101,14 +72,12 @@ export default function Support() {
   const createAppeal = async () => {
     if (subject && firstMessage) {
       try {
-        // Закомментировано для использования статических данных
-        // await createTicket({
-        //   url: '/tickets',
-        //   subject: subject,
-        //   message: firstMessage,
-        // });
+        await createTicket({
+          url: '/tickets',
+          subject: subject,
+          message: firstMessage,
+        });
 
-        // Логирование вместо создания тикета
         console.log(
           'Creating ticket with subject:',
           subject,

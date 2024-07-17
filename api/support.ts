@@ -2,8 +2,8 @@ import { createEffect } from 'effector';
 import { api, protectedApi } from './axiosClient';
 
 export const getTickets = createEffect(async ({ url }: { url: string }) => {
+  console.log('Requesting:', url);
   const { data } = await protectedApi.get(url);
-
   return data;
 });
 
