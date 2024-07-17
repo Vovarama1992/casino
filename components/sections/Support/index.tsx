@@ -40,7 +40,7 @@ export default function Support() {
 
     fetchData();
   }, [createAppealMode]);
- 
+
   const openAppeal = async ({ id }: { id: number }) => {
     try {
       const response = await getTicket({
