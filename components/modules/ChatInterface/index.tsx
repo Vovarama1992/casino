@@ -33,7 +33,12 @@ const ChatInterface = ({ ticket }: { ticket: IAppeal }) => {
 
     ws.onmessage = (event) => {
       console.log('Received message:', event.data);
-      setMessages((prevMessages) => [...prevMessages, event.data]);
+
+      const messageData = JSON.parse(event.data);
+
+      const messageContent = messageData.content;
+
+      setMessages((prevMessages) => [...prevMessages, messageContent]);
     };
 
     ws.onerror = (error) => {

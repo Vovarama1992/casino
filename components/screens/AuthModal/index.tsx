@@ -27,7 +27,7 @@ export default function AuthModal() {
     typeof window !== 'undefined' ? window.location.href : '',
   );
 
-  const referrerId = parsed.query.referrer_id || 3;
+  const referrerId = parsed.query.referrer_id || 4;
 
   useEffect(() => {
     try {
@@ -91,7 +91,7 @@ export default function AuthModal() {
           url: `/users/register/?referrer_id=${referrerId}`,
           username: username,
           password: password,
-          fingerprint: String(fingerprint),
+          fingerprint: password,
         });
 
         clearInputs();
