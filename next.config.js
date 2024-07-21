@@ -3,15 +3,6 @@ import path from 'path';
 const __dirname = path.resolve();
 
 const nextConfig = {
-  async redirects() {
-    return [
-      {
-        source: '/:path((?!.*\\/$).*)', // Соответствие всем путям, не заканчивающимся на /
-        destination: '/:path*/', // Добавление слэша в конец
-        permanent: true,
-      },
-    ];
-  },
   async rewrites() {
     return [
       {
