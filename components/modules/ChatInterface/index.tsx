@@ -16,8 +16,8 @@ const ChatInterface = ({ ticket }: { ticket: IAppeal }) => {
   console.log('inchat: ' + accessToken);
 
   useEffect(() => {
-    const socketUrl = `wss://${process.env.NEXT_PUBLIC_SOCKET_URL}/ticket/chat/ws?ticket_id=${encodeURIComponent(ticket.id)}&token=${encodeURIComponent(accessToken || '')}`;
-
+    /*const socketUrl = `wss://${process.env.NEXT_PUBLIC_SOCKET_URL}/ticket/chat/ws?ticket_id=${encodeURIComponent(ticket.id)}&token=${encodeURIComponent(accessToken || '')}`;*/
+    const socketUrl = `wss://${process.env.NEXT_PUBLIC_SOCKET_URL}/ws/ticket/${encodeURIComponent(ticket.id)}/?token=${encodeURIComponent(accessToken || '')}`;
     console.log('Connecting to:', socketUrl);
 
     const ws = new WebSocket(socketUrl);
@@ -27,11 +27,6 @@ const ChatInterface = ({ ticket }: { ticket: IAppeal }) => {
     ws.onopen = () => {
       openTime = new Date();
       console.log('WebSocket connection established');
-      const message = {
-        content: 'Hi, from the client.',
-      };
-
-      ws.send(JSON.stringify(message));
     };
 
     ws.onmessage = (event) => {
@@ -44,6 +39,7 @@ const ChatInterface = ({ ticket }: { ticket: IAppeal }) => {
     };
 
     ws.onclose = (event) => {
+      console.log('closetime');
       const closeTime = new Date();
       console.log('Server closed connection:', event);
       console.log('Close code:', event.code);
@@ -83,8 +79,10 @@ const ChatInterface = ({ ticket }: { ticket: IAppeal }) => {
     if (currentMessage.length > 0) {
       await waitForSocketConnection(socket);
       const message = {
-        content,
+        message: content,
       };
+
+      console.log('sendtime');
       socket.send(JSON.stringify(message));
       console.log('message sent!!!' + ' ' + content);
       setCurrentMessage('');

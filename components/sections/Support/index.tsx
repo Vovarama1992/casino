@@ -24,12 +24,14 @@ export default function Support() {
   const [subject, setSubject] = useState('');
   const [firstMessage, setFirstMessage] = useState('');
   const [tickets, setTickets] = useState<IAppeal[]>([]);
+  const tok = localStorage.getItem('accessToken');
+  console.log('token: ' + tok);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await getTickets({
-          url: `/tickets?limit=30&page=1`,
+          url: `/tickets/?limit=30&page=1`,
         });
 
         setTickets(response);
@@ -44,7 +46,7 @@ export default function Support() {
   const openAppeal = async ({ id }: { id: number }) => {
     try {
       const response = await getTicket({
-        url: `/ticket/${id}`,
+        url: `/tickets/${id}`,
       });
 
       setSelectedAppeal(response);
@@ -70,10 +72,12 @@ export default function Support() {
   };
 
   const createAppeal = async () => {
+    console.log('subj: ' + subject);
+    console.log('firstMessage: ' + firstMessage);
     if (subject && firstMessage) {
       try {
         await createTicket({
-          url: '/tickets',
+          url: '/tickets/',
           subject: subject,
           message: firstMessage,
         });
@@ -194,7 +198,7 @@ export default function Support() {
                   className={styles.CreateNewAppealButton}
                   onClick={createAppeal}
                 >
-                  Создать обращение
+                  Создать обращениееее
                 </button>
               </div>
             </div>
