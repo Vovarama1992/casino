@@ -3,29 +3,15 @@ import path from 'path';
 const __dirname = path.resolve();
 
 const nextConfig = {
-  async redirects() {
-    return [
-      {
-        source: '/:path((?!.*\\/$).*)', // Соответствие всем путям, не заканчивающимся на /
-        destination: '/:path*/', // Добавление слэша в конец
-        permanent: true,
-      },
-      {
-        source: '/api/:path((?!.*\\/$).*)', // Соответствие всем API путям, не заканчивающимся на /
-        destination: '/api/:path*/', // Добавление слэша в конец для API путей
-        permanent: true,
-      },
-    ];
-  },
   async rewrites() {
     return [
       {
-        source: '/api/:path*/',
-        destination: 'https://api.moon-gamble.fans/:path*/',
+        source: '/api/:path*',
+        destination: 'https://api.moon-gamble.fans/:path*',
       },
     ];
   },
-  trailingSlash: true, // Добавление слэша ко всем путям
+  trailingSlash: true,
   webpack: (config) => {
     // Добавление алиасов
     config.resolve.alias = {
