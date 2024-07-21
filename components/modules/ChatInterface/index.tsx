@@ -12,8 +12,6 @@ const ChatInterface = ({ ticket }: { ticket: IAppeal }) => {
   const [messages, setMessages] = useState<string[]>([]);
   const [currentMessage, setCurrentMessage] = useState('');
   const [socket, setSocket] = useState<WebSocket | null>(null);
-  const accessToken = localStorage.getItem('accessToken');
-  console.log('inchat: ' + accessToken);
 
   useEffect(() => {
     /*const socketUrl = `wss://${process.env.NEXT_PUBLIC_SOCKET_URL}/ticket/chat/ws?ticket_id=${encodeURIComponent(ticket.id)}&token=${encodeURIComponent(accessToken || '')}`;*/
@@ -58,7 +56,7 @@ const ChatInterface = ({ ticket }: { ticket: IAppeal }) => {
         ws.close();
       }
     };
-  }, [ticket.id, accessToken]);
+  }, [ticket.id]);
 
   function waitForSocketConnection(socket: WebSocket): Promise<void> {
     return new Promise((resolve) => {
