@@ -24,8 +24,6 @@ export default function Support() {
   const [subject, setSubject] = useState('');
   const [firstMessage, setFirstMessage] = useState('');
   const [tickets, setTickets] = useState<IAppeal[]>([]);
-  const tok = localStorage.getItem('accessToken');
-  console.log('token: ' + tok);
 
   useEffect(() => {
     const fetchData = async () => {

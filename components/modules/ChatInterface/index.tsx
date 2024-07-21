@@ -12,7 +12,11 @@ const ChatInterface = ({ ticket }: { ticket: IAppeal }) => {
   const [messages, setMessages] = useState<string[]>([]);
   const [currentMessage, setCurrentMessage] = useState('');
   const [socket, setSocket] = useState<WebSocket | null>(null);
+  let accessToken = '';
 
+  if (typeof window !== 'undefined') {
+    accessToken = localStorage.getItem('accessToken') || '';
+  }
   useEffect(() => {
     /*const socketUrl = `wss://${process.env.NEXT_PUBLIC_SOCKET_URL}/ticket/chat/ws?ticket_id=${encodeURIComponent(ticket.id)}&token=${encodeURIComponent(accessToken || '')}`;*/
     const socketUrl = `wss://${process.env.NEXT_PUBLIC_SOCKET_URL}/ws/ticket/${encodeURIComponent(ticket.id)}/?token=${encodeURIComponent(accessToken || '')}`;
