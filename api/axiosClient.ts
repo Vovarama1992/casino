@@ -12,7 +12,7 @@ const token =
   typeof window !== 'undefined' && localStorage.getItem('accessToken');
 
 export const protectedApi = axios.create({
-  baseURL: 'https://api.moon-gamble.fans/',
+  baseURL: 'https://api.moon-gamble.fans',
   headers: {
     Authorization: token ? `Bearer ${token}` : '',
   },

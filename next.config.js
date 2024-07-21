@@ -3,6 +3,15 @@ import path from 'path';
 const __dirname = path.resolve();
 
 const nextConfig = {
+  async redirects() {
+    return [
+      {
+        source: '/:path((?!.*\\/$).*)', // Соответствие всем путям, не заканчивающимся на /
+        destination: '/:path*/', // Добавление слэша в конец
+        permanent: true,
+      },
+    ];
+  },
   async rewrites() {
     return [
       {
@@ -11,6 +20,7 @@ const nextConfig = {
       },
     ];
   },
+  trailingSlash: true, // Добавление слэша ко всем путям
   webpack: (config) => {
     // Добавление алиасов
     config.resolve.alias = {
@@ -21,7 +31,7 @@ const nextConfig = {
       '@public': path.resolve(__dirname, './public'), // папка public
     };
 
-    // Если нужно, добавьте алиас для папки шрифтов
+    // Добавление алиаса для папки шрифтов
     config.resolve.alias['@fonts'] = path.resolve(__dirname, './public/fonts');
 
     return config;
