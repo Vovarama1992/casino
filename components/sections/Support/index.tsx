@@ -75,7 +75,7 @@ export default function Support() {
     if (subject && firstMessage) {
       try {
         await createTicket({
-          url: '/tickets/',
+          url: '/tickets',
           subject: subject,
           message: firstMessage,
         });
