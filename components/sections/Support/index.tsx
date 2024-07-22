@@ -29,7 +29,7 @@ export default function Support() {
     const fetchData = async () => {
       try {
         const response = await getTickets({
-          url: `/tickets/?limit=30&page=1`,
+          url: `/tickets?limit=30&page=1`,
         });
 
         setTickets(response);

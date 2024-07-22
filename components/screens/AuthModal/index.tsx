@@ -88,7 +88,7 @@ export default function AuthModal() {
       try {
         console.log('finger: ' + fingerprint);
         await signUpFx({
-          url: `/users/register/?referrer_id=${referrerId}`,
+          url: `/users/register?referrer_id=${referrerId}`,
           username: username,
           password: password,
           fingerprint: password,
