@@ -3,14 +3,14 @@ import path from 'path';
 const __dirname = path.resolve();
 
 const nextConfig = {
-  async rewrites() {
+  /* async rewrites() {
     return [
       {
         source: '/api/:path*',
         destination: 'https://api.moon-gamble.fans/:path*',
       },
     ];
-  },
+  },*/
   trailingSlash: true,
   webpack: (config) => {
     // Добавление алиасов
