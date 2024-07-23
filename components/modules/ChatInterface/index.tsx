@@ -19,7 +19,7 @@ const ChatInterface = ({ ticket }: { ticket: IAppeal }) => {
   }
   useEffect(() => {
     /*const socketUrl = `wss://${process.env.NEXT_PUBLIC_SOCKET_URL}/ticket/chat/ws?ticket_id=${encodeURIComponent(ticket.id)}&token=${encodeURIComponent(accessToken || '')}`;*/
-    const socketUrl = `wss://${process.env.NEXT_PUBLIC_SOCKET_URL}/ws/ticket/${encodeURIComponent(ticket.id)}/?token=${encodeURIComponent(accessToken || '')}`;
+    const socketUrl = `wss://api.moon-gamble.fans/ws/ticket/${encodeURIComponent(ticket.id)}/?token=${encodeURIComponent(accessToken || '')}`;
     console.log('Connecting to:', socketUrl);
 
     const ws = new WebSocket(socketUrl);
