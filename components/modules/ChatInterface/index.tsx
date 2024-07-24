@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import styles from './ChatInterface.module.scss';
+import { getMessages } from '@/api/support';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import SendIcon from './icons/SendIcon';
 import AttachIcon from './icons/AttachIcon';
@@ -11,54 +12,65 @@ const ChatInterface = ({ ticket }: { ticket: IAppeal }) => {
   const isMedia768 = useMediaQuery(768);
   const [messages, setMessages] = useState<string[]>([]);
   const [currentMessage, setCurrentMessage] = useState('');
+  const [currentFile, setCurrentFile] = useState<File | null>(null);
   const [socket, setSocket] = useState<WebSocket | null>(null);
   let accessToken = '';
 
   if (typeof window !== 'undefined') {
     accessToken = localStorage.getItem('accessToken') || '';
   }
+
   useEffect(() => {
-    /*const socketUrl = `wss://${process.env.NEXT_PUBLIC_SOCKET_URL}/ticket/chat/ws?ticket_id=${encodeURIComponent(ticket.id)}&token=${encodeURIComponent(accessToken || '')}`;*/
-    const socketUrl = `wss://api.moon-gamble.fans/ws/ticket/${encodeURIComponent(ticket.id)}/?token=${encodeURIComponent(accessToken || '')}`;
-    console.log('Connecting to:', socketUrl);
-
-    const ws = new WebSocket(socketUrl);
-
-    let openTime: Date;
-
-    ws.onopen = () => {
-      openTime = new Date();
-      console.log('WebSocket connection established');
+    const fetchMessages = async () => {
+      const fetchedMessages = await getMessages({ id: ticket.id });
+      setMessages(fetchedMessages);
     };
 
-    ws.onmessage = (event) => {
-      console.log('Received message:', event.data);
+    const connectWebSocket = () => {
+      const socketUrl = `wss://api.moon-gamble.fans/ws/ticket/${encodeURIComponent(ticket.id)}/?token=${encodeURIComponent(accessToken || '')}`;
+      console.log('Connecting to:', socketUrl);
 
-      const messageData = JSON.parse(event.data);
+      const ws = new WebSocket(socketUrl);
 
-      const messageContent = messageData.content;
+      let openTime: Date;
 
-      setMessages((prevMessages) => [...prevMessages, messageContent]);
+      ws.onopen = () => {
+        openTime = new Date();
+        console.log('WebSocket connection established');
+      };
+
+      ws.onmessage = (event) => {
+        console.log('Received message:', event.data);
+
+        const messageData = JSON.parse(event.data);
+        const messageContent = messageData.content;
+
+        setMessages((prevMessages) => [...prevMessages, messageContent]);
+      };
+
+      ws.onerror = (error) => {
+        console.error('WebSocket error:', error);
+      };
+
+      ws.onclose = (event) => {
+        const closeTime = new Date();
+        console.log('Server closed connection:', event);
+        console.log('Close code:', event.code);
+        console.log('Close reason:', event.reason);
+        console.log('wasClean:', event.wasClean);
+        if (openTime) {
+          const duration = closeTime.getTime() - openTime.getTime();
+          console.log(`WebSocket connection duration: ${duration} ms`);
+        }
+      };
+
+      setSocket(ws);
+
+      return ws;
     };
 
-    ws.onerror = (error) => {
-      console.error('WebSocket error:', error);
-    };
-
-    ws.onclose = (event) => {
-      console.log('closetime');
-      const closeTime = new Date();
-      console.log('Server closed connection:', event);
-      console.log('Close code:', event.code);
-      console.log('Close reason:', event.reason);
-      console.log('wasClean:', event.wasClean);
-      if (openTime) {
-        const duration = closeTime.getTime() - openTime.getTime();
-        console.log(`WebSocket connection duration: ${duration} ms`);
-      }
-    };
-
-    setSocket(ws);
+    const ws = connectWebSocket();
+    fetchMessages();
 
     return () => {
       if (ws.readyState === WebSocket.OPEN) {
@@ -83,7 +95,7 @@ const ChatInterface = ({ ticket }: { ticket: IAppeal }) => {
   }
 
   const sendMessage = async (socket: WebSocket, content: string) => {
-    if (currentMessage.length > 0) {
+    if (content.length > 0) {
       await waitForSocketConnection(socket);
       const message = {
         message: content,
@@ -93,7 +105,20 @@ const ChatInterface = ({ ticket }: { ticket: IAppeal }) => {
       socket.send(JSON.stringify(message));
       console.log('message sent!!!' + ' ' + content);
       setCurrentMessage('');
+      setCurrentFile(null); // Сбрасываем выбранный файл после отправки
     }
+  };
+
+  const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setCurrentFile(file);
+      setCurrentMessage(`Файл: ${file.name}`);
+    }
+  };
+
+  const handleFileInputClick = () => {
+    document.getElementById('fileInput')?.click();
   };
 
   return (
@@ -111,8 +136,17 @@ const ChatInterface = ({ ticket }: { ticket: IAppeal }) => {
           value={currentMessage}
           onChange={(e) => setCurrentMessage(e.target.value)}
         />
+        <input
+          type="file"
+          style={{ display: 'none' }}
+          id="fileInput"
+          onChange={handleFileInputChange}
+        />
         <div className={styles.InputButtons}>
-          <button className={styles.AttachMediaButton}>
+          <button
+            className={styles.AttachMediaButton}
+            onClick={handleFileInputClick}
+          >
             <AttachIcon />
           </button>
           <button
@@ -127,6 +161,11 @@ const ChatInterface = ({ ticket }: { ticket: IAppeal }) => {
             {isMedia768 ? <SendIcon /> : 'Отправить'}
           </button>
         </div>
+        {currentFile && (
+          <div className={styles.FilePreview}>
+            <span>Выбран файл: {currentFile.name}</span>
+          </div>
+        )}
       </div>
     </>
   );

@@ -7,6 +7,15 @@ export const getTickets = createEffect(async ({ url }: { url: string }) => {
   return data;
 });
 
+export const getMessages = createEffect(async ({ id }: { id: number }) => {
+  const { data } = await protectedApi.get(
+    `https://api.moon-gamble.fans/tickets/messages/${id}/`,
+  );
+
+  const messages = data.map((d: any) => d.content);
+  return messages;
+});
+
 export const getTicket = createEffect(async ({ url }: { url: string }) => {
   const { data } = await protectedApi.get(url);
 
