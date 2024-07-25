@@ -112,7 +112,7 @@ const ChatInterface = ({ ticket }: { ticket: IAppeal }) => {
   const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
-      setCurrentFile(file);
+      //setCurrentFile(file);
       setCurrentMessage(`Файл: ${file.name}`);
     }
   };

@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 'use client';
 
 import React from 'react';
@@ -21,6 +23,7 @@ export default function Support() {
   const isLogin = user?.id;
   const [selectedAppeal, setSelectedAppeal] = useState<IAppeal | null>(null);
   const [createAppealMode, setCreateAppealMode] = useState(false);
+  const [currentFile, setCurrentFile] = useState<File | null>(null);
   const [subject, setSubject] = useState('');
   const [firstMessage, setFirstMessage] = useState('');
   const [tickets, setTickets] = useState<IAppeal[]>([]);
@@ -29,7 +32,7 @@ export default function Support() {
     const fetchData = async () => {
       try {
         const response = await getTickets({
-          url: `/tickets/?limit=30&page=1`,
+          url: '/tickets/?limit=30&page=1',
         });
 
         setTickets(response);
@@ -62,6 +65,18 @@ export default function Support() {
     } else {
       toast.warning('Авторизуйтесь, чтобы создать обращение');
     }
+  };
+
+  const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setCurrentFile(file);
+      setFirstMessage((prevMessage) => `${prevMessage}\nФайл: ${file.name}`);
+    }
+  };
+
+  const handleFileInputClick = () => {
+    document.getElementById('fileInput')?.click();
   };
 
   const handleBackButton = () => {
@@ -188,17 +203,31 @@ export default function Support() {
                 cols={30}
                 rows={10}
               />
+              <input
+                type="file"
+                style={{ display: 'none' }}
+                id="fileInput"
+                onChange={handleFileInputChange}
+              />
               <div className={styles.NewAppealButtons}>
-                <button className={styles.AttachMediaButton}>
+                <button
+                  className={styles.AttachMediaButton}
+                  onClick={handleFileInputClick}
+                >
                   <AttachIcon />
                 </button>
                 <button
                   className={styles.CreateNewAppealButton}
                   onClick={createAppeal}
                 >
-                  Создать обращениееее
+                  Создать обращение
                 </button>
               </div>
+              {currentFile && (
+                <div className={styles.FilePreview}>
+                  <span>Выбран файл: {currentFile.name}</span>
+                </div>
+              )}
             </div>
           ) : isMedia1200 ? (
             <div className={styles.Appeals}>
