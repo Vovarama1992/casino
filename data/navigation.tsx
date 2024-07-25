@@ -90,7 +90,7 @@ export const SidebarNavigation: INavigation[] = [
       },
     ],
   },
-  {
+  /*{
     title: 'Moon Games',
     isExpand: true,
     list: [
@@ -110,7 +110,7 @@ export const SidebarNavigation: INavigation[] = [
         icon: <BubblesIcon />,
       },
     ],
-  },
+  },*/
   {
     title: '',
     list: [
