@@ -11,7 +11,7 @@ export const FooterNavigation: INavigation[] = [
         name: 'Слоты',
         link: '/slots',
       },
-      {
+      /*{
         name: 'Mines',
         link: '/mines',
       },
@@ -22,7 +22,7 @@ export const FooterNavigation: INavigation[] = [
       {
         name: 'Dice',
         link: '/dice',
-      },
+      },*/
     ],
   },
   {

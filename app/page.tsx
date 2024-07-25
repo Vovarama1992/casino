@@ -5,7 +5,6 @@ export default function MainPage() {
   return (
     <>
       <Banners />
-      <Games />
     </>
   );
 }

@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Link from 'next/link';
 import styles from './Banners.module.scss';
@@ -9,9 +9,34 @@ import 'swiper/css';
 import NavigationArrow from './icons/NavigationArrow';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { openWalletModal } from '@/context/modals';
+import { getUserData } from '@/api/user';
 
 export default function Banners() {
   const swiper = useSwiper();
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+  useEffect(() => {
+    const checkUserAuthorization = async () => {
+      try {
+        const token = localStorage.getItem('accessToken');
+        if (token) {
+          const response = await getUserData({ url: '/users/me' }); // Вызов функции
+          if (response.data) {
+            setIsButtonDisabled(false);
+          } else {
+            setIsButtonDisabled(true);
+          }
+        } else {
+          setIsButtonDisabled(true);
+        }
+      } catch (error) {
+        console.error(error);
+        setIsButtonDisabled(true);
+      }
+    };
+
+    checkUserAuthorization();
+  }, []);
 
   return (
     <section style={{ position: 'relative' }}>
@@ -55,6 +80,7 @@ export default function Banners() {
           <button
             className={styles.BannerButton}
             onClick={() => openWalletModal()}
+            disabled={isButtonDisabled} // Управляем активностью кнопки
           >
             Депозит
           </button>
