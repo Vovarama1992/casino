@@ -19,6 +19,7 @@ const ChatInterface = ({ ticket }: { ticket: IAppeal }) => {
   if (typeof window !== 'undefined') {
     accessToken = localStorage.getItem('accessToken') || '';
   }
+  console.log(currentFile);
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -161,11 +162,6 @@ const ChatInterface = ({ ticket }: { ticket: IAppeal }) => {
             {isMedia768 ? <SendIcon /> : 'Отправить'}
           </button>
         </div>
-        {currentFile && (
-          <div className={styles.FilePreview}>
-            <span>Выбран файл: {currentFile.name}</span>
-          </div>
-        )}
       </div>
     </>
   );

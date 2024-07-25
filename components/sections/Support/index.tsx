@@ -27,7 +27,7 @@ export default function Support() {
   const [subject, setSubject] = useState('');
   const [firstMessage, setFirstMessage] = useState('');
   const [tickets, setTickets] = useState<IAppeal[]>([]);
-
+  console.log(currentFile);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -223,11 +223,6 @@ export default function Support() {
                   Создать обращение
                 </button>
               </div>
-              {currentFile && (
-                <div className={styles.FilePreview}>
-                  <span>Выбран файл: {currentFile.name}</span>
-                </div>
-              )}
             </div>
           ) : isMedia1200 ? (
             <div className={styles.Appeals}>
