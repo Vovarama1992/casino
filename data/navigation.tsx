@@ -67,9 +67,6 @@ export const FooterNavigation: INavigation[] = [
 
 import HomeIcon from './icons/navigation/HomeIcon';
 import SlotsIcon from './icons/navigation/SlotsIcon';
-import MinesIcon from './icons/navigation/MinesIcon';
-import DiceIcon from './icons/navigation/DiceIcon';
-import BubblesIcon from './icons/navigation/BubblesIcon';
 import ReferralsIcon from './icons/navigation/ReferralsIcon';
 import BonusesIcon from './icons/navigation/BonusesIcon';
 import SupportIcon from './icons/navigation/SupportIcon';
