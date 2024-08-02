@@ -11,8 +11,7 @@
   background: rgb(13, 6, 28);
   background: linear-gradient(227deg, rgb(13, 6, 28) 62%, rgb(30, 15, 63) 130%);
 }
-.Item:nth-child(1),
-.Item:nth-child(3) {
+.Item:nth-child(1), .Item:nth-child(3) {
   width: 25%;
 }
 .Item:nth-child(2) {
@@ -496,4 +495,4 @@
   .PromoCodeInputIcon {
     @apply left-[14px] right-[initial];
   }
-} /*# sourceMappingURL=Bonuses.module.css.map */
+}/*# sourceMappingURL=Bonuses.module.css.map */

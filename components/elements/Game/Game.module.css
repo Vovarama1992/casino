@@ -1,12 +1,7 @@
 .Game {
   @apply relative flex h-[277px] w-[273px] flex-col items-center justify-center rounded-[15px];
   background: #49229b;
-  background: radial-gradient(
-    circle farthest-corner at center center,
-    #49229b 0%,
-    #4f2a9a 84%,
-    #1f0d44 100%
-  );
+  background: radial-gradient(circle farthest-corner at center center, #49229b 0%, #4f2a9a 84%, #1f0d44 100%);
 }
 
 .Inner {
@@ -91,4 +86,4 @@
   .Name {
     @apply text-[12px];
   }
-} /*# sourceMappingURL=Game.module.css.map */
+}/*# sourceMappingURL=Game.module.css.map */

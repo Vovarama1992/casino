@@ -46,7 +46,7 @@
 }
 .PartExpandButton::before {
   @apply absolute right-[14px] top-2/4 h-[6px] w-[13px] -translate-y-2/4 rotate-180 bg-contain bg-no-repeat transition-transform content-[""];
-  background-image: url('../../../data/icons/navigation/Arrow.svg');
+  background-image: url("../../../data/icons/navigation/Arrow.svg");
 }
 
 .PartCollapseButton::before {
@@ -74,4 +74,4 @@
   .MobileMenu {
     @apply px-[10px];
   }
-} /*# sourceMappingURL=MobileMenu.module.css.map */
+}/*# sourceMappingURL=MobileMenu.module.css.map */

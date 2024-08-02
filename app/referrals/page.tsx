@@ -18,5 +18,5 @@ export default function ReferralsPage() {
     }
   }, [isLogin, router]);
 
-  return isLogin ? <Referrals /> : null;
+  return <Referrals />;
 }

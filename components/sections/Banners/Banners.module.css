@@ -7,14 +7,14 @@
   @apply rounded-[35px] bg-cover bg-center bg-no-repeat;
   height: 465px !important;
 }
-.Banner[data-swiper-slide-index='0'] {
-  background-image: url('./images/1.jpg');
+.Banner[data-swiper-slide-index="0"] {
+  background-image: url("./images/1.jpg");
 }
-.Banner[data-swiper-slide-index='1'] {
-  background-image: url('./images/2.jpg');
+.Banner[data-swiper-slide-index="1"] {
+  background-image: url("./images/2.jpg");
 }
-.Banner[data-swiper-slide-index='2'] {
-  background-image: url('./images/4.jpg');
+.Banner[data-swiper-slide-index="2"] {
+  background-image: url("./images/4.jpg");
 }
 
 .BannerTextBox {
@@ -174,4 +174,4 @@
   .PaginationBullet {
     @apply h-[5px] w-[5px];
   }
-} /*# sourceMappingURL=Banners.module.css.map */
+}/*# sourceMappingURL=Banners.module.css.map */

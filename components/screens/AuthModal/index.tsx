@@ -23,11 +23,13 @@ export default function AuthModal() {
   const [passwordError, setPasswordError] = useState('');
   const [repeatPasswordError, setRepeatPasswordError] = useState('');
   const [fingerprint, setFingerprint] = useState(12345);
+  console.log(fingerprint);
   const parsed = queryString.parseUrl(
     typeof window !== 'undefined' ? window.location.href : '',
   );
 
   const referrerId = parsed.query.referrer_id || 4;
+  console.log('referrerId_check' + referrerId);
 
   useEffect(() => {
     try {
@@ -86,13 +88,14 @@ export default function AuthModal() {
       password.length <= 32
     ) {
       try {
-        console.log('finger: ' + fingerprint);
+        console.log('referrerId: ' + referrerId);
         await signUpFx({
           url: `/users/register?referrer_id=${referrerId}`,
           username: username,
           password: password,
           fingerprint: password,
         });
+        console.log('referrerid: ' + referrerId);
 
         clearInputs();
         toast.success(

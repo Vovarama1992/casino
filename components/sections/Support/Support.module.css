@@ -118,8 +118,7 @@
 .NewAppealTextarea {
   @apply w-full rounded-[15px] bg-[#0F0821] px-[24px] py-[28px] text-[20px] font-medium text-white outline-none;
 }
-.NewAppealInput::-moz-placeholder,
-.NewAppealTextarea::-moz-placeholder {
+.NewAppealInput::-moz-placeholder, .NewAppealTextarea::-moz-placeholder {
   @apply text-[#4F2A9A];
 }
 .NewAppealInput::placeholder,
@@ -370,4 +369,4 @@
   .NewAppealTitle {
     @apply text-[16px];
   }
-} /*# sourceMappingURL=Support.module.css.map */
+}/*# sourceMappingURL=Support.module.css.map */

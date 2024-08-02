@@ -4,7 +4,7 @@
 
 .Game {
   @apply relative h-[674px] w-[70%] overflow-hidden rounded-[20px] bg-cover bg-center bg-no-repeat;
-  background-image: url('./images/game-background.jpg');
+  background-image: url("./images/game-background.jpg");
 }
 
 .HistoryList {
@@ -121,4 +121,4 @@
   .Astronaut {
     @apply bottom-[44px] w-[85px];
   }
-} /*# sourceMappingURL=Bubbles.module.css.map */
+}/*# sourceMappingURL=Bubbles.module.css.map */

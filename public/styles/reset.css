@@ -10,10 +10,10 @@ button,
 input,
 img {
   -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 
 a {
   color: inherit;
-} /*# sourceMappingURL=reset.css.map */
+}/*# sourceMappingURL=reset.css.map */

@@ -169,7 +169,7 @@ h3.Title {
 }
 .AvatarSelect::after {
   @apply absolute left-2/4 top-2/4 h-[20px] w-[29px] -translate-x-2/4 -translate-y-2/4 bg-contain bg-no-repeat content-[""];
-  background-image: url('./images/checkmark.svg');
+  background-image: url("./images/checkmark.svg");
 }
 
 .ChangeButton {
@@ -583,4 +583,4 @@ h3.Title {
   .AvatarList {
     @apply grid w-[150px] grid-cols-2 gap-x-[18px] gap-y-[10px] overflow-x-visible;
   }
-} /*# sourceMappingURL=Profile.module.css.map */
+}/*# sourceMappingURL=Profile.module.css.map */

@@ -29,6 +29,7 @@ interface IReferralStats {
 export default function Referrals() {
   const user = useUnit($user);
   const referralLink = `${config.domen}?referrer_id=${user?.id}`;
+
   const [referralStats, setReferralStats] = useState<IReferralStats>();
 
   const handleCopyLink = () => {

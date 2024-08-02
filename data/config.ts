@@ -1,4 +1,4 @@
 export const config = {
   name: 'MoonGamble',
-  domen: 'moon-gamble.vercel.app',
+  domen: 'moon-gamble.fans/',
 };

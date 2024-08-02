@@ -17,8 +17,7 @@
 .ChartLabel:nth-child(1)::before {
   @apply left-0;
 }
-.ChartLabel:nth-child(2)::before,
-.ChartLabel:nth-child(3)::before {
+.ChartLabel:nth-child(2)::before, .ChartLabel:nth-child(3)::before {
   @apply left-2/4 -translate-x-2/4;
 }
 .ChartLabel:nth-child(4)::before {
@@ -37,4 +36,4 @@
   .ChartLabel {
     @apply text-[8px];
   }
-} /*# sourceMappingURL=Chart.module.css.map */
+}/*# sourceMappingURL=Chart.module.css.map */
