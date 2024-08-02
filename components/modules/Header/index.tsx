@@ -41,7 +41,7 @@ export default function Header() {
                 <WalletIcon />
               </button>
               <div className={styles.Balance}>
-                {user.balance}
+                {Math.round(Number(user.balance))}
                 <Image
                   src="/media/Currency.svg"
                   alt="MoonCoin"
