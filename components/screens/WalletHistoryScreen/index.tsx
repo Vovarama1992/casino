@@ -62,62 +62,64 @@ export default function WalletHistoryScreen() {
       {history.length > 0 ? (
         <>
           {history.map((item: IWalletHistory) => {
-            const paymentSystem = WithdrawalPaymentSystems.find(
-              (ps) => ps.slug === item.payment_system,
-            );
-            const icon = paymentSystem ? paymentSystem.icon : null;
-            const date = formatDate(item.created_at);
-            const time = formatTime(item.created_at);
-            return (
-              <div className={styles.WalletHistoryItem} key={item.id}>
-                <div className={styles.PaymentSystem}>
-                  <div className={styles.PaymentSystemIcon}>{icon}</div>
-                  <span className={styles.PaymentSystemAddress}>
-                    {item.to_account}
-                    +7999******
+            if (item.status || item.type === 0) {
+              const paymentSystem = WithdrawalPaymentSystems.find(
+                (ps) => ps.slug === item.payment_system,
+              );
+              const icon = paymentSystem ? paymentSystem.icon : null;
+              const date = formatDate(item.created_at);
+              const time = formatTime(item.created_at);
+              return (
+                <div className={styles.WalletHistoryItem} key={item.id}>
+                  <div className={styles.PaymentSystem}>
+                    <div className={styles.PaymentSystemIcon}>{icon}</div>
+                    <span className={styles.PaymentSystemAddress}>
+                      {item.to_account}
+                      +7999******
+                    </span>
+                  </div>
+                  <span className={styles.PaymentDate}>
+                    {date} / {time}
                   </span>
-                </div>
-                <span className={styles.PaymentDate}>
-                  {date} / {time}
-                </span>
-                <div className="flex items-center gap-[10px]">
-                  <div className={styles.PaymentAmount}>
-                    {Math.round(Number(item.amount))}
-                    <div className={styles.PaymentAmountIcon}>
-                      <Image
-                        src="/media/Currency.svg"
-                        alt="MoonCoin"
-                        width={0}
-                        height={0}
-                      />
+                  <div className="flex items-center gap-[10px]">
+                    <div className={styles.PaymentAmount}>
+                      {Math.round(Number(item.amount))}
+                      <div className={styles.PaymentAmountIcon}>
+                        <Image
+                          src="/media/Currency.svg"
+                          alt="MoonCoin"
+                          width={0}
+                          height={0}
+                        />
+                      </div>
+                    </div>
+                    <div className={styles.PaymentStatusBox}>
+                      <button
+                        className={styles.PaymentStatus}
+                        style={{
+                          color:
+                            item.status === 'В ожидании'
+                              ? '#814113'
+                              : item.status === 'Отклонено'
+                                ? '#891212'
+                                : '#427C13',
+                          backgroundColor:
+                            item.status === 'В ожидании'
+                              ? '#4A2409'
+                              : item.status === 'Отклонено'
+                                ? '#4A0909'
+                                : '#264A09',
+                        }}
+                      >
+                        {item.status || item.type === 0
+                          ? 'Пополнено'
+                          : item.type === 1 && 'Выплачено'}
+                      </button>
                     </div>
                   </div>
-                  <div className={styles.PaymentStatusBox}>
-                    <button
-                      className={styles.PaymentStatus}
-                      style={{
-                        color:
-                          item.status === 'В ожидании'
-                            ? '#814113'
-                            : item.status === 'Отклонено'
-                              ? '#891212'
-                              : '#427C13',
-                        backgroundColor:
-                          item.status === 'В ожидании'
-                            ? '#4A2409'
-                            : item.status === 'Отклонено'
-                              ? '#4A0909'
-                              : '#264A09',
-                      }}
-                    >
-                      {item.status || item.type === 0
-                        ? 'Пополнено'
-                        : item.type === 1 && 'Выплачено'}
-                    </button>
-                  </div>
                 </div>
-              </div>
-            );
+              );
+            }
           })}
           {totalPages > 1 && (
             <>

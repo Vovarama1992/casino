@@ -51,7 +51,7 @@ export default function Referrals() {
     getReferralStats();
   }, []);
 
-  /*function transformData(data: IReferralStats): number[] {
+  function transformData(data: IReferralStats): number[] {
     const dates = Object.keys(data.last_month).sort();
 
     const values = dates.map((date) => data.last_month[date]);
@@ -71,11 +71,7 @@ export default function Referrals() {
 
   const chartData = referralStats ? transformData(referralStats) : [];
 
-  const labels = referralStats ? getLabels(referralStats) : [];*/
-
-  const chartData: string[] | number[] = [];
-
-  const labels: string[] = [];
+  const labels = referralStats ? getLabels(referralStats) : [];
 
   return (
     <section className={styles.Referrals}>
