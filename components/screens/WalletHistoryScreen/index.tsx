@@ -82,7 +82,7 @@ export default function WalletHistoryScreen() {
                 </span>
                 <div className="flex items-center gap-[10px]">
                   <div className={styles.PaymentAmount}>
-                    {item.amount}
+                    {Math.round(Number(item.amount))}
                     <div className={styles.PaymentAmountIcon}>
                       <Image
                         src="/media/Currency.svg"
