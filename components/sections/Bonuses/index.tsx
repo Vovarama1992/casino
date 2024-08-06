@@ -1,38 +1,50 @@
 'use client';
-import React from 'react';
-
+import React, { useState, useEffect } from 'react';
 import { ProfileSocialMedia } from '@/data/profile';
 import styles from './Bonuses.module.scss';
 import PageTitle from '@/components/elements/PageTitle';
 import PromoCodeIcon from './icons/PromoCodeIcon';
 import MarkIcon from './icons/MarkIcon';
 import Image from 'next/image';
-
 import Planet1 from './images/decor/planet1.png';
 import Astronaut from './images/decor/astronaut.png';
 import VKImage from './images/decor/vk.svg';
 import TelegramImage from './images/decor/telegram.svg';
 import { toast } from 'react-toastify';
-import { checkLatestClaimBonus, claimBonusFx } from '@/api/bonus';
-import { useEffect, useState } from 'react';
+import {
+  checkLatestClaimBonus,
+  claimBonusFx,
+  applyPromoCodeFx,
+} from '@/api/bonus';
 import { useUnit } from 'effector-react';
 import { $user, setUser } from '@/context/user';
-import { CountdownTimer } from '@/components/elements/CountdownTimer';
+import CountdownTimer from '@/components/elements/CountdownTimer';
 
 export default function Bonuses() {
-  const [bonusValue, setBonusValue] = useState<number | null>();
-  const [lastClaim, setLastClaim] = useState('');
+  const [bonusValue, setBonusValue] = useState<number | null>(null);
+  const [timeLeft, setTimeLeft] = useState<number>(0);
+  const [promoCode, setPromoCode] = useState<string>('');
   const user = useUnit($user);
 
   useEffect(() => {
+    const calculateTimeLeft = (lastClaimTime: string) => {
+      const now = new Date().toISOString(); // текущая дата и время в UTC
+      const lastClaimDate = new Date(lastClaimTime).toISOString(); // переводим полученную дату в UTC
+      const nextClaimDate =
+        new Date(lastClaimDate).getTime() + 24 * 60 * 60 * 1000;
+      const timeDifference = nextClaimDate - new Date(now).getTime();
+      return timeDifference > 0 ? Math.floor(timeDifference / 1000) : 0;
+    };
+
     const checkLatestClaim = async () => {
       try {
         const data = await checkLatestClaimBonus({
           url: '/wallet/bonus/last-earn',
         });
-        setLastClaim(data);
+        setTimeLeft(calculateTimeLeft(data.created_at));
       } catch (error) {
         console.error(error);
+        setTimeLeft(0); // Устанавливаем таймер на 0 в случае ошибки
       }
     };
 
@@ -45,6 +57,7 @@ export default function Bonuses() {
         url: '/wallet/bonus',
       });
       setBonusValue(data.amount);
+      setTimeLeft(24 * 60 * 60); // Сброс таймера на 24 часа после получения бонуса
       toast.success(
         `Поздравляем! Вы получили бонус в размере ${data.amount} лун`,
       );
@@ -55,10 +68,34 @@ export default function Bonuses() {
             balance: data.balance,
           });
       }
+      window.location.reload();
     } catch (error: any) {
       console.error(error);
       toast.error(
         error.response.data.detail || 'Произошла ошибка. Повторите позже',
+      );
+    }
+  };
+
+  const applyPromoCode = async () => {
+    try {
+      const data = await applyPromoCodeFx({
+        url: '/wallet/apply_promo_code',
+        promoCode: promoCode,
+      });
+      toast.success(`Промокод успешно применен: ${data.amount} лун`);
+      {
+        user &&
+          setUser({
+            ...user,
+            bonus_balance: user.bonus_balance + data.amount,
+          });
+      }
+    } catch (error: any) {
+      console.error(error);
+      toast.error(
+        error.response.data.detail ||
+          'Не удалось применить промокод. Попробуйте снова позже.',
       );
     }
   };
@@ -70,11 +107,7 @@ export default function Bonuses() {
         <div className={`${styles.GetBonus} ${styles.Item}`}>
           <div className={styles.GetBonusTop}>
             <div className={styles.GetBonusTimer}>
-              {lastClaim ? (
-                <CountdownTimer targetDate={lastClaim} />
-              ) : (
-                '00:00:00'
-              )}
+              <CountdownTimer timeLeft={timeLeft} />
             </div>
             <div className={styles.GetBonusTopText}>
               <h6 className={styles.GetBonusTopTitle}>Получай до 100 лун</h6>
@@ -83,7 +116,11 @@ export default function Bonuses() {
               </p>
             </div>
           </div>
-          <button className={styles.GetBonusButton} onClick={claimBonus}>
+          <button
+            className={styles.GetBonusButton}
+            onClick={claimBonus}
+            disabled={timeLeft > 0}
+          >
             Получить бонус
           </button>
           <Image
@@ -99,20 +136,19 @@ export default function Bonuses() {
             Привязывайте соц.сети и получайте бонусы!
           </h2>
           <ul className={styles.SocialMediaList}>
-            {ProfileSocialMedia.map((item, index) => {
-              return (
-                <li className={styles.SocialMediaListItem} key={index}>
-                  <div className={styles.SocialMediaListItemIcon}>
-                    {item.icon}
-                  </div>
-                  <button
-                    className={`${styles.SocialMediaLinkedButton} ${styles.Button} ${item.status === 'linked' ? styles.SocialMediaLinkedButtonActive : ''}`}
-                  >
-                    {item.status === 'linked' ? 'Привязано' : 'Привязать'}
-                  </button>
-                </li>
-              );
-            })}
+            {ProfileSocialMedia.map((item, index) => (
+              <li className={styles.SocialMediaListItem} key={index}>
+                <div className={styles.SocialMediaListItemIcon}>
+                  {item.icon}
+                </div>
+                <a
+                  href={item.authUrl}
+                  className={`${styles.SocialMediaLinkedButton} ${styles.Button} ${item.status === 'linked' ? styles.SocialMediaLinkedButtonActive : ''}`}
+                >
+                  {item.status === 'linked' ? 'Привязано' : 'Привязать'}
+                </a>
+              </li>
+            ))}
           </ul>
           <Image
             className={`${styles.DecorImage} ${styles.DecorImageAstronaut}`}
@@ -164,15 +200,22 @@ export default function Bonuses() {
               type="text"
               className={styles.PromoCodeInput}
               placeholder="DSAJ5H8SF"
+              value={promoCode}
+              onChange={(e) => setPromoCode(e.target.value)}
             />
             <div className={styles.PromoCodeInputIcon}>
               <PromoCodeIcon color="#3A1F76" />
             </div>
-            <div className={styles.PromoCodeInputButton}>
+            <button
+              className={styles.PromoCodeInputButton}
+              onClick={applyPromoCode}
+            >
               <MarkIcon />
-            </div>
+            </button>
           </div>
-          <button className={styles.PromoCodeButton}>Активировать</button>
+          <button className={styles.PromoCodeButton} onClick={applyPromoCode}>
+            Активировать
+          </button>
           <Image
             className={styles.DecorImage}
             src={Planet1}

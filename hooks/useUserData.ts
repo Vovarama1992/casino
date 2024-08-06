@@ -10,12 +10,14 @@ export const useUserData = () => {
           url: '/users/me',
         });
 
-        const { balance } = await getUserBalance({
+        const { balance, bonus_balance, pure_balance } = await getUserBalance({
           url: '/wallet/balance',
         });
 
         setUser({
           ...data,
+          bonus_balance,
+          pure_balance,
           balance,
         });
       } catch (error) {

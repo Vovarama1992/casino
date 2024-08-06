@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react';
 
 import styles from './WithdrawalScreen.module.scss';
@@ -15,8 +17,14 @@ export default function WithdrawalScreen() {
     useState<IPaymentSystem>(WithdrawalPaymentSystems[0]);
   const [withdrawalValue, setWithdrawalValue] = useState<number | null>();
   const user = useUnit($user);
+  const balance = Number(user?.balance);
+  const bonus_balance = Number(user?.bonus_balance) || 0;
+  const pure_balance = balance - bonus_balance;
   const minLimit = 500;
   const maxLimit = 15000;
+  console.log('balance: ' + balance);
+  console.log('bbonus: ' + bonus_balance);
+  console.log('pure_balance: ' + pure_balance);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
@@ -35,15 +43,17 @@ export default function WithdrawalScreen() {
     } else if (
       withdrawalValue < minLimit ||
       withdrawalValue > maxLimit ||
-      Number(user?.balance) < withdrawalValue
+      pure_balance < withdrawalValue // Используем pure_balance для проверки
     ) {
       if (withdrawalValue < minLimit) {
-        toast.error(`Сумма пополнения должна быть больше ${minLimit}`);
+        toast.error(`Сумма вывода должна быть больше ${minLimit}`);
       }
-      if (withdrawalValue > minLimit) {
-        toast.error(`Сумма пополнения должна быть меньше ${maxLimit}`);
+      if (withdrawalValue > maxLimit) {
+        toast.error(
+          `Сумма вывода должна должна быть не больше ${pure_balance}`,
+        );
       }
-      if (Number(user?.balance) < withdrawalValue) {
+      if (Number(user?.pure_balance) < withdrawalValue) {
         toast.error(`Не хватает денег на счету`);
       }
     } else {
@@ -58,7 +68,9 @@ export default function WithdrawalScreen() {
           user &&
             setUser({
               ...user,
-              balance: (Number(user?.balance) - withdrawalValue).toString(),
+              pure_balance: (
+                Number(user?.pure_balance) - withdrawalValue
+              ).toString(),
             });
         }
         setWithdrawalValue(null);
@@ -76,9 +88,12 @@ export default function WithdrawalScreen() {
         <ul className={styles.PaymentList}>
           {WithdrawalPaymentSystems.map((item, index) => {
             return (
-              // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events
               <li
-                className={`${styles.PaymentListItem} ${selectedPaymentSystem === item ? styles.PaymentListItemActive : ''}`}
+                className={`${styles.PaymentListItem} ${
+                  selectedPaymentSystem === item
+                    ? styles.PaymentListItemActive
+                    : ''
+                }`}
                 onClick={() => {
                   setSelectedPaymentSystem(item);
                   setWithdrawalValue(null);
@@ -150,7 +165,9 @@ export default function WithdrawalScreen() {
             {valueButtons.map((value) => {
               return (
                 <button
-                  className={`${styles.ValueButton} ${value === withdrawalValue ? styles.ValueButtonActive : ''}`}
+                  className={`${styles.ValueButton} ${
+                    value === withdrawalValue ? styles.ValueButtonActive : ''
+                  }`}
                   onClick={() => setWithdrawalValue(value)}
                   key={value}
                 >

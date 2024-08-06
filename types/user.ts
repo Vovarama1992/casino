@@ -10,4 +10,6 @@ export interface IUser {
   telegram_code: string;
   created_at: string;
   balance: string;
+  pure_balance: string;
+  bonus_balance: string;
 }

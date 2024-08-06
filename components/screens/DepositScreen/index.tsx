@@ -42,7 +42,7 @@ export default function DepositScreen() {
     } else {
       try {
         await createDeposit({
-          url: '/wallet/deposit',
+          url: '/wallet/deposit?transaction_type=IN',
           paymentSystem: selectedPaymentSystem.slug,
           amount: depositValue,
         });
