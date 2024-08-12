@@ -15,7 +15,7 @@ import {
   checkLatestClaimBonus,
   claimBonusFx,
   applyPromoCodeFx,
-  linkVKFx, // Импортируем созданный эффект
+  //linkVKFx, // Импортируем созданный эффект
 } from '@/api/bonus';
 import { useUnit } from 'effector-react';
 import { $user, setUser } from '@/context/user';
@@ -51,10 +51,11 @@ export default function Bonuses() {
     };
 
     const init = async () => {
+      setIsVKLinked(false);
       await checkLatestClaim();
 
       // Считывание авторизационного кода из URL
-      const urlParams = new URLSearchParams(window.location.search);
+      /*const urlParams = new URLSearchParams(window.location.search);
       const code = urlParams.get('code');
       console.log('code: ' + code);
 
@@ -74,7 +75,7 @@ export default function Bonuses() {
           console.error(error);
           toast.error('Не удалось привязать VK. Попробуйте снова позже.');
         }
-      }
+      }*/
     };
 
     init();
