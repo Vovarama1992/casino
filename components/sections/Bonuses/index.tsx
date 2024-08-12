@@ -24,6 +24,7 @@ export default function Bonuses() {
   const [bonusValue, setBonusValue] = useState<number | null>(null);
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const [promoCode, setPromoCode] = useState<string>('');
+  const [isVKLinked, setIsVKLinked] = useState<boolean>(false);
   const user = useUnit($user);
 
   useEffect(() => {
@@ -44,12 +45,40 @@ export default function Bonuses() {
         setTimeLeft(calculateTimeLeft(data.created_at));
       } catch (error) {
         console.error(error);
-        setTimeLeft(0); // Устанавливаем таймер на 0 в случае ошибки
+        setTimeLeft(0);
       }
     };
 
     checkLatestClaim();
+
+    // Считывание авторизационного кода из URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+
+    if (code) {
+      linkVK(code);
+    }
   }, [bonusValue]);
+
+  const linkVK = async (code: string) => {
+    try {
+      const response = await fetch(`/users/oauth/vk/link?code=${code}`, {
+        method: 'GET',
+      });
+      if (response.ok) {
+        setIsVKLinked(true); // Обновляем состояние привязки VK
+        toast.success('VK успешно привязан!');
+
+        // Очищаем URL от параметров
+        window.history.replaceState(null, '', window.location.pathname);
+      } else {
+        throw new Error('Failed to link VK');
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error('Не удалось привязать VK. Попробуйте снова позже.');
+    }
+  };
 
   const claimBonus = async () => {
     try {
@@ -145,7 +174,7 @@ export default function Bonuses() {
                   href={item.authUrl}
                   className={`${styles.SocialMediaLinkedButton} ${styles.Button} ${item.status === 'linked' ? styles.SocialMediaLinkedButtonActive : ''}`}
                 >
-                  {item.status === 'linked' ? 'Привязано' : 'Привязать'}
+                  {isVKLinked && item.name == 'VK' ? 'Привязано' : 'Привязать'}
                 </a>
               </li>
             ))}

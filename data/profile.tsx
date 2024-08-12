@@ -3,7 +3,7 @@ import TelegramIcon from './icons/social-media/TelegramIcon';
 import VKIcon from './icons/social-media/VKIcon';
 
 const VK_CLIENT_ID = process.env.NEXT_PUBLIC_VK_CLIENT_ID;
-const REDIRECT_URI_LINK = 'https://api.moon-gamble.fans/users/oauth/vk/link';
+const REDIRECT_URI_LINK = 'https://moon-gamble.fans/bonuses/';
 
 const vkAuthUrl = `https://oauth.vk.com/authorize?client_id=${VK_CLIENT_ID}&redirect_uri=${REDIRECT_URI_LINK}&response_type=code`;
 
