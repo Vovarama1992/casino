@@ -56,6 +56,7 @@ export default function Bonuses() {
       // Считывание авторизационного кода из URL
       const urlParams = new URLSearchParams(window.location.search);
       const code = urlParams.get('code');
+      console.log('code: ' + code);
 
       if (code) {
         try {
@@ -65,7 +66,7 @@ export default function Bonuses() {
             setIsVKLinked(true);
             toast.success('VK успешно привязан!');
             // Очищаем URL от параметров
-            window.history.replaceState(null, '', window.location.pathname);
+            //window.history.replaceState(null, '', window.location.pathname);
           } else {
             throw new Error('VK привязка не удалась');
           }
