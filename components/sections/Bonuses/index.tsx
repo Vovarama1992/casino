@@ -177,6 +177,7 @@ export default function Bonuses() {
                 <button
                   onClick={async () => {
                     if (item.name === 'VK') {
+                      console.log('vk_url: ' + item.authUrl);
                       window.location.href = item.authUrl;
                     } else if (item.name === 'Telegram') {
                       try {
