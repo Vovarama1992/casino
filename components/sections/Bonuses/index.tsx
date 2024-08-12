@@ -178,7 +178,7 @@ export default function Bonuses() {
                   onClick={async () => {
                     if (item.name === 'VK') {
                       console.log('vk_url: ' + item.authUrl);
-                      window.location.href = item.authUrl;
+                      //window.location.href = item.authUrl;
                     } else if (item.name === 'Telegram') {
                       try {
                         const response = await fetch(
