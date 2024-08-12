@@ -27,6 +27,10 @@ export default function Bonuses() {
   const [isVKLinked, setIsVKLinked] = useState<boolean>(false);
   const user = useUnit($user);
 
+  const initiateOAuth = (authUrl: string) => {
+    window.location.href = authUrl;
+  };
+
   useEffect(() => {
     const calculateTimeLeft = (lastClaimTime: string) => {
       const now = new Date().toISOString(); // текущая дата и время в UTC
@@ -170,12 +174,12 @@ export default function Bonuses() {
                 <div className={styles.SocialMediaListItemIcon}>
                   {item.icon}
                 </div>
-                <a
-                  href={item.authUrl}
-                  className={`${styles.SocialMediaLinkedButton} ${styles.Button} ${item.status === 'linked' ? styles.SocialMediaLinkedButtonActive : ''}`}
+                <button
+                  onClick={() => initiateOAuth(item.authUrl)}
+                  className={`${styles.SocialMediaLinkedButton} ${styles.Button} ${item.name === 'VK' && isVKLinked ? styles.SocialMediaLinkedButtonActive : ''}`}
                 >
-                  {isVKLinked && item.name == 'VK' ? 'Привязано' : 'Привязать'}
-                </a>
+                  {item.name === 'VK' && isVKLinked ? 'Привязано' : 'Привязать'}
+                </button>
               </li>
             ))}
           </ul>
