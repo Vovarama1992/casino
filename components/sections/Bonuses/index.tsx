@@ -27,18 +27,25 @@ export default function Bonuses() {
   const [isVKLinked, setIsVKLinked] = useState<boolean>(false);
   const user = useUnit($user);
 
-  const initiateOAuth = (authUrl: string) => {
-    window.location.href = authUrl;
-  };
-
   useEffect(() => {
-    const calculateTimeLeft = (lastClaimTime: string) => {
-      const now = new Date().toISOString(); // текущая дата и время в UTC
-      const lastClaimDate = new Date(lastClaimTime).toISOString(); // переводим полученную дату в UTC
-      const nextClaimDate =
-        new Date(lastClaimDate).getTime() + 24 * 60 * 60 * 1000;
-      const timeDifference = nextClaimDate - new Date(now).getTime();
-      return timeDifference > 0 ? Math.floor(timeDifference / 1000) : 0;
+    const linkVK = async (code: string) => {
+      try {
+        const response = await fetch(`/users/oauth/vk/link?code=${code}`, {
+          method: 'GET',
+        });
+        if (response.ok) {
+          setIsVKLinked(true); // Обновляем состояние привязки VK
+          toast.success('VK успешно привязан!');
+
+          // Очищаем URL от параметров
+          window.history.replaceState(null, '', window.location.pathname);
+        } else {
+          throw new Error('Failed to link VK');
+        }
+      } catch (error) {
+        console.error(error);
+        toast.error('Не удалось привязать VK. Попробуйте снова позже.');
+      }
     };
 
     const checkLatestClaim = async () => {
@@ -53,36 +60,29 @@ export default function Bonuses() {
       }
     };
 
-    checkLatestClaim();
+    const calculateTimeLeft = (lastClaimTime: string) => {
+      const now = new Date().toISOString(); // текущая дата и время в UTC
+      const lastClaimDate = new Date(lastClaimTime).toISOString(); // переводим полученную дату в UTC
+      const nextClaimDate =
+        new Date(lastClaimDate).getTime() + 24 * 60 * 60 * 1000;
+      const timeDifference = nextClaimDate - new Date(now).getTime();
+      return timeDifference > 0 ? Math.floor(timeDifference / 1000) : 0;
+    };
 
-    // Считывание авторизационного кода из URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get('code');
+    const init = async () => {
+      await checkLatestClaim();
 
-    if (code) {
-      linkVK(code);
-    }
-  }, [bonusValue]);
+      // Считывание авторизационного кода из URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const code = urlParams.get('code');
 
-  const linkVK = async (code: string) => {
-    try {
-      const response = await fetch(`/users/oauth/vk/link?code=${code}`, {
-        method: 'GET',
-      });
-      if (response.ok) {
-        setIsVKLinked(true); // Обновляем состояние привязки VK
-        toast.success('VK успешно привязан!');
-
-        // Очищаем URL от параметров
-        window.history.replaceState(null, '', window.location.pathname);
-      } else {
-        throw new Error('Failed to link VK');
+      if (code) {
+        await linkVK(code);
       }
-    } catch (error) {
-      console.error(error);
-      toast.error('Не удалось привязать VK. Попробуйте снова позже.');
-    }
-  };
+    };
+
+    init();
+  }, [bonusValue]);
 
   const claimBonus = async () => {
     try {
@@ -175,8 +175,35 @@ export default function Bonuses() {
                   {item.icon}
                 </div>
                 <button
-                  onClick={() => initiateOAuth(item.authUrl)}
-                  className={`${styles.SocialMediaLinkedButton} ${styles.Button} ${item.name === 'VK' && isVKLinked ? styles.SocialMediaLinkedButtonActive : ''}`}
+                  onClick={async () => {
+                    if (item.name === 'VK') {
+                      window.location.href = item.authUrl;
+                    } else if (item.name === 'Telegram') {
+                      try {
+                        const response = await fetch(
+                          '/users/oauth/telegram/link',
+                          {
+                            method: 'GET',
+                          },
+                        );
+                        if (response.ok) {
+                          toast.success('Telegram успешно привязан!');
+                        } else {
+                          throw new Error('Failed to link Telegram');
+                        }
+                      } catch (error) {
+                        console.error(error);
+                        toast.error(
+                          'Не удалось привязать Telegram. Попробуйте снова позже.',
+                        );
+                      }
+                    }
+                  }}
+                  className={`${styles.SocialMediaLinkedButton} ${styles.Button} ${
+                    item.name === 'VK' && isVKLinked
+                      ? styles.SocialMediaLinkedButtonActive
+                      : ''
+                  }`}
                 >
                   {item.name === 'VK' && isVKLinked ? 'Привязано' : 'Привязать'}
                 </button>
