@@ -15,6 +15,7 @@ import {
   checkLatestClaimBonus,
   claimBonusFx,
   applyPromoCodeFx,
+  linkVKFx, // Импортируем созданный эффект
 } from '@/api/bonus';
 import { useUnit } from 'effector-react';
 import { $user, setUser } from '@/context/user';
@@ -28,26 +29,6 @@ export default function Bonuses() {
   const user = useUnit($user);
 
   useEffect(() => {
-    const linkVK = async (code: string) => {
-      try {
-        const response = await fetch(`/users/oauth/vk/link?code=${code}`, {
-          method: 'GET',
-        });
-        if (response.ok) {
-          setIsVKLinked(true); // Обновляем состояние привязки VK
-          toast.success('VK успешно привязан!');
-
-          // Очищаем URL от параметров
-          window.history.replaceState(null, '', window.location.pathname);
-        } else {
-          throw new Error('Failed to link VK');
-        }
-      } catch (error) {
-        console.error(error);
-        toast.error('Не удалось привязать VK. Попробуйте снова позже.');
-      }
-    };
-
     const checkLatestClaim = async () => {
       try {
         const data = await checkLatestClaimBonus({
@@ -77,7 +58,21 @@ export default function Bonuses() {
       const code = urlParams.get('code');
 
       if (code) {
-        await linkVK(code);
+        try {
+          const user = await linkVKFx(code); // Получаем объект пользователя
+          if (user && user.vk_id) {
+            // Проверяем, что vk_id установлен
+            setIsVKLinked(true);
+            toast.success('VK успешно привязан!');
+            // Очищаем URL от параметров
+            window.history.replaceState(null, '', window.location.pathname);
+          } else {
+            throw new Error('VK привязка не удалась');
+          }
+        } catch (error) {
+          console.error(error);
+          toast.error('Не удалось привязать VK. Попробуйте снова позже.');
+        }
       }
     };
 

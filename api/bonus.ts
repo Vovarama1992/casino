@@ -19,3 +19,11 @@ export const applyPromoCodeFx = createEffect(
     return data;
   },
 );
+
+export const linkVKFx = createEffect(async (code: string) => {
+  const formData = new FormData();
+  formData.append('code', code);
+
+  const { data } = await protectedApi.post('/users/oauth/vk/link', formData);
+  return data;
+});
