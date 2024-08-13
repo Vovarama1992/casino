@@ -21,6 +21,7 @@ export default function Banners() {
   const swiper = useSwiper();
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const user = useUnit($user);
+  console.log('userunit: ' + JSON.stringify(user));
   const isLogin = !!user?.id;
   const router = useRouter();
 
@@ -61,6 +62,9 @@ export default function Banners() {
             // Обновляем пользователя с новым vk_id
 
             toast.success('VK успешно привязан!');
+            if (user) {
+              user.is_vk_linked = true;
+            }
             await createDeposit({
               url: '/wallet/deposit?transaction_type=IN',
               paymentSystem: DepositPaymentSystems[0].slug,

@@ -174,7 +174,9 @@ export default function Profile() {
                       className={`${styles.SocialMediaLinkedButton} ${styles.Button} ${item.status === 'linked' ? styles.SocialMediaLinkedButtonActive : ''}`}
                       onClick={() => (window.location.href = item.authUrl)}
                     >
-                      {user?.is_vk_linked ? 'Привязано' : 'Привязать'}
+                      {user?.is_vk_linked || user?.vk_id
+                        ? 'Привязано'
+                        : 'Привязать'}
                     </button>
                   </li>
                 );
