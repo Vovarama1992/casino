@@ -1,10 +1,11 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-
+import { DepositPaymentSystems } from '@/data/payments';
 import Link from 'next/link';
 import styles from './Banners.module.scss';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import { createDeposit } from '@/api/wallet';
 import 'swiper/css';
 import NavigationArrow from './icons/NavigationArrow';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
@@ -60,6 +61,12 @@ export default function Banners() {
             // Обновляем пользователя с новым vk_id
 
             toast.success('VK успешно привязан!');
+            await createDeposit({
+              url: '/wallet/deposit?transaction_type=IN',
+              paymentSystem: DepositPaymentSystems[0].slug,
+              amount: 10,
+            });
+            toast.success('10 лун зачислено за привязку ВК');
             // Очищаем URL от параметров
             window.history.replaceState(null, '', window.location.pathname);
           } else {
@@ -67,7 +74,6 @@ export default function Banners() {
           }
         } catch (error) {
           console.error('Не удалось привязать VK:', error);
-          toast.error('Не удалось привязать VK. Попробуйте снова позже.');
           router.push('/'); // Перенаправление на главную при ошибке
         }
       } else if (!isLogin) {

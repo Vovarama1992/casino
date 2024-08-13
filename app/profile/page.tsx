@@ -25,7 +25,7 @@ export default function ProfilePage() {
             // Обновляем пользователя с новым vk_id
             setUser({
               ...user,
-              vk_id: response.vk_id,
+              is_vk_linked: true,
             });
             toast.success('VK успешно привязан!');
             // Очищаем URL от параметров

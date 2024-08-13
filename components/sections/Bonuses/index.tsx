@@ -203,9 +203,7 @@ export default function Bonuses() {
                       : ''
                   }`}
                 >
-                  {item.name === 'VK' && user?.vk_id
-                    ? 'Привязано'
-                    : 'Привязать'}
+                  {user?.is_vk_linked ? 'Привязано' : 'Привязать'}
                 </button>
               </li>
             ))}

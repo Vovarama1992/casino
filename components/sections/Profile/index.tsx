@@ -172,8 +172,9 @@ export default function Profile() {
                     </div>
                     <button
                       className={`${styles.SocialMediaLinkedButton} ${styles.Button} ${item.status === 'linked' ? styles.SocialMediaLinkedButtonActive : ''}`}
+                      onClick={() => (window.location.href = item.authUrl)}
                     >
-                      {item.status === 'linked' ? 'Привязано' : 'Привязать'}
+                      {user?.is_vk_linked ? 'Привязано' : 'Привязать'}
                     </button>
                   </li>
                 );

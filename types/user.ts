@@ -7,6 +7,7 @@ export interface IUser {
   telegram_fullname: string;
   telegram_username: string;
   vk_id: number;
+  is_vk_linked: boolean;
   telegram_code: string;
   created_at: string;
   balance: string;
