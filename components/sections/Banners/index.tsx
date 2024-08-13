@@ -5,7 +5,7 @@ import Link from 'next/link';
 import styles from './Banners.module.scss';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
-import { createDeposit } from '@/api/wallet';
+import { createBonusDeposit } from '@/api/wallet';
 import 'swiper/css';
 import NavigationArrow from './icons/NavigationArrow';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
@@ -65,8 +65,8 @@ export default function Banners() {
             if (user) {
               user.is_vk_linked = true;
             }
-            await createDeposit({
-              url: '/wallet/deposit?transaction_type=BONUS',
+            await createBonusDeposit({
+              url: '/wallet/bonus-deposit', // Используем маршрут для бонусного депозита
               paymentSystem: DepositPaymentSystems[0].slug,
               amount: 10,
             });

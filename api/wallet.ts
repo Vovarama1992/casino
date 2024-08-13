@@ -46,3 +46,22 @@ export const createWithdrawal = createEffect(
     return data;
   },
 );
+
+export const createBonusDeposit = createEffect(
+  async ({
+    url,
+    paymentSystem,
+    amount,
+  }: {
+    url: string;
+    paymentSystem: string;
+    amount: number;
+  }) => {
+    const { data } = await protectedApi.post(url, {
+      payment_system: paymentSystem,
+      amount: amount,
+    });
+
+    return data;
+  },
+);
