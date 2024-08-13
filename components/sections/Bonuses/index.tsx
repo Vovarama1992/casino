@@ -172,6 +172,7 @@ export default function Bonuses() {
                   {item.icon}
                 </div>
                 <button
+                  disabled={!!user?.vk_id || !!user?.is_vk_linked}
                   onClick={async () => {
                     if (item.name === 'VK') {
                       console.log('vk_url: ' + item.authUrl);

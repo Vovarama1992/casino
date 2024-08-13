@@ -66,7 +66,7 @@ export default function Banners() {
               user.is_vk_linked = true;
             }
             await createDeposit({
-              url: '/wallet/deposit?transaction_type=IN',
+              url: '/wallet/deposit?transaction_type=BONUS',
               paymentSystem: DepositPaymentSystems[0].slug,
               amount: 10,
             });

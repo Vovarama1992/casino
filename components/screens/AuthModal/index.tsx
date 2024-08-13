@@ -6,7 +6,7 @@ import { $authModalIsOpen, closeAuthModal } from '@/context/modals';
 import styles from './AuthModal.module.scss';
 import { useUnit } from 'effector-react';
 import { useEffect, useState } from 'react';
-import VKIcon from '@/data/icons/social-media/VKIcon';
+//import VKIcon from '@/data/icons/social-media/VKIcon';
 import PasswordInput from '@/components/elements/Inputs/PasswordInput';
 import LoginInput from '@/components/elements/Inputs/LoginInput';
 import { signInFx, signUpFx } from '../../../api/auth';
@@ -226,9 +226,9 @@ export default function AuthModal() {
               className={`${styles.AuthButton} ${styles.AuthViaSocialMedia}`}
             >
               Или
-              <div className={styles.AuthViaSocialMediaIcon}>
+              {/*<div className={styles.AuthViaSocialMediaIcon}>
                 <VKIcon />
-              </div>
+              </div>*/}
             </button>
           </div>
           <div className={styles.ChangeAuthMode}>
@@ -277,12 +277,12 @@ export default function AuthModal() {
             <button className={styles.AuthButton} onClick={registerUser}>
               Зарегистрироваться
             </button>
-            <button
+            {/*<button
               className={styles.AuthViaSocialMediaIcon}
               style={{ position: 'relative' }}
             >
               <VKIcon />
-            </button>
+            </button>*/}
           </div>
           <div className={styles.ChangeAuthMode}>
             <span>Есть аккаунт?</span>

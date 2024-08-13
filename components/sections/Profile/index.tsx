@@ -171,6 +171,7 @@ export default function Profile() {
                       {item.icon}
                     </div>
                     <button
+                      disabled={!!user?.vk_id || !!user?.is_vk_linked}
                       className={`${styles.SocialMediaLinkedButton} ${styles.Button} ${item.status === 'linked' ? styles.SocialMediaLinkedButtonActive : ''}`}
                       onClick={() => (window.location.href = item.authUrl)}
                     >
