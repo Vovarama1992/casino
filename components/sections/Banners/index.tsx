@@ -13,7 +13,7 @@ import { getUserData } from '@/api/user';
 import { toast } from 'react-toastify'; // Импорт для тостов
 import { useRouter } from 'next/navigation';
 import { linkVKFx } from '@/api/bonus'; // Убедитесь, что этот импорт корректен
-import { $user, setUser } from '@/context/user'; // Импорт Effector контекста
+import { $user } from '@/context/user'; // Импорт Effector контекста
 import { useUnit } from 'effector-react'; // Импорт Effector хука
 
 export default function Banners() {
@@ -56,12 +56,9 @@ export default function Banners() {
       if (code) {
         try {
           const response = await linkVKFx(code); // Получаем объект пользователя с VK ID
-          if (user && response && response.vk_id) {
+          if (response) {
             // Обновляем пользователя с новым vk_id
-            setUser({
-              ...user,
-              vk_id: response.vk_id,
-            });
+
             toast.success('VK успешно привязан!');
             // Очищаем URL от параметров
             window.history.replaceState(null, '', window.location.pathname);
