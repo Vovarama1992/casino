@@ -48,7 +48,9 @@ export default function Banners() {
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get('code');
+    const codze = urlParams.get('code');
+    console.log(codze);
+    const code = 'sadsa';
     console.log('VK Authorization Code:', code);
 
     const processVKCode = async () => {
