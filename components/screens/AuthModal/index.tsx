@@ -222,14 +222,14 @@ export default function AuthModal() {
             <button className={styles.AuthButton} onClick={loginUser}>
               Войти
             </button>
-            <button
+            {/*<button
               className={`${styles.AuthButton} ${styles.AuthViaSocialMedia}`}
             >
               Или
-              {/*<div className={styles.AuthViaSocialMediaIcon}>
+              <div className={styles.AuthViaSocialMediaIcon}>
                 <VKIcon />
-              </div>*/}
-            </button>
+              </div>
+            </button>*/}
           </div>
           <div className={styles.ChangeAuthMode}>
             <span>Нет аккаунта?</span>
