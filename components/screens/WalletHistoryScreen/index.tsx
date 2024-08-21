@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { $user } from '@/context/user';
+import { useUnit } from 'effector-react';
 import { toast } from 'react-toastify';
-import { getWalletHistory } from '@/api/wallet';
+import {
+  getWalletHistory,
+  getPendingWithdrawals,
+  approveWithdrawal,
+  rejectWithdrawal,
+} from '@/api/wallet';
 import { WithdrawalPaymentSystems } from '@/data/payments';
 import { IWalletHistory } from '@/types/payments';
 import { formatDate, formatTime } from '@/utils/formatDate';
@@ -12,26 +19,37 @@ import { TransactionType } from '@/types/transactions';
 
 export default function WalletHistoryScreen() {
   const [history, setHistory] = useState<IWalletHistory[]>([]);
+  const [pendingWithdrawals, setPendingWithdrawals] = useState<
+    IWalletHistory[]
+  >([]);
   const [totalPages, setTotalPages] = useState<number>(0);
   const itemsPerPage = useMediaQuery(480) ? 6 : 3;
   const [loader, setLoader] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
+  const user = useUnit($user);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoader(true);
-        const response = await getWalletHistory({
-          url: `/wallet/history?page=${currentPage}&limit=${itemsPerPage}`,
-        });
-        setTotalPages(Math.ceil(response.total / itemsPerPage));
-        // Фильтруем транзакции по типу IN и OUT
-        const filteredTransactions = response.transactions.filter(
-          (item: IWalletHistory) =>
-            item.type === TransactionType.IN ||
-            item.type === TransactionType.OUT,
-        );
-        setHistory(filteredTransactions);
+        if (user?.username === 'admin') {
+          const response = await getPendingWithdrawals({
+            url: '/wallet/withdrawals/pending',
+          });
+          setPendingWithdrawals(response);
+        } else {
+          const response = await getWalletHistory({
+            url: `/wallet/history?page=${currentPage}&limit=${itemsPerPage}`,
+          });
+          setTotalPages(Math.ceil(response.total / itemsPerPage));
+          const filteredTransactions = response.transactions.filter(
+            (item: IWalletHistory) =>
+              item.type === TransactionType.IN ||
+              item.type === TransactionType.OUT,
+          );
+          setHistory(filteredTransactions);
+        }
         setLoader(false);
       } catch (error: any) {
         setLoader(false);
@@ -43,7 +61,7 @@ export default function WalletHistoryScreen() {
     };
 
     fetchData();
-  }, [currentPage, itemsPerPage]);
+  }, [currentPage, itemsPerPage, user?.username]);
 
   const changePage = (pageNumber: number) => {
     setCurrentPage(pageNumber);
@@ -61,9 +79,76 @@ export default function WalletHistoryScreen() {
     }
   };
 
+  const handleApprove = async (withdrawalId: number) => {
+    try {
+      await approveWithdrawal({
+        url: '/wallet/withdrawals/confirm',
+        withdrawalId,
+      });
+      toast.success('Заявка одобрена');
+      setPendingWithdrawals((prev) =>
+        prev.filter((w) => w.id !== withdrawalId),
+      );
+    } catch (error: any) {
+      console.error(error);
+      toast.error(
+        error.response?.data?.detail || 'Произошла ошибка при одобрении',
+      );
+    }
+  };
+
+  const handleReject = async (withdrawalId: number) => {
+    try {
+      await rejectWithdrawal({
+        url: '/wallet/withdrawals/reject',
+        withdrawalId,
+      });
+      toast.success('Заявка отклонена');
+      setPendingWithdrawals((prev) =>
+        prev.filter((w) => w.id !== withdrawalId),
+      );
+    } catch (error: any) {
+      console.error(error);
+      toast.error(
+        error.response?.data?.detail || 'Произошла ошибка при отклонении',
+      );
+    }
+  };
+
   return (
     <div className={styles.WalletHistoryList}>
-      {history.length > 0 ? (
+      {user?.username === 'admin' ? (
+        pendingWithdrawals.length > 0 ? (
+          <>
+            {pendingWithdrawals.map((item: IWalletHistory) => (
+              <div className={styles.WalletHistoryItem} key={item.id}>
+                <div>ID пользователя: {item.user_id}</div>{' '}
+                {/* Отображение user_id */}
+                <div>Сумма: {Math.round(Number(item.amount))}</div>
+                <div>Дата: {formatDate(item.created_at)}</div>
+                <div className={styles.PaymentActions}>
+                  <button
+                    className={styles.ApproveButton}
+                    onClick={() => handleApprove(item.id)}
+                  >
+                    Одобрить
+                  </button>
+                  <button
+                    className={styles.RejectButton}
+                    onClick={() => handleReject(item.id)}
+                  >
+                    Отклонить
+                  </button>
+                </div>
+              </div>
+            ))}
+          </>
+        ) : loader ? (
+          'Загрузка'
+        ) : (
+          'Нет заявок на вывод'
+        )
+      ) : history.length > 0 ? (
         <>
           {history.map((item: IWalletHistory) => {
             const paymentSystem = WithdrawalPaymentSystems.find(

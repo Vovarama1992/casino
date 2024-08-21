@@ -28,7 +28,7 @@ export default function AuthModal() {
     typeof window !== 'undefined' ? window.location.href : '',
   );
 
-  const referrerId = parsed.query.referrer_id || 4;
+  const referrerId = parsed.query.referrer_id;
   console.log('referrerId_check' + referrerId);
 
   useEffect(() => {
@@ -89,13 +89,23 @@ export default function AuthModal() {
     ) {
       try {
         console.log('referrerId: ' + referrerId);
-        await signUpFx({
-          url: `/users/register?referrer_id=${referrerId}`,
+
+        // Создаем объект с обязательными параметрами
+        const signUpData = {
+          url: `/users/register`,
           username: username,
           password: password,
           fingerprint: password,
-        });
-        console.log('referrerid: ' + referrerId);
+        };
+
+        // Если referrerId существует, добавляем его в URL
+        if (referrerId) {
+          signUpData.url += `?referrer_id=${referrerId}`;
+        }
+
+        // Выполняем запрос
+        await signUpFx(signUpData);
+        console.log('referrerId: ' + referrerId);
 
         clearInputs();
         toast.success(

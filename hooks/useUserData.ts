@@ -6,13 +6,17 @@ export const useUserData = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        console.log('Fetching user data...');
         const { data } = await getUserData({
           url: '/users/me',
         });
+        console.log('User data:', data);
 
+        console.log('Fetching user balance...');
         const { balance, bonus_balance, pure_balance } = await getUserBalance({
           url: '/wallet/balance',
         });
+        console.log('User balance:', { balance, bonus_balance, pure_balance });
 
         setUser({
           ...data,
@@ -20,8 +24,9 @@ export const useUserData = () => {
           pure_balance,
           balance,
         });
+        console.log('User data and balance set in context.');
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        console.error('Error fetching user data or balance:', error);
       }
     };
 

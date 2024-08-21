@@ -1,30 +1,50 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import React from 'react';
-
+import React, { useEffect } from 'react';
 import styles from './WithdrawalScreen.module.scss';
 import { ChangeEvent, useState } from 'react';
 import { IPaymentSystem } from '@/types/payments';
 import { WithdrawalPaymentSystems } from '@/data/payments';
 import Image from 'next/image';
 import { useUnit } from 'effector-react';
-import { $user, setUser } from '@/context/user';
+import { $user } from '@/context/user';
 import { toast } from 'react-toastify';
-import { createWithdrawal } from '@/api/wallet';
+import { createWithdrawal, getLastWithdrawalAttempt } from '@/api/wallet';
 
 export default function WithdrawalScreen() {
   const [selectedPaymentSystem, setSelectedPaymentSystem] =
     useState<IPaymentSystem>(WithdrawalPaymentSystems[0]);
   const [withdrawalValue, setWithdrawalValue] = useState<number | null>();
   const user = useUnit($user);
+  const userId = user?.id;
   const balance = Number(user?.balance);
   const bonus_balance = Number(user?.bonus_balance) || 0;
   const pure_balance = balance - bonus_balance;
   const minLimit = 500;
   const maxLimit = 15000;
-  console.log('balance: ' + balance);
-  console.log('bbonus: ' + bonus_balance);
-  console.log('pure_balance: ' + pure_balance);
+
+  useEffect(() => {
+    const checkLastWithdrawalAttempt = async () => {
+      try {
+        const lastWithdrawal = await getLastWithdrawalAttempt({
+          url: '/wallet/withdrawals/last',
+        });
+
+        const lastAttemptDate = new Date(lastWithdrawal.created_at);
+        const now = new Date();
+        const timeDifference = now.getTime() - lastAttemptDate.getTime();
+        const hoursSinceLastAttempt = timeDifference / (1000 * 3600);
+
+        if (hoursSinceLastAttempt < 24) {
+          toast.error('Вы можете делать вывод средств только раз в 24 часа.');
+        }
+      } catch (error) {
+        toast.error('Не удалось проверить время последней попытки вывода.');
+      }
+    };
+
+    checkLastWithdrawalAttempt();
+  }, []);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
@@ -38,46 +58,48 @@ export default function WithdrawalScreen() {
   const valueButtons = [500, 1000, 2000, 5000, 10000];
 
   const handleCreateWithdrawal = async () => {
-    if (!withdrawalValue) {
-      toast.error('Заполните поле пополнения');
-    } else if (
-      withdrawalValue < minLimit ||
-      withdrawalValue > maxLimit ||
-      pure_balance < withdrawalValue // Используем pure_balance для проверки
-    ) {
-      if (withdrawalValue < minLimit) {
-        toast.error(`Сумма вывода должна быть больше ${minLimit}`);
+    try {
+      const lastWithdrawal = await getLastWithdrawalAttempt({
+        url: '/wallet/withdrawals/last',
+      });
+
+      const lastAttemptDate = new Date(lastWithdrawal.created_at);
+      const now = new Date();
+      const timeDifference = now.getTime() - lastAttemptDate.getTime();
+      const hoursSinceLastAttempt = timeDifference / (1000 * 3600);
+
+      if (hoursSinceLastAttempt < 24) {
+        toast.error('Вы можете делать вывод средств только раз в 24 часа.');
+        return;
       }
-      if (withdrawalValue > maxLimit) {
-        toast.error(
-          `Сумма вывода должна должна быть не больше ${pure_balance}`,
-        );
-      }
-      if (Number(user?.pure_balance) < withdrawalValue) {
-        toast.error(`Не хватает денег на счету`);
-      }
-    } else {
-      try {
+
+      if (!withdrawalValue) {
+        toast.error('Заполните поле пополнения');
+      } else if (
+        withdrawalValue < minLimit ||
+        withdrawalValue > maxLimit ||
+        pure_balance < withdrawalValue
+      ) {
+        if (withdrawalValue < minLimit) {
+          toast.error(`Сумма вывода должна быть больше ${minLimit}`);
+        }
+        if (withdrawalValue > maxLimit) {
+          toast.error(`Сумма вывода должна быть не больше ${pure_balance}`);
+        }
+        if (pure_balance < withdrawalValue) {
+          toast.error(`Не хватает денег на счету`);
+        }
+      } else {
         await createWithdrawal({
           url: '/wallet/withdrawal',
           paymentSystem: selectedPaymentSystem.slug,
           amount: withdrawalValue,
+          user_id: userId || 1,
         });
-        toast.success('Оплата прошла успешно');
-        {
-          user &&
-            setUser({
-              ...user,
-              pure_balance: (
-                Number(user?.pure_balance) - withdrawalValue
-              ).toString(),
-            });
-        }
-        setWithdrawalValue(null);
-      } catch (error) {
-        console.error(error);
-        toast.error('Произошла ошибка. Повторите позже');
+        toast.success('Заявка на вывод средств отправлена');
       }
+    } catch (error) {
+      toast.error('Произошла ошибка при отправке заявки на вывод');
     }
   };
 

@@ -15,4 +15,5 @@ export interface IWalletHistory {
   to_account: string;
   from_account: string;
   status: string;
+  user_id: number; // Добавляем user_id
 }
