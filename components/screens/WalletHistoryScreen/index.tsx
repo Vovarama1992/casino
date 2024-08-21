@@ -16,6 +16,17 @@ import { useMediaQuery } from '@/hooks/useMediaQuery';
 import NavigationArrow from './icons/NavigationArrow';
 import styles from './WalletHistoryScreen.module.scss';
 import { TransactionType } from '@/types/transactions';
+const statusMap = {
+  pending: 'на рассмотрении',
+  confirmed: 'одобрено',
+  rejected: 'отклонено',
+} as const;
+
+type Status = keyof typeof statusMap;
+
+const getStatusLabel = (status: Status): string => {
+  return statusMap[status];
+};
 
 export default function WalletHistoryScreen() {
   const [history, setHistory] = useState<IWalletHistory[]>([]);
@@ -199,11 +210,7 @@ export default function WalletHistoryScreen() {
                               : '#264A09',
                       }}
                     >
-                      {item.status === 'В ожидании'
-                        ? 'В ожидании'
-                        : item.status === 'Отклонено'
-                          ? 'Отклонено'
-                          : 'Завершено'}
+                      {getStatusLabel(item.status as Status)}
                     </button>
                   </div>
                 </div>
