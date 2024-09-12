@@ -1,47 +1,72 @@
 'use client';
-import React from 'react';
-
+import React, { useEffect, useState } from 'react';
+import { useUnit } from 'effector-react';
+import { $user } from '@/context/user';
+import { initGameSessionFx, getLobbyFx } from '@/api/play';
 import { ISlot } from '@/types/games';
-import styles from './GameScreen.module.scss';
-import BackArrowIcon from './icons/BackArrowIcon';
-import ViewIcon from './icons/ViewIcon';
-import FullScreenIcon from './icons/FullScreenIcon';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import PlayIcon from './icons/PlayIcon';
-import DemoIcon from './icons/DemoIcon';
 
 export default function GameScreen({ slot }: { slot: ISlot }) {
-  const router = useRouter();
+  const user = useUnit($user);
+  const [isLoading, setIsLoading] = useState(false);
+  const [gameUrl, setGameUrl] = useState<string | null>(null); // URL для игры
+
+  // Автоматическая инициализация игры при рендере компонента
+  useEffect(() => {
+    const initializeGame = async () => {
+      setIsLoading(true);
+
+      try {
+        let lobbyData = null;
+
+        // Проверяем, есть ли у игры лобби
+        if (slot.has_lobby) {
+          const lobbyResponse = await getLobbyFx({
+            game_uuid: slot.id,
+            currency: 'EUR',
+          });
+          lobbyData = lobbyResponse.lobbyData;
+        }
+
+        const sessionId = `session-${Date.now()}`;
+
+        // Инициализация игровой сессии
+        const gameSessionResponse = await initGameSessionFx({
+          game_uuid: slot.id,
+          player_id: String(user?.id),
+          player_name: String(user?.username),
+          currency: 'EUR',
+          session_id: sessionId,
+          lobby_data: lobbyData, // Если есть лобби, передаем данные
+        });
+
+        // Устанавливаем URL игры
+        setGameUrl(gameSessionResponse.url);
+      } catch (error) {
+        console.error('Ошибка при запуске игры:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    initializeGame(); // Запускаем игру сразу при рендеринге
+  }, [slot, user]);
 
   return (
-    <div className={styles.GameScreen}>
-      <div className={styles.Header}>
-        <button className={styles.BackButton} onClick={router.back}>
-          <BackArrowIcon /> Назад
-        </button>
-        <h3 className={styles.Title}>
-          {slot.provider} - {slot.name}
-        </h3>
-        <div className={styles.Buttons}>
-          <Link href={`/slot/demo/${slot.id}`} className={styles.Button}>
-            <ViewIcon />
-          </Link>
-          <button className={styles.Button}>
-            <FullScreenIcon />
-          </button>
-        </div>
-      </div>
-      <div className={styles.Main}>
-        <div className={styles.MobileButtons}>
-          <button className={styles.MobileButton}>
-            <PlayIcon />
-          </button>
-          <Link href={`/slot/demo/${slot.id}`} className={styles.MobileButton}>
-            <DemoIcon />
-          </Link>
-        </div>
-      </div>
+    <div>
+      {isLoading ? (
+        <p>Загрузка игры...</p>
+      ) : gameUrl ? (
+        <iframe
+          src={gameUrl}
+          width="100%"
+          height="600"
+          frameBorder="0"
+          allowFullScreen
+          title="Game Screen"
+        ></iframe>
+      ) : (
+        <p>Не удалось загрузить игру.</p>
+      )}
     </div>
   );
 }

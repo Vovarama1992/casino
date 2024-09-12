@@ -1,12 +1,9 @@
 'use client';
-import React from 'react';
-
+import React, { useEffect, useState } from 'react';
 import ModalLayout from '@/components/layouts/ModalLayout';
 import { $authModalIsOpen, closeAuthModal } from '@/context/modals';
 import styles from './AuthModal.module.scss';
 import { useUnit } from 'effector-react';
-import { useEffect, useState } from 'react';
-//import VKIcon from '@/data/icons/social-media/VKIcon';
 import PasswordInput from '@/components/elements/Inputs/PasswordInput';
 import LoginInput from '@/components/elements/Inputs/LoginInput';
 import { signInFx, signUpFx } from '../../../api/auth';
@@ -15,33 +12,20 @@ import queryString from 'query-string';
 
 export default function AuthModal() {
   const modalIsOpen = useUnit($authModalIsOpen);
-  const [isSignIn, setIsSignIn] = useState<boolean>();
+  const [isSignIn, setIsSignIn] = useState<boolean>(true);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
   const [usernameError, setUsernameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [repeatPasswordError, setRepeatPasswordError] = useState('');
-  const [fingerprint, setFingerprint] = useState(12345);
-  console.log(fingerprint);
+  const [fingerprint, setFingerprint] = useState<string | null>(null); // Fingerprint для пользователя
+
   const parsed = queryString.parseUrl(
     typeof window !== 'undefined' ? window.location.href : '',
   );
 
   const referrerId = parsed.query.referrer_id;
-  console.log('referrerId_check' + referrerId);
-
-  useEffect(() => {
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const client = require('clientjs');
-      const fingerprint = client.getFingerprint();
-      setFingerprint(fingerprint);
-      console.log('useffect finger: ' + fingerprint);
-    } catch (error) {
-      /* empty */
-    }
-  }, []);
 
   const clearInputs = () => {
     setUsername('');
@@ -52,6 +36,19 @@ export default function AuthModal() {
     setRepeatPasswordError('');
   };
 
+  // Получаем fingerprint при загрузке
+  useEffect(() => {
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const client = require('clientjs'); // Как было у тебя
+      const clientInstance = new client();
+      const fp = clientInstance.getFingerprint();
+      setFingerprint(fp); // Сохраняем fingerprint
+    } catch (error) {
+      console.error('Ошибка получения fingerprint:', error);
+    }
+  }, []);
+
   useEffect(() => {
     const modalState = localStorage.getItem('authModal');
     if (modalState === 'registration') {
@@ -59,7 +56,7 @@ export default function AuthModal() {
     } else {
       setIsSignIn(true);
     }
-  });
+  }, []);
 
   const handleClose = () => {
     closeAuthModal();
@@ -88,25 +85,23 @@ export default function AuthModal() {
       password.length <= 32
     ) {
       try {
-        console.log('referrerId: ' + referrerId);
+        // Убеждаемся, что fingerprint есть
+        if (!fingerprint) {
+          throw new Error('Fingerprint не получен');
+        }
 
-        // Создаем объект с обязательными параметрами
         const signUpData = {
           url: `/users/register`,
           username: username,
           password: password,
-          fingerprint: password,
+          fingerprint: fingerprint, // Используем fingerprint
         };
 
-        // Если referrerId существует, добавляем его в URL
         if (referrerId) {
           signUpData.url += `?referrer_id=${referrerId}`;
         }
 
-        // Выполняем запрос
         await signUpFx(signUpData);
-        console.log('referrerId: ' + referrerId);
-
         clearInputs();
         toast.success(
           'Регистрация прошла успешно! Самое время авторизоваться.',
@@ -115,7 +110,7 @@ export default function AuthModal() {
       } catch (error: any) {
         console.error(error);
         toast.error(
-          error.response.data.detail || 'Произошла ошибка. Повторите позже',
+          error.response?.data?.detail || 'Произошла ошибка. Повторите позже',
         );
       }
     } else {
@@ -164,14 +159,12 @@ export default function AuthModal() {
         });
         clearInputs();
         localStorage.setItem('accessToken', data.access_token);
-        console.log('token: ' + data.access_token);
         toast.success('Вы успешно авторизовались');
         closeAuthModal();
 
         location.reload();
       } catch (error: any) {
         console.error(error);
-        console.error(error.response.data.detail);
         toast.error(
           error.response.data.detail || 'Произошла ошибка. Повторите позже',
         );
@@ -210,9 +203,7 @@ export default function AuthModal() {
               value={username}
               onChange={(e) => {
                 setUsername(e.target.value);
-                if (password.length < 16) {
-                  setUsernameError('');
-                }
+                setUsernameError('');
               }}
               placeholder="Введите логин"
               error={usernameError}
@@ -232,14 +223,6 @@ export default function AuthModal() {
             <button className={styles.AuthButton} onClick={loginUser}>
               Войти
             </button>
-            {/*<button
-              className={`${styles.AuthButton} ${styles.AuthViaSocialMedia}`}
-            >
-              Или
-              <div className={styles.AuthViaSocialMediaIcon}>
-                <VKIcon />
-              </div>
-            </button>*/}
           </div>
           <div className={styles.ChangeAuthMode}>
             <span>Нет аккаунта?</span>
@@ -287,12 +270,6 @@ export default function AuthModal() {
             <button className={styles.AuthButton} onClick={registerUser}>
               Зарегистрироваться
             </button>
-            {/*<button
-              className={styles.AuthViaSocialMediaIcon}
-              style={{ position: 'relative' }}
-            >
-              <VKIcon />
-            </button>*/}
           </div>
           <div className={styles.ChangeAuthMode}>
             <span>Есть аккаунт?</span>

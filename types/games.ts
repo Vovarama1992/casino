@@ -11,5 +11,7 @@ export interface ISlot {
   provider: string;
   image: string;
   id: string;
+  has_lobby?: boolean; // Указывает, есть ли лобби у игры
+  lobby_data?: string; // Данные лобби, если есть
   className?: string;
 }

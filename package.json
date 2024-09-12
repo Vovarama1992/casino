@@ -40,6 +40,7 @@
   "devDependencies": {
     "@types/clientjs": "^0.2.2",
     "@types/node": "^20",
+    "@types/qs": "^6.9.15",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/scroll-lock": "^2.1.3",
