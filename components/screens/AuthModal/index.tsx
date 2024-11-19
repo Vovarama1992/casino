@@ -9,7 +9,6 @@ import LoginInput from '@/components/elements/Inputs/LoginInput';
 import { signInFx, signUpFx } from '../../../api/auth';
 import { toast } from 'react-toastify';
 import queryString from 'query-string';
-import FingerprintJS from '@fingerprintjs/fingerprintjs';
 
 export default function AuthModal() {
   const modalIsOpen = useUnit($authModalIsOpen);
@@ -21,6 +20,16 @@ export default function AuthModal() {
   const [passwordError, setPasswordError] = useState('');
   const [repeatPasswordError, setRepeatPasswordError] = useState('');
   const [fingerprint, setFingerprint] = useState<string | null>(null);
+
+  const generateSimpleFingerprint = () => {
+    // Используем комбинацию текущего времени, случайного числа и userAgent для генерации уникального идентификатора
+    const userAgent =
+      typeof navigator !== 'undefined' ? navigator.userAgent : 'unknown';
+    const timestamp = Date.now();
+    const randomValue = Math.random().toString(36).substring(2, 15);
+
+    return `fp-${btoa(`${userAgent}-${timestamp}-${randomValue}`)}`; // Кодируем в base64 для упрощения
+  };
 
   const parsed = queryString.parseUrl(
     typeof window !== 'undefined' ? window.location.href : '',
@@ -38,29 +47,22 @@ export default function AuthModal() {
   };
 
   useEffect(() => {
-    const generateDefaultFingerprint = () => {
-      const defaultFingerprint = localStorage.getItem('defaultFingerprint');
-      if (defaultFingerprint) {
-        return defaultFingerprint;
-      }
-
-      const newFingerprint = `default-${Math.random().toString(36).substring(2, 15)}`;
-      localStorage.setItem('defaultFingerprint', newFingerprint);
-      return newFingerprint;
-    };
-
     const getFingerprint = async () => {
       try {
-        const fp = await FingerprintJS.load();
-        const result = await fp.get();
-        setFingerprint(result.visitorId);
+        const defaultFingerprint = localStorage.getItem('fingerprint');
+        if (defaultFingerprint) {
+          // Используем существующий fingerprint
+          setFingerprint(defaultFingerprint);
+        } else {
+          // Генерируем новый fingerprint
+          const newFingerprint = generateSimpleFingerprint();
+          localStorage.setItem('fingerprint', newFingerprint); // Сохраняем в localStorage
+          setFingerprint(newFingerprint);
+        }
       } catch (error) {
-        console.error(
-          'Ошибка получения fingerprint, будет использовано дефолтное значение:',
-          error,
-        );
-        const defaultFp = generateDefaultFingerprint();
-        setFingerprint(defaultFp);
+        console.error('Ошибка при создании fingerprint:', error);
+        const fallbackFingerprint = `fallback-${Math.random().toString(36).substring(2, 15)}`;
+        setFingerprint(fallbackFingerprint); // Устанавливаем запасной fingerprint
       }
     };
 
