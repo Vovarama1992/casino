@@ -9,6 +9,7 @@ import LoginInput from '@/components/elements/Inputs/LoginInput';
 import { signInFx, signUpFx } from '../../../api/auth';
 import { toast } from 'react-toastify';
 import queryString from 'query-string';
+import FingerprintJS from '@fingerprintjs/fingerprintjs';
 
 export default function AuthModal() {
   const modalIsOpen = useUnit($authModalIsOpen);
@@ -19,7 +20,7 @@ export default function AuthModal() {
   const [usernameError, setUsernameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [repeatPasswordError, setRepeatPasswordError] = useState('');
-  const [fingerprint, setFingerprint] = useState<string | null>(null); // Fingerprint для пользователя
+  const [fingerprint, setFingerprint] = useState<string | null>(null);
 
   const parsed = queryString.parseUrl(
     typeof window !== 'undefined' ? window.location.href : '',
@@ -36,17 +37,34 @@ export default function AuthModal() {
     setRepeatPasswordError('');
   };
 
-  // Получаем fingerprint при загрузке
   useEffect(() => {
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const client = require('clientjs'); // Как было у тебя
-      const clientInstance = new client();
-      const fp = clientInstance.getFingerprint();
-      setFingerprint(fp); // Сохраняем fingerprint
-    } catch (error) {
-      console.error('Ошибка получения fingerprint:', error);
-    }
+    const generateDefaultFingerprint = () => {
+      const defaultFingerprint = localStorage.getItem('defaultFingerprint');
+      if (defaultFingerprint) {
+        return defaultFingerprint;
+      }
+
+      const newFingerprint = `default-${Math.random().toString(36).substring(2, 15)}`;
+      localStorage.setItem('defaultFingerprint', newFingerprint);
+      return newFingerprint;
+    };
+
+    const getFingerprint = async () => {
+      try {
+        const fp = await FingerprintJS.load();
+        const result = await fp.get();
+        setFingerprint(result.visitorId);
+      } catch (error) {
+        console.error(
+          'Ошибка получения fingerprint, будет использовано дефолтное значение:',
+          error,
+        );
+        const defaultFp = generateDefaultFingerprint();
+        setFingerprint(defaultFp);
+      }
+    };
+
+    getFingerprint();
   }, []);
 
   useEffect(() => {

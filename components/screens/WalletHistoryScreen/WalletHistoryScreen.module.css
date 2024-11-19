@@ -26,11 +26,11 @@
 }
 
 .PaymentAmount {
-  @apply flex items-center gap-[10px] text-[20px] font-medium;
+  @apply flex items-center gap-[10px] text-[20px] mr-[100px] font-medium;
 }
 
 .PaymentAmountIcon {
-  @apply flex h-[50px] w-[50px] items-center justify-center rounded-[10px] bg-[#1E0D44];
+  @apply flex h-[50px] w-[50px] ml-[45px] items-center justify-center rounded-[10px] bg-[#1E0D44];
 }
 .PaymentAmountIcon img {
   @apply h-[29px] w-[29px];

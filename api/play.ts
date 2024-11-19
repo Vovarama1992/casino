@@ -43,6 +43,11 @@ export const initGameSessionFx = createEffect(
   },
 );
 
+export const getGamesFx = createEffect(async () => {
+  const response = await protectedApi.get('/providers/pragmatic/games');
+  return response.data;
+});
+
 export const getLobbyFx = createEffect(
   async ({ game_uuid, currency }: { game_uuid: string; currency: string }) => {
     const params = { game_uuid, currency };

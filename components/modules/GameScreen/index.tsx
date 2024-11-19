@@ -2,16 +2,35 @@
 import React, { useEffect, useState } from 'react';
 import { useUnit } from 'effector-react';
 import { $user } from '@/context/user';
-import { initGameSessionFx, getLobbyFx } from '@/api/play';
+import { initGameSessionFx, getLobbyFx } from '@/api/play'; // Импортируем getGamesFx
 import { ISlot } from '@/types/games';
 
 export default function GameScreen({ slot }: { slot: ISlot }) {
   const user = useUnit($user);
   const [isLoading, setIsLoading] = useState(false);
   const [gameUrl, setGameUrl] = useState<string | null>(null); // URL для игры
+  //const [games, setGames] = useState([]); // Добавляем состояние для списка игр
 
   // Автоматическая инициализация игры при рендере компонента
   useEffect(() => {
+    {
+      /*const fetchGames = async () => {
+      try {
+        const gamesResponse = await getGamesFx(); // Запрашиваем список игр
+        setGames(gamesResponse); // Сохраняем список игр в состояние
+        console.log(
+          'Список игр:',
+          gamesResponse.items.map((game: any) => game.name),
+        ); // Выводим список в консоль
+      } catch (error) {
+        console.error('Ошибка при получении списка игр:', error);
+      }
+    };
+
+    fetchGames();
+    console.log(games[1]);*/
+    }
+
     const initializeGame = async () => {
       setIsLoading(true);
 
@@ -21,7 +40,7 @@ export default function GameScreen({ slot }: { slot: ISlot }) {
         // Проверяем, есть ли у игры лобби
         if (slot.has_lobby) {
           const lobbyResponse = await getLobbyFx({
-            game_uuid: slot.id,
+            game_uuid: '23ca989db9ca5ad94dbca17fa54a123f3f7efc9d',
             currency: 'EUR',
           });
           lobbyData = lobbyResponse.lobbyData;
@@ -31,7 +50,7 @@ export default function GameScreen({ slot }: { slot: ISlot }) {
 
         // Инициализация игровой сессии
         const gameSessionResponse = await initGameSessionFx({
-          game_uuid: slot.id,
+          game_uuid: '23ca989db9ca5ad94dbca17fa54a123f3f7efc9d',
           player_id: String(user?.id),
           player_name: String(user?.username),
           currency: 'EUR',
