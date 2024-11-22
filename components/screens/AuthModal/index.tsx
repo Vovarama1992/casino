@@ -17,6 +17,7 @@ export default function AuthModal({ defaultMode = 'login' }: AuthModalProps) {
   const { isOpen, mode } = useUnit($authModalState);
   const [isSignIn, setIsSignIn] = useState<boolean>(defaultMode === 'login'); // Используем переданный пропс
   const [username, setUsername] = useState('');
+  const [referrerId, setReferrerId] = useState<string | null>(null);
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
   const [usernameError, setUsernameError] = useState('');
@@ -36,7 +37,12 @@ export default function AuthModal({ defaultMode = 'login' }: AuthModalProps) {
     return `fp-${btoa(`${userAgent}-${timestamp}-${randomValue}`)}`; // Кодируем в base64 для упрощения
   };
 
-  const referrerId = localStorage.getItem('referrer_id');
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedReferrerId = localStorage.getItem('referrer_id');
+      setReferrerId(storedReferrerId);
+    }
+  }, []);
 
   const clearInputs = () => {
     setUsername('');
