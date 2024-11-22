@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+
 import { ProfileSocialMedia } from '@/data/profile';
 import styles from './Bonuses.module.scss';
 import PageTitle from '@/components/elements/PageTitle';
@@ -28,7 +28,6 @@ export default function Bonuses() {
   const [promoCode, setPromoCode] = useState<string>('');
   const [isVKLinked, setIsVKLinked] = useState<boolean>(false);
   const user = useUnit($user);
-  const router = useRouter();
 
   useEffect(() => {
     const checkLatestClaim = async () => {
@@ -98,14 +97,9 @@ export default function Bonuses() {
         setUser({
           ...user,
           bonus_balance: user.bonus_balance + data.amount,
+          balance: user.balance + data.amount,
         });
       }
-
-      setTimeout(() => {
-        setTimeout(() => {
-          router.push('/bonuses');
-        }, 1500);
-      }, 1500);
     } catch (error: any) {
       console.error(error);
       toast.error(
