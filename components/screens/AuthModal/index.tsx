@@ -126,6 +126,7 @@ export default function AuthModal({ defaultMode = 'login' }: AuthModalProps) {
         await signUpFx(signUpData);
         clearInputs();
         setJust(true);
+        setTimeout(() => setJust(false), 3000);
         toast.success(
           'Регистрация прошла успешно! Самое время авторизоваться.',
         );
