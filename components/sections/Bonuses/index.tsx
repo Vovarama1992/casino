@@ -99,10 +99,9 @@ export default function Bonuses() {
         });
       }
 
-      // Перезагрузка страницы через 1.5 секунды
       setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+        window.location.assign(window.location.href);
+      }, 1500);
     } catch (error: any) {
       console.error(error);
       toast.error(
