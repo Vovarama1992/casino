@@ -89,14 +89,20 @@ export default function Bonuses() {
         url: '/wallet/apply_promo_code',
         promoCode: promoCode,
       });
+
       toast.success(`Промокод успешно применен: ${data.amount} лун`);
-      {
-        user &&
-          setUser({
-            ...user,
-            bonus_balance: user.bonus_balance + data.amount,
-          });
+
+      if (user) {
+        setUser({
+          ...user,
+          bonus_balance: user.bonus_balance + data.amount,
+        });
       }
+
+      // Перезагрузка страницы через 1.5 секунды
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } catch (error: any) {
       console.error(error);
       toast.error(
@@ -105,7 +111,6 @@ export default function Bonuses() {
       );
     }
   };
-
   return (
     <section className={styles.Bonuses}>
       <PageTitle title="Бонусы" />
