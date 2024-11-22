@@ -17,6 +17,7 @@ export default function AuthModal({ defaultMode = 'login' }: AuthModalProps) {
   const { isOpen, mode } = useUnit($authModalState);
   const [isSignIn, setIsSignIn] = useState<boolean>(defaultMode === 'login'); // Используем переданный пропс
   const [username, setUsername] = useState('');
+  const [justRegistered, setJust] = useState(false);
   const [referrerId, setReferrerId] = useState<string | null>(null);
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
@@ -124,6 +125,7 @@ export default function AuthModal({ defaultMode = 'login' }: AuthModalProps) {
 
         await signUpFx(signUpData);
         clearInputs();
+        setJust(true);
         toast.success(
           'Регистрация прошла успешно! Самое время авторизоваться.',
         );
@@ -215,7 +217,7 @@ export default function AuthModal({ defaultMode = 'login' }: AuthModalProps) {
       isOpen={isOpen}
       className={styles.AuthModal}
     >
-      {mode === 'login' ? (
+      {mode === 'login' || justRegistered ? (
         <>
           <h2>Авторизация</h2>
           <form className={styles.Form}>
