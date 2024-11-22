@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import ModalLayout from '@/components/layouts/ModalLayout';
 import { $authModalState, closeAuthModal } from '@/context/modals';
+import { openAuthModal } from '@/context/modals';
 import styles from './AuthModal.module.scss';
 import { useUnit } from 'effector-react';
 import PasswordInput from '@/components/elements/Inputs/PasswordInput';
@@ -17,7 +18,7 @@ export default function AuthModal({ defaultMode = 'login' }: AuthModalProps) {
   const { isOpen, mode } = useUnit($authModalState);
   const [isSignIn, setIsSignIn] = useState<boolean>(defaultMode === 'login'); // Используем переданный пропс
   const [username, setUsername] = useState('');
-  const [justRegistered, setJust] = useState(false);
+
   const [referrerId, setReferrerId] = useState<string | null>(null);
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
@@ -125,8 +126,8 @@ export default function AuthModal({ defaultMode = 'login' }: AuthModalProps) {
 
         await signUpFx(signUpData);
         clearInputs();
-        setJust(true);
-        setTimeout(() => setJust(false), 3000);
+        openAuthModal({ mode: 'login' });
+
         toast.success(
           'Регистрация прошла успешно! Самое время авторизоваться.',
         );
@@ -218,7 +219,7 @@ export default function AuthModal({ defaultMode = 'login' }: AuthModalProps) {
       isOpen={isOpen}
       className={styles.AuthModal}
     >
-      {mode === 'login' || justRegistered ? (
+      {mode === 'login' ? (
         <>
           <h2>Авторизация</h2>
           <form className={styles.Form}>
