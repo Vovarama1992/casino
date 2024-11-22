@@ -1,9 +1,8 @@
 import axios from 'axios';
 
-// Базовый API для запросов
 export const api = axios.create({
   withCredentials: true,
-  baseURL: 'https://api.moon-gamble.fans/', // укажите адрес вашего бэкенда
+  baseURL: 'https://api.moon-gamble.fans/', // Локальный адрес бэкенда
   headers: {
     'Content-Type': 'application/json',
   },
@@ -15,8 +14,10 @@ const token =
 
 // Защищенный API с авторизацией
 export const protectedApi = axios.create({
-  baseURL: 'https://api.moon-gamble.fans/', // укажите адрес вашего бэкенда
+  baseURL: 'https://api.moon-gamble.fans/', // Локальный адрес бэкенда
   headers: {
     Authorization: token ? `Bearer ${token}` : '',
   },
 });
+
+//'https://api.moon-gamble.fans/'

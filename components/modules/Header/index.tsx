@@ -5,7 +5,7 @@ import Logo from '@/components/elements/Logo';
 import styles from './Header.module.scss';
 import Image from 'next/image';
 import WalletIcon from './icons/WalletIcon';
-import { openAuthModal, openWalletModal } from '@/context/modals';
+import { openAuthModal } from '@/context/modals';
 import Link from 'next/link';
 import { useUnit } from 'effector-react';
 import { $user } from '@/context/user';
@@ -16,13 +16,11 @@ export default function Header() {
   const isLogin = user?.id;
 
   const openRegistrationModal = () => {
-    localStorage.setItem('authModal', 'registration');
-    openAuthModal();
+    openAuthModal({ mode: 'registration' }); // Передаем режим регистрации
   };
 
   const openLoginModal = () => {
-    localStorage.setItem('authModal', 'login');
-    openAuthModal();
+    openAuthModal({ mode: 'login' }); // Передаем режим авторизации
   };
 
   return (
@@ -34,10 +32,7 @@ export default function Header() {
         {isLogin ? (
           <div className={styles.ProfileBlock}>
             <div className={styles.WalletBox}>
-              <button
-                className={styles.WalletButton}
-                onClick={() => openWalletModal()}
-              >
+              <button className={styles.WalletButton}>
                 <WalletIcon />
               </button>
               <div className={styles.Balance}>
@@ -50,12 +45,7 @@ export default function Header() {
                 />
               </div>
             </div>
-            <button
-              className={styles.DepositButton}
-              onClick={() => openWalletModal()}
-            >
-              Пополнить
-            </button>
+            <button className={styles.DepositButton}>Пополнить</button>
             <Link href="/profile" className={styles.Profile}>
               <Avatar className={styles.ProfileAvatar} />
               <span className={styles.ProfileName}>

@@ -35,6 +35,7 @@ export default function Profile() {
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
     setUser(null);
+    window.location.reload();
     redirect('');
   };
 

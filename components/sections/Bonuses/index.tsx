@@ -53,29 +53,6 @@ export default function Bonuses() {
     const init = async () => {
       setIsVKLinked(false);
       await checkLatestClaim();
-
-      // Считывание авторизационного кода из URL
-      /*const urlParams = new URLSearchParams(window.location.search);
-      const code = urlParams.get('code');
-      console.log('code: ' + code);
-
-      if (code) {
-        try {
-          const user = await linkVKFx(code); // Получаем объект пользователя
-          if (user && user.vk_id) {
-            // Проверяем, что vk_id установлен
-            setIsVKLinked(true);
-            toast.success('VK успешно привязан!');
-            // Очищаем URL от параметров
-            //window.history.replaceState(null, '', window.location.pathname);
-          } else {
-            throw new Error('VK привязка не удалась');
-          }
-        } catch (error) {
-          console.error(error);
-          toast.error('Не удалось привязать VK. Попробуйте снова позже.');
-        }
-      }*/
     };
 
     init();
@@ -98,7 +75,6 @@ export default function Bonuses() {
             balance: data.balance,
           });
       }
-      window.location.reload();
     } catch (error: any) {
       console.error(error);
       toast.error(

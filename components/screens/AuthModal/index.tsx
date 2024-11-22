@@ -1,18 +1,21 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import ModalLayout from '@/components/layouts/ModalLayout';
-import { $authModalIsOpen, closeAuthModal } from '@/context/modals';
+import { $authModalState, closeAuthModal } from '@/context/modals';
 import styles from './AuthModal.module.scss';
 import { useUnit } from 'effector-react';
 import PasswordInput from '@/components/elements/Inputs/PasswordInput';
 import LoginInput from '@/components/elements/Inputs/LoginInput';
 import { signInFx, signUpFx } from '../../../api/auth';
 import { toast } from 'react-toastify';
-import queryString from 'query-string';
 
-export default function AuthModal() {
-  const modalIsOpen = useUnit($authModalIsOpen);
-  const [isSignIn, setIsSignIn] = useState<boolean>(true);
+interface AuthModalProps {
+  defaultMode?: 'login' | 'registration'; // Указание начального режима
+}
+
+export default function AuthModal({ defaultMode = 'login' }: AuthModalProps) {
+  const { isOpen, mode } = useUnit($authModalState);
+  const [isSignIn, setIsSignIn] = useState<boolean>(defaultMode === 'login'); // Используем переданный пропс
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
@@ -20,6 +23,8 @@ export default function AuthModal() {
   const [passwordError, setPasswordError] = useState('');
   const [repeatPasswordError, setRepeatPasswordError] = useState('');
   const [fingerprint, setFingerprint] = useState<string | null>(null);
+
+  console.log(isSignIn);
 
   const generateSimpleFingerprint = () => {
     // Используем комбинацию текущего времени, случайного числа и userAgent для генерации уникального идентификатора
@@ -31,11 +36,7 @@ export default function AuthModal() {
     return `fp-${btoa(`${userAgent}-${timestamp}-${randomValue}`)}`; // Кодируем в base64 для упрощения
   };
 
-  const parsed = queryString.parseUrl(
-    typeof window !== 'undefined' ? window.location.href : '',
-  );
-
-  const referrerId = parsed.query.referrer_id;
+  const referrerId = localStorage.getItem('referrer_id');
 
   const clearInputs = () => {
     setUsername('');
@@ -80,17 +81,11 @@ export default function AuthModal() {
 
   const handleClose = () => {
     closeAuthModal();
-    setIsSignIn(true);
     clearInputs();
   };
 
   const handleChangeMode = () => {
-    if (!isSignIn) {
-      localStorage.setItem('authModal', 'login');
-    } else {
-      localStorage.setItem('authModal', 'registration');
-    }
-    setIsSignIn(!isSignIn);
+    setIsSignIn((prev) => !prev); // Просто переключаем локальное состояние
     clearInputs();
   };
 
@@ -211,10 +206,10 @@ export default function AuthModal() {
   return (
     <ModalLayout
       closeClick={handleClose}
-      isOpen={modalIsOpen}
+      isOpen={isOpen}
       className={styles.AuthModal}
     >
-      {isSignIn ? (
+      {mode === 'login' ? (
         <>
           <h2>Авторизация</h2>
           <form className={styles.Form}>
@@ -243,10 +238,6 @@ export default function AuthModal() {
             <button className={styles.AuthButton} onClick={loginUser}>
               Войти
             </button>
-          </div>
-          <div className={styles.ChangeAuthMode}>
-            <span>Нет аккаунта?</span>
-            <button onClick={handleChangeMode}>Создать аккаунт</button>
           </div>
         </>
       ) : (
@@ -290,10 +281,6 @@ export default function AuthModal() {
             <button className={styles.AuthButton} onClick={registerUser}>
               Зарегистрироваться
             </button>
-          </div>
-          <div className={styles.ChangeAuthMode}>
-            <span>Есть аккаунт?</span>
-            <button onClick={handleChangeMode}>Войти в аккаунт</button>
           </div>
         </>
       )}

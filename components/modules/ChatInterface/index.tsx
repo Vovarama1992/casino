@@ -46,11 +46,13 @@ const ChatInterface = ({ ticket }: { ticket: IAppeal }) => {
         const messageData = JSON.parse(event.data);
         const messageContent = messageData.content;
 
-        setMessages((prevMessages) => [...prevMessages, messageContent]);
-      };
-
-      ws.onerror = (error) => {
-        console.error('WebSocket error:', error);
+        setMessages((prevMessages) => {
+          // Простая проверка на наличие такого сообщения
+          if (!prevMessages.includes(messageContent)) {
+            return [...prevMessages, messageContent]; // Добавляем только уникальное сообщение
+          }
+          return prevMessages; // Если сообщение уже есть, ничего не делаем
+        });
       };
 
       ws.onclose = (event) => {
@@ -105,6 +107,8 @@ const ChatInterface = ({ ticket }: { ticket: IAppeal }) => {
       console.log('sendtime');
       socket.send(JSON.stringify(message));
       console.log('message sent!!!' + ' ' + content);
+
+      // Убираем локальное добавление сообщения
       setCurrentMessage('');
       setCurrentFile(null); // Сбрасываем выбранный файл после отправки
     }

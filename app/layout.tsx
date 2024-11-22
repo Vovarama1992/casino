@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import ReferrerHandler from '@/components/ReferrerHandler';
 import localFont from 'next/font/local';
 import '@/public/styles/globals.scss';
 import Layout from '@/components/layouts/Layout';
@@ -45,6 +46,7 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body className={moon.variable}>
+        <ReferrerHandler />
         <Layout>{children}</Layout>
       </body>
     </html>

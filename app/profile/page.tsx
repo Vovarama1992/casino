@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { $user, setUser } from '@/context/user';
 import { useUnit } from 'effector-react';
 import { useRouter } from 'next/navigation';
-import { linkVKFx } from '@/api/bonus'; // Убедитесь, что этот импорт корректен
+import { linkVKFx } from '@/api/bonus';
 
 export default function ProfilePage() {
   const user = useUnit($user);
