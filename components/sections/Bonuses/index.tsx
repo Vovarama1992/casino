@@ -81,8 +81,6 @@ export default function Bonuses() {
               vk_id: updatedUser.vk_id, // Обновляем только vk_id
             } as IUser);
           }
-
-          toast.success('VK уже привязан.');
         } else {
           setIsVKLinked(false);
         }
