@@ -24,12 +24,12 @@ import { $user, setUser } from '@/context/user';
 import CountdownTimer from '@/components/elements/CountdownTimer';
 
 export default function Bonuses() {
+  const user = useUnit($user);
   const [bonusValue, setBonusValue] = useState<number | null>(null);
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const [promoCode, setPromoCode] = useState<string>('');
-  const [isVKLinked, setIsVKLinked] = useState<boolean>(false);
+  const [isVKLinked, setIsVKLinked] = useState<boolean>(!!user?.vk_id);
 
-  const user = useUnit($user);
   console.log(bonusValue);
   useEffect(() => {
     const checkLatestClaim = async () => {
@@ -196,7 +196,6 @@ export default function Bonuses() {
                         paymentSystem: 'internal', // Укажите систему платежей
                         amount: 10, // Сумма бонуса
                       });
-                      setIsVKLinked(true);
 
                       window.location.href = item.authUrl;
                     } else if (item.name === 'Telegram') {
