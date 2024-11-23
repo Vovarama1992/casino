@@ -23,6 +23,7 @@ import {
 import { useUnit } from 'effector-react';
 import { $user, setUser } from '@/context/user';
 import CountdownTimer from '@/components/elements/CountdownTimer';
+import { IUser } from '@/types/user';
 
 export default function Bonuses() {
   const [bonusValue, setBonusValue] = useState<number | null>(null);
@@ -67,7 +68,24 @@ export default function Bonuses() {
 
       // Проверяем VK привязку
       try {
-        await getUserData({ url: '/users/me' }); // Запрос на получение данных пользователя
+        const response = await getUserData({ url: '/users/me' }); // Запрос на получение данных пользователя
+        const updatedUser = response.data;
+
+        if (updatedUser.vk_id) {
+          setIsVKLinked(true);
+
+          // Передаем обновленный объект с новым vk_id
+          if (user) {
+            setUser({
+              ...user,
+              vk_id: updatedUser.vk_id, // Обновляем только vk_id
+            } as IUser);
+          }
+
+          toast.success('VK уже привязан.');
+        } else {
+          setIsVKLinked(false);
+        }
       } catch (error) {
         console.error('Ошибка при проверке VK привязки:', error);
       }
