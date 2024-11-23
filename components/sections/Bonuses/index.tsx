@@ -67,16 +67,7 @@ export default function Bonuses() {
 
       // Проверяем VK привязку
       try {
-        const response = await getUserData({ url: '/users/me' }); // Запрос на получение данных пользователя
-        const updatedUser = response.data;
-
-        if (updatedUser.vk_id) {
-          setIsVKLinked(true);
-          setUser(updatedUser); // Обновляем состояние пользователя
-          toast.success('VK уже привязан.');
-        } else {
-          setIsVKLinked(false);
-        }
+        await getUserData({ url: '/users/me' }); // Запрос на получение данных пользователя
       } catch (error) {
         console.error('Ошибка при проверке VK привязки:', error);
       }
