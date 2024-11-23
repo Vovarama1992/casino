@@ -28,6 +28,7 @@ export default function Bonuses() {
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const [promoCode, setPromoCode] = useState<string>('');
   const [isVKLinked, setIsVKLinked] = useState<boolean>(false);
+  window.location.reload();
   const user = useUnit($user);
   console.log(bonusValue);
   useEffect(() => {
