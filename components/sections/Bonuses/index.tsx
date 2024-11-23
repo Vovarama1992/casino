@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { ProfileSocialMedia } from '@/data/profile';
+import { getUserData } from '@/api/user';
 import styles from './Bonuses.module.scss';
 import PageTitle from '@/components/elements/PageTitle';
 import { createBonusDeposit } from '@/api/wallet';
@@ -24,12 +25,11 @@ import { $user, setUser } from '@/context/user';
 import CountdownTimer from '@/components/elements/CountdownTimer';
 
 export default function Bonuses() {
-  const user = useUnit($user);
   const [bonusValue, setBonusValue] = useState<number | null>(null);
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const [promoCode, setPromoCode] = useState<string>('');
-  const [isVKLinked, setIsVKLinked] = useState<boolean>(!!user?.vk_id);
-
+  const [isVKLinked, setIsVKLinked] = useState<boolean>(false);
+  const user = useUnit($user);
   console.log(bonusValue);
   useEffect(() => {
     const checkLatestClaim = async () => {
@@ -62,19 +62,24 @@ export default function Bonuses() {
     };
 
     const init = async () => {
-      console.log('Initializing VK link check and bonus claim...');
-
-      // Проверяем состояние VK привязки
-      if (user?.vk_id || user?.is_vk_linked) {
-        console.log('VK is already linked.');
-        setIsVKLinked(true);
-      } else {
-        console.log('VK is not linked.');
-        setIsVKLinked(false);
-      }
-
-      // Проверка бонусов
+      // Проверяем бонусы
       await checkLatestClaim();
+
+      // Проверяем VK привязку
+      try {
+        const response = await getUserData({ url: '/users/me' }); // Запрос на получение данных пользователя
+        const updatedUser = response.data;
+
+        if (updatedUser.vk_id) {
+          setIsVKLinked(true);
+          setUser(updatedUser); // Обновляем состояние пользователя
+          toast.success('VK уже привязан.');
+        } else {
+          setIsVKLinked(false);
+        }
+      } catch (error) {
+        console.error('Ошибка при проверке VK привязки:', error);
+      }
     };
 
     const checkVKCode = () => {
