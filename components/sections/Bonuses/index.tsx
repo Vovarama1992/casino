@@ -28,7 +28,7 @@ export default function Bonuses() {
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const [promoCode, setPromoCode] = useState<string>('');
   const [isVKLinked, setIsVKLinked] = useState<boolean>(false);
-  window.location.reload();
+
   const user = useUnit($user);
   console.log(bonusValue);
   useEffect(() => {
@@ -196,6 +196,8 @@ export default function Bonuses() {
                         paymentSystem: 'internal', // Укажите систему платежей
                         amount: 10, // Сумма бонуса
                       });
+                      setIsVKLinked(true);
+                      window.location.reload();
 
                       window.location.href = item.authUrl;
                     } else if (item.name === 'Telegram') {
