@@ -197,7 +197,6 @@ export default function Bonuses() {
                         amount: 10, // Сумма бонуса
                       });
                       setIsVKLinked(true);
-                      window.location.reload();
 
                       window.location.href = item.authUrl;
                     } else if (item.name === 'Telegram') {
