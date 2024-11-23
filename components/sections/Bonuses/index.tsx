@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { ProfileSocialMedia } from '@/data/profile';
 import styles from './Bonuses.module.scss';
 import PageTitle from '@/components/elements/PageTitle';
+import { createBonusDeposit } from '@/api/wallet';
 import PromoCodeIcon from './icons/PromoCodeIcon';
 import MarkIcon from './icons/MarkIcon';
 import Image from 'next/image';
@@ -61,7 +62,17 @@ export default function Bonuses() {
 
     const init = async () => {
       console.log('Initializing VK link check and bonus claim...');
-      setIsVKLinked(false);
+
+      // Проверяем состояние VK привязки
+      if (user?.vk_id || user?.is_vk_linked) {
+        console.log('VK is already linked.');
+        setIsVKLinked(true);
+      } else {
+        console.log('VK is not linked.');
+        setIsVKLinked(false);
+      }
+
+      // Проверка бонусов
       await checkLatestClaim();
     };
 
@@ -178,6 +189,13 @@ export default function Bonuses() {
                   onClick={async () => {
                     if (item.name === 'VK') {
                       console.log('vk_url: ' + item.authUrl);
+
+                      await createBonusDeposit({
+                        url: '/wallet/bonus-deposit',
+                        paymentSystem: 'internal', // Укажите систему платежей
+                        amount: 10, // Сумма бонуса
+                      });
+
                       window.location.href = item.authUrl;
                     } else if (item.name === 'Telegram') {
                       try {
