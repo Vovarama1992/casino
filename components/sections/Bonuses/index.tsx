@@ -28,16 +28,18 @@ export default function Bonuses() {
   const [promoCode, setPromoCode] = useState<string>('');
   const [isVKLinked, setIsVKLinked] = useState<boolean>(false);
   const user = useUnit($user);
-
+  console.log(bonusValue);
   useEffect(() => {
     const checkLatestClaim = async () => {
       try {
+        console.log('Checking latest claim...');
         const data = await checkLatestClaimBonus({
           url: '/wallet/bonus/last-earn',
         });
+        console.log('Latest claim data:', data);
         setTimeLeft(calculateTimeLeft(data.created_at));
       } catch (error) {
-        console.error(error);
+        console.error('Error checking latest claim:', error);
         setTimeLeft(0);
       }
     };
@@ -48,26 +50,38 @@ export default function Bonuses() {
       const nextClaimDate =
         new Date(lastClaimDate).getTime() + 24 * 60 * 60 * 1000;
       const timeDifference = nextClaimDate - new Date(now).getTime();
+      console.log('Time left calculation:', {
+        now,
+        lastClaimDate,
+        nextClaimDate,
+        timeDifference,
+      });
       return timeDifference > 0 ? Math.floor(timeDifference / 1000) : 0;
     };
 
     const init = async () => {
+      console.log('Initializing VK link check and bonus claim...');
       setIsVKLinked(false);
       await checkLatestClaim();
     };
 
     const checkVKCode = () => {
+      console.log('Checking VK code...');
       const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get('code')) {
+      const vkCode = urlParams.get('code');
+      if (vkCode) {
+        console.log('VK code found:', vkCode);
         setIsVKLinked(true);
         toast.success('VK успешно привязан!');
-        window.history.replaceState(null, '', window.location.pathname);
+        window.history.replaceState(null, '', window.location.pathname); // Убираем параметры из URL
+      } else {
+        console.log('No VK code in URL.');
       }
     };
 
     checkVKCode();
     init();
-  }, [bonusValue]);
+  }, []);
 
   const claimBonus = async () => {
     try {
