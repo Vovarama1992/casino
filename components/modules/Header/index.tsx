@@ -5,7 +5,7 @@ import Logo from '@/components/elements/Logo';
 import styles from './Header.module.scss';
 import Image from 'next/image';
 import WalletIcon from './icons/WalletIcon';
-import { openAuthModal } from '@/context/modals';
+import { openAuthModal, openWalletModal } from '@/context/modals';
 import Link from 'next/link';
 import { useUnit } from 'effector-react';
 import { $user } from '@/context/user';
@@ -16,60 +16,70 @@ export default function Header() {
   const isLogin = user?.id;
 
   const openRegistrationModal = () => {
-    openAuthModal({ mode: 'registration' }); // Передаем режим регистрации
+    openAuthModal({ mode: 'registration' }); // Открытие модала регистрации
   };
 
   const openLoginModal = () => {
-    openAuthModal({ mode: 'login' }); // Передаем режим авторизации
+    openAuthModal({ mode: 'login' }); // Открытие модала авторизации
+  };
+
+  const handleOpenWallet = () => {
+    openWalletModal(); // Глобальное открытие WalletModal
   };
 
   return (
-    <>
-      <header className={styles.Header}>
-        <Logo
-          className={`${styles.Logo} ${isLogin ? styles.LogoProfileMode : ''}`}
-        />
-        {isLogin ? (
-          <div className={styles.ProfileBlock}>
-            <div className={styles.WalletBox}>
-              <button className={styles.WalletButton}>
-                <WalletIcon />
-              </button>
-              <div className={styles.Balance}>
-                {Math.round(Number(user.balance))}
-                <Image
-                  src="/media/Currency.svg"
-                  alt="MoonCoin"
-                  width={0}
-                  height={0}
-                />
-              </div>
+    <header className={styles.Header}>
+      <Logo
+        className={`${styles.Logo} ${isLogin ? styles.LogoProfileMode : ''}`}
+      />
+      {isLogin ? (
+        <div className={styles.ProfileBlock}>
+          <div className={styles.WalletBox}>
+            <button
+              className={styles.WalletButton}
+              onClick={handleOpenWallet} // Открытие WalletModal при клике
+            >
+              <WalletIcon />
+            </button>
+            <div className={styles.Balance}>
+              {Math.round(Number(user.balance))}
+              <Image
+                src="/media/Currency.svg"
+                alt="MoonCoin"
+                width={0}
+                height={0}
+              />
             </div>
-            <button className={styles.DepositButton}>Пополнить</button>
-            <Link href="/profile" className={styles.Profile}>
-              <Avatar className={styles.ProfileAvatar} />
-              <span className={styles.ProfileName}>
-                {user.fullname || user.username}
-              </span>
-            </Link>
           </div>
-        ) : (
-          <div className={styles.AuthBlock}>
-            <button
-              className={`${styles.Button} ${styles.RegistrationButton}`}
-              onClick={openRegistrationModal}
-            >
-              Регистрация
-            </button>
-            <button
-              className={`${styles.Button} ${styles.AuthButton}`}
-              onClick={openLoginModal}
-            >
-              Войти
-            </button>
-          </div>
-        )}
-      </header>
-    </>
+          <button
+            className={styles.DepositButton}
+            onClick={handleOpenWallet} // Открытие WalletModal при клике
+          >
+            Пополнить
+          </button>
+          <Link href="/profile" className={styles.Profile}>
+            <Avatar className={styles.ProfileAvatar} />
+            <span className={styles.ProfileName}>
+              {user.fullname || user.username}
+            </span>
+          </Link>
+        </div>
+      ) : (
+        <div className={styles.AuthBlock}>
+          <button
+            className={`${styles.Button} ${styles.RegistrationButton}`}
+            onClick={openRegistrationModal}
+          >
+            Регистрация
+          </button>
+          <button
+            className={`${styles.Button} ${styles.AuthButton}`}
+            onClick={openLoginModal}
+          >
+            Войти
+          </button>
+        </div>
+      )}
+    </header>
   );
 }

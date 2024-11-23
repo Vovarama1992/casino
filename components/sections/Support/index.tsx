@@ -12,7 +12,12 @@ import { IAppeal } from '@/types/profile';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import ArrowIcon from './icons/ArrowIcon';
 import { toast } from 'react-toastify';
-import { createTicket, getTicket, getTickets } from '@/api/support';
+import {
+  createTicket,
+  getTicket,
+  getTickets,
+  getAllTickets,
+} from '@/api/support';
 import { formatDateToText } from '@/utils/formatDate';
 import { useUnit } from 'effector-react';
 import { $user } from '@/context/user';
@@ -28,21 +33,31 @@ export default function Support() {
   const [firstMessage, setFirstMessage] = useState('');
   const [tickets, setTickets] = useState<IAppeal[]>([]);
   console.log(currentFile);
+  console.log('username: ' + user?.username);
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchTickets = async () => {
+      const isAdmin = user?.username === 'admin';
+      console.log('isAdmin: ' + isAdmin);
+
       try {
-        const response = await getTickets({
-          url: '/tickets/?limit=30&page=1',
-        });
+        let response;
+
+        if (isAdmin) {
+          response = await getAllTickets();
+        } else {
+          response = await getTickets({
+            url: '/tickets/?limit=30&page=1',
+          });
+        }
 
         setTickets(response);
       } catch (error: any) {
-        console.error(error);
+        console.error('Ошибка загрузки тикетов:', error);
       }
     };
 
-    fetchData();
-  }, [createAppealMode]);
+    fetchTickets();
+  }, [user]);
 
   const openAppeal = async ({ id }: { id: number }) => {
     try {

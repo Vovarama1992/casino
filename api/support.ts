@@ -7,6 +7,12 @@ export const getTickets = createEffect(async ({ url }: { url: string }) => {
   return data;
 });
 
+export const getAllTickets = createEffect(async () => {
+  console.log('Fetching all tickets...');
+  const { data } = await protectedApi.get('/tickets/all'); // Маршрут API для всех тикетов
+  return data;
+});
+
 export const getMessages = createEffect(async ({ id }: { id: number }) => {
   const { data } = await protectedApi.get(
     `https://api.moon-gamble.fans/tickets/messages/${id}/`,

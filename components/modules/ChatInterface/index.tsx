@@ -4,7 +4,6 @@ import styles from './ChatInterface.module.scss';
 import { getMessages } from '@/api/support';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import SendIcon from './icons/SendIcon';
-import AttachIcon from './icons/AttachIcon';
 import { useState, useEffect } from 'react';
 import { IAppeal } from '@/types/profile';
 
@@ -122,10 +121,6 @@ const ChatInterface = ({ ticket }: { ticket: IAppeal }) => {
     }
   };
 
-  const handleFileInputClick = () => {
-    document.getElementById('fileInput')?.click();
-  };
-
   return (
     <>
       <div className={styles.Chat}>
@@ -148,12 +143,6 @@ const ChatInterface = ({ ticket }: { ticket: IAppeal }) => {
           onChange={handleFileInputChange}
         />
         <div className={styles.InputButtons}>
-          <button
-            className={styles.AttachMediaButton}
-            onClick={handleFileInputClick}
-          >
-            <AttachIcon />
-          </button>
           <button
             className={styles.SendButton}
             onClick={() => {

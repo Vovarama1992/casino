@@ -56,6 +56,16 @@ export default function Bonuses() {
       await checkLatestClaim();
     };
 
+    const checkVKCode = () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('code')) {
+        setIsVKLinked(true);
+        toast.success('VK успешно привязан!');
+        window.history.replaceState(null, '', window.location.pathname);
+      }
+    };
+
+    checkVKCode();
     init();
   }, [bonusValue]);
 
@@ -182,7 +192,7 @@ export default function Bonuses() {
                       : ''
                   }`}
                 >
-                  {user?.is_vk_linked || user?.vk_id
+                  {user?.is_vk_linked || user?.vk_id || isVKLinked
                     ? 'Привязано'
                     : 'Привязать'}
                 </button>
