@@ -24,45 +24,29 @@ const EffectorUserHandler = () => {
         // 3. С бэка vk_id пришёл.
         if (user && !user.vk_id && fetchedUser?.vk_id) {
           console.log(
-            'VK ID received from backend but missing on frontend. Checking balance.',
+            'VK ID received from backend but missing on frontend. Updating user.',
           );
 
-          // Получаем бонусный баланс с бэка
-          getUserBalance({ url: '/wallet/balance' })
-            .then((balanceResponse) => {
-              const { bonus_balance } = balanceResponse.data;
-              const number = Number(bonus_balance);
-              console.log('number_balance: ' + number);
-              // Проверяем, что бонусный баланс меньше 9
-
-              console.log(
-                'Bonus balance is less than 9. Crediting bonus and updating user.',
-              );
-
-              // Отправляем бонус за привязку VK
-              createBonusDeposit({
-                url: '/wallet/bonus-deposit',
-                paymentSystem: 'internal',
-                amount: 10,
-              })
-                .then(() => {
-                  console.log('Bonus successfully credited.');
-                  toast.success('Бонус успешно начислен!');
-
-                  // Обновляем пользователя на фронте
-                  setUser({
-                    ...user,
-                    vk_id: fetchedUser.vk_id,
-                  } as IUser);
-                })
-                .catch((error) => {
-                  console.error('Failed to credit bonus:', error);
-                  toast.error('Не удалось начислить бонус. Попробуйте позже.');
-                });
+          createBonusDeposit({
+            url: '/wallet/bonus-deposit',
+            paymentSystem: 'internal',
+            amount: 10,
+          })
+            .then(() => {
+              console.log('Bonus successfully credited.');
+              toast.success('Бонус успешно начислен!');
             })
-            .catch((balanceError) => {
-              console.error('Failed to fetch user balance:', balanceError);
+            .catch((error) => {
+              console.error('Failed to credit bonus:', error);
+              toast.error('Не удалось начислить бонус. Попробуйте позже.');
             });
+
+          // Обновляем пользователя на фронте
+          setUser({
+            ...user,
+            vk_id: fetchedUser.vk_id,
+            bonuse_balance: 10,
+          } as IUser);
         } else {
           console.log('No updates needed for user.');
         }
@@ -71,6 +55,19 @@ const EffectorUserHandler = () => {
         console.error('Failed to fetch user data:', error);
       });
   }, [user]);
+
+  useEffect(() => {
+    // Получаем бонусный баланс с бэка
+    getUserBalance({ url: '/wallet/balance' })
+      .then((balanceResponse) => {
+        const { bonus_balance } = balanceResponse.data;
+        const number = Number(bonus_balance);
+        console.log('number_balance: ' + number);
+      })
+      .catch((balanceError) => {
+        console.error('Failed to fetch user balance:', balanceError);
+      });
+  }, []); // Выполняется только при монтировании компонента
 
   return null; // Компонент ничего не рендерит
 };
