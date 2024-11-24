@@ -21,3 +21,5 @@ export const protectedApi = axios.create({
 });
 
 //'https://api.moon-gamble.fans/'
+
+//'http://127.0.0.1:8000/'

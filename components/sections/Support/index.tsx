@@ -7,7 +7,6 @@ import React from 'react';
 import PageTitle from '@/components/elements/PageTitle';
 import styles from './Support.module.scss';
 import { useEffect, useState } from 'react';
-import AttachIcon from './icons/AttachIcon';
 import { IAppeal } from '@/types/profile';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import ArrowIcon from './icons/ArrowIcon';
@@ -90,10 +89,6 @@ export default function Support() {
     }
   };
 
-  const handleFileInputClick = () => {
-    document.getElementById('fileInput')?.click();
-  };
-
   const handleBackButton = () => {
     setSelectedAppeal(null);
     setCreateAppealMode(false);
@@ -120,6 +115,7 @@ export default function Support() {
         handleBackButton();
         setSubject('');
         setFirstMessage('');
+        window.location.reload();
       } catch (error: any) {
         console.error(error);
         toast.error(
@@ -225,12 +221,6 @@ export default function Support() {
                 onChange={handleFileInputChange}
               />
               <div className={styles.NewAppealButtons}>
-                <button
-                  className={styles.AttachMediaButton}
-                  onClick={handleFileInputClick}
-                >
-                  <AttachIcon />
-                </button>
                 <button
                   className={styles.CreateNewAppealButton}
                   onClick={createAppeal}

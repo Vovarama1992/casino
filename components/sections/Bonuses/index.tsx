@@ -32,6 +32,60 @@ export default function Bonuses() {
   const [isVKLinked, setIsVKLinked] = useState<boolean>(false);
   const user = useUnit($user);
   console.log(bonusValue);
+
+  useEffect(() => {
+    const handleVkLink = async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const vkLinked = urlParams.get('vkLinked') === 'true';
+
+      if (vkLinked) {
+        console.log('VK successfully linked.');
+        setIsVKLinked(true);
+        toast.success('VK успешно привязан!');
+
+        try {
+          await createBonusDeposit({
+            url: '/wallet/bonus-deposit',
+            paymentSystem: 'internal', // Укажите систему платежей
+            amount: 10, // Сумма бонуса
+          });
+          console.log('Bonus successfully credited.');
+        } catch (error) {
+          console.error('Failed to credit bonus:', error);
+          toast.error('Не удалось начислить бонус. Попробуйте позже.');
+        }
+
+        // Проверяем VK привязку
+        try {
+          const response = await getUserData({ url: '/users/me' }); // Запрос на получение данных пользователя
+          const updatedUser = response.data;
+
+          if (updatedUser.vk_id) {
+            setIsVKLinked(true);
+
+            // Передаем обновленный объект с новым vk_id
+            if (user) {
+              setUser({
+                ...user,
+                vk_id: updatedUser.vk_id, // Обновляем только vk_id
+              } as IUser);
+            }
+          } else {
+            setIsVKLinked(false);
+          }
+        } catch (error) {
+          console.error('Ошибка при проверке VK привязки:', error);
+        }
+
+        // Убираем параметры из URL
+        window.history.replaceState(null, '', window.location.pathname);
+        window.location.reload();
+      }
+    };
+
+    handleVkLink(); // Вызываем асинхронную функцию
+  }, []);
+
   useEffect(() => {
     const checkLatestClaim = async () => {
       try {
@@ -65,28 +119,6 @@ export default function Bonuses() {
     const init = async () => {
       // Проверяем бонусы
       await checkLatestClaim();
-
-      // Проверяем VK привязку
-      try {
-        const response = await getUserData({ url: '/users/me' }); // Запрос на получение данных пользователя
-        const updatedUser = response.data;
-
-        if (updatedUser.vk_id) {
-          setIsVKLinked(true);
-
-          // Передаем обновленный объект с новым vk_id
-          if (user) {
-            setUser({
-              ...user,
-              vk_id: updatedUser.vk_id, // Обновляем только vk_id
-            } as IUser);
-          }
-        } else {
-          setIsVKLinked(false);
-        }
-      } catch (error) {
-        console.error('Ошибка при проверке VK привязки:', error);
-      }
     };
 
     const checkVKCode = () => {
@@ -202,12 +234,6 @@ export default function Bonuses() {
                   onClick={async () => {
                     if (item.name === 'VK') {
                       console.log('vk_url: ' + item.authUrl);
-
-                      await createBonusDeposit({
-                        url: '/wallet/bonus-deposit',
-                        paymentSystem: 'internal', // Укажите систему платежей
-                        amount: 10, // Сумма бонуса
-                      });
 
                       window.location.href = item.authUrl;
                     } else if (item.name === 'Telegram') {

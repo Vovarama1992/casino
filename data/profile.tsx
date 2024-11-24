@@ -2,7 +2,7 @@ import React from 'react';
 //import TelegramIcon from './icons/social-media/TelegramIcon';
 import VKIcon from './icons/social-media/VKIcon';
 
-const REDIRECT_URI_LINK = 'https://moon-gamble.fans/';
+const REDIRECT_URI_LINK = 'https://moon-gamble.fans/bonuses?vkLinked=true';
 
 const VK_CLIENT_ID = '52108056'; // Прямое задание client_id, если не используете переменные окружения
 
