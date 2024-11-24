@@ -22,7 +22,12 @@ const EffectorUserHandler = () => {
         // 1. На фронте есть объект user.
         // 2. В этом объекте отсутствует vk_id.
         // 3. С бэка vk_id пришёл.
-        if (user && !user.vk_id && fetchedUser?.vk_id) {
+        if (
+          user &&
+          !user.vk_id &&
+          fetchedUser?.vk_id &&
+          user.bonus_balance == '0'
+        ) {
           console.log(
             'VK ID received from backend but missing on frontend. Updating user.',
           );
