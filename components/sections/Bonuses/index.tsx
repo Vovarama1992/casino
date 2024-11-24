@@ -90,7 +90,7 @@ export default function Bonuses() {
     };
 
     handleVkLink(); // Вызываем асинхронную функцию
-  }, [user]);
+  }, []);
 
   useEffect(() => {
     const checkLatestClaim = async () => {
