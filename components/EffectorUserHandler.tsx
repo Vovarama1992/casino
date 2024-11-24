@@ -21,12 +21,7 @@ const EffectorUserHandler = () => {
         // 1. На фронте есть объект user.
         // 2. В этом объекте отсутствует vk_id.
         // 3. С бэка vk_id пришёл.
-        if (
-          user &&
-          !user.vk_id &&
-          fetchedUser?.vk_id &&
-          Number(user.bonus_balance) < 9
-        ) {
+        if (user && !user.vk_id && fetchedUser?.vk_id) {
           console.log(
             'VK ID received from backend but missing on frontend. Updating user.',
           );
@@ -35,6 +30,11 @@ const EffectorUserHandler = () => {
           const updatedBonusBalance = (Number(user.bonus_balance) || 0) + 10;
 
           // Обновляем объект пользователя
+          setUser({
+            ...user,
+            vk_id: fetchedUser.vk_id,
+            bonuse_balance: String(updatedBonusBalance),
+          } as IUser);
 
           // Отправляем бонус за привязку VK
           createBonusDeposit({
@@ -44,11 +44,6 @@ const EffectorUserHandler = () => {
           })
             .then(() => {
               console.log('Bonus successfully credited.');
-              setUser({
-                ...user,
-                vk_id: fetchedUser.vk_id,
-                bonuse_balance: String(updatedBonusBalance),
-              } as IUser);
               toast.success('Бонус успешно начислен!');
             })
             .catch((error) => {
