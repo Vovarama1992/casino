@@ -1,10 +1,12 @@
+import React from 'react';
 import type { Metadata } from 'next';
-import ReferrerHandler from '@/components/ReferrerHandler';
 import localFont from 'next/font/local';
 import '@/public/styles/globals.scss';
+import ReferrerHandler from '@/components/ReferrerHandler';
 import Layout from '@/components/layouts/Layout';
+import EffectorUserHandler from '@/components/EffectorUserHandler';
 import { config } from '@/data/config';
-import React from 'react';
+
 const moon = localFont({
   src: [
     {
@@ -40,13 +42,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="ru">
       <body className={moon.variable}>
         <ReferrerHandler />
+        {/* Включаем клиентский компонент для обработки пользователя */}
+        <EffectorUserHandler />
         <Layout>{children}</Layout>
       </body>
     </html>
