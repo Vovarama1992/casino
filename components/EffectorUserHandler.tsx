@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useUnit } from 'effector-react';
 import { $user, setUser } from '@/context/user';
 import { getUserData } from '@/api/user';
+import { getUserBalance } from '@/api/user';
 import { createBonusDeposit } from '@/api/wallet';
 import { toast } from 'react-toastify';
 import { IUser } from '@/types/user';
@@ -23,35 +24,49 @@ const EffectorUserHandler = () => {
         // 3. С бэка vk_id пришёл.
         if (user && !user.vk_id && fetchedUser?.vk_id) {
           console.log(
-            'VK ID received from backend but missing on frontend. Updating user.',
+            'VK ID received from backend but missing on frontend. Checking balance.',
           );
 
-          // Увеличиваем бонусный баланс на 10
-          const updatedBonusBalance = (Number(user.bonus_balance) || 0) + 10;
+          // Получаем бонусный баланс с бэка
+          getUserBalance({ url: '/wallet/balance' })
+            .then((balanceResponse) => {
+              const { bonus_balance } = balanceResponse.data;
 
-          // Обновляем объект пользователя
-          setUser({
-            ...user,
-            vk_id: fetchedUser.vk_id,
-            bonuse_balance: String(updatedBonusBalance),
-          } as IUser);
+              // Проверяем, что бонусный баланс меньше 9
+              if (Number(bonus_balance) < 9) {
+                console.log(
+                  'Bonus balance is less than 9. Crediting bonus and updating user.',
+                );
 
-          if (Number(user.bonus_balance) < 9) {
-            // Отправляем бонус за привязку VK
-            createBonusDeposit({
-              url: '/wallet/bonus-deposit',
-              paymentSystem: 'internal',
-              amount: 10,
+                // Отправляем бонус за привязку VK
+                createBonusDeposit({
+                  url: '/wallet/bonus-deposit',
+                  paymentSystem: 'internal',
+                  amount: 10,
+                })
+                  .then(() => {
+                    console.log('Bonus successfully credited.');
+                    toast.success('Бонус успешно начислен!');
+
+                    // Обновляем пользователя на фронте
+                    setUser({
+                      ...user,
+                      vk_id: fetchedUser.vk_id,
+                    } as IUser);
+                  })
+                  .catch((error) => {
+                    console.error('Failed to credit bonus:', error);
+                    toast.error(
+                      'Не удалось начислить бонус. Попробуйте позже.',
+                    );
+                  });
+              } else {
+                console.log('Bonus balance is 9 or more. No action needed.');
+              }
             })
-              .then(() => {
-                console.log('Bonus successfully credited.');
-                toast.success('Бонус успешно начислен!');
-              })
-              .catch((error) => {
-                console.error('Failed to credit bonus:', error);
-                toast.error('Не удалось начислить бонус. Попробуйте позже.');
-              });
-          }
+            .catch((balanceError) => {
+              console.error('Failed to fetch user balance:', balanceError);
+            });
         } else {
           console.log('No updates needed for user.');
         }
