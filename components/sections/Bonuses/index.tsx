@@ -31,6 +31,15 @@ export default function Bonuses() {
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const [promoCode, setPromoCode] = useState<string>('');
   const [isVKLinked, setIsVKLinked] = useState<boolean>(false);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRefreshTrigger((prev) => prev + 1); // Увеличиваем значение, чтобы триггерить эффект
+    }, 1000); // Интервал в 5 секунд (можно изменить)
+
+    return () => clearInterval(interval); // Очищаем интервал при размонтировании
+  }, []);
 
   const user = useUnit($user);
   console.log(bonusValue);
@@ -91,7 +100,7 @@ export default function Bonuses() {
     };
 
     handleVkLink(); // Вызываем асинхронную функцию
-  });
+  }, [refreshTrigger]);
 
   useEffect(() => {
     const checkLatestClaim = async () => {
