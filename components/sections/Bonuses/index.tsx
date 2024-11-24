@@ -31,6 +31,7 @@ export default function Bonuses() {
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const [promoCode, setPromoCode] = useState<string>('');
   const [isVKLinked, setIsVKLinked] = useState<boolean>(false);
+  const [bonusGranted, setBonusGranted] = useState(false);
 
   const user = useUnit($user);
   console.log(bonusValue);
@@ -43,7 +44,7 @@ export default function Bonuses() {
         const updatedUser = response.data;
 
         // Проверяем, если на бэке есть vk_id, а на фронте его нет
-        if (updatedUser.vk_id && user && !user.vk_id) {
+        if (updatedUser.vk_id && user && !user.vk_id && !bonusGranted) {
           console.log('VK is linked on backend but not on frontend.');
 
           // Начисляем бонус за привязку VK
@@ -53,6 +54,7 @@ export default function Bonuses() {
               paymentSystem: 'internal', // Укажите систему платежей
               amount: 10, // Сумма бонуса
             });
+            setBonusGranted(true);
             console.log('Bonus successfully credited.');
           } catch (bonusError) {
             console.error('Failed to credit bonus:', bonusError);
@@ -91,7 +93,7 @@ export default function Bonuses() {
     };
 
     handleVkLink(); // Вызываем асинхронную функцию
-  }, []);
+  }, [bonusGranted]);
 
   useEffect(() => {
     const checkLatestClaim = async () => {
