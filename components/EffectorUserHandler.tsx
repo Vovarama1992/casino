@@ -54,7 +54,7 @@ const EffectorUserHandler = () => {
       .catch((error) => {
         console.error('Failed to fetch user data:', error);
       });
-  }, [user]);
+  }, []);
 
   useEffect(() => {
     // Получаем бонусный баланс с бэка
