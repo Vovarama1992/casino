@@ -31,38 +31,34 @@ const EffectorUserHandler = () => {
           getUserBalance({ url: '/wallet/balance' })
             .then((balanceResponse) => {
               const { bonus_balance } = balanceResponse.data;
-
+              const number = Number(bonus_balance);
+              console.log('number_balance: ' + number);
               // Проверяем, что бонусный баланс меньше 9
-              if (Number(bonus_balance) < 9) {
-                console.log(
-                  'Bonus balance is less than 9. Crediting bonus and updating user.',
-                );
 
-                // Отправляем бонус за привязку VK
-                createBonusDeposit({
-                  url: '/wallet/bonus-deposit',
-                  paymentSystem: 'internal',
-                  amount: 10,
+              console.log(
+                'Bonus balance is less than 9. Crediting bonus and updating user.',
+              );
+
+              // Отправляем бонус за привязку VK
+              createBonusDeposit({
+                url: '/wallet/bonus-deposit',
+                paymentSystem: 'internal',
+                amount: 10,
+              })
+                .then(() => {
+                  console.log('Bonus successfully credited.');
+                  toast.success('Бонус успешно начислен!');
+
+                  // Обновляем пользователя на фронте
+                  setUser({
+                    ...user,
+                    vk_id: fetchedUser.vk_id,
+                  } as IUser);
                 })
-                  .then(() => {
-                    console.log('Bonus successfully credited.');
-                    toast.success('Бонус успешно начислен!');
-
-                    // Обновляем пользователя на фронте
-                    setUser({
-                      ...user,
-                      vk_id: fetchedUser.vk_id,
-                    } as IUser);
-                  })
-                  .catch((error) => {
-                    console.error('Failed to credit bonus:', error);
-                    toast.error(
-                      'Не удалось начислить бонус. Попробуйте позже.',
-                    );
-                  });
-              } else {
-                console.log('Bonus balance is 9 or more. No action needed.');
-              }
+                .catch((error) => {
+                  console.error('Failed to credit bonus:', error);
+                  toast.error('Не удалось начислить бонус. Попробуйте позже.');
+                });
             })
             .catch((balanceError) => {
               console.error('Failed to fetch user balance:', balanceError);
