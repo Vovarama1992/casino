@@ -42,7 +42,7 @@ export default function Bonuses() {
         const updatedUser = response.data;
 
         // Проверяем, если на бэке есть vk_id, а на фронте его нет
-        if (updatedUser.vk_id && (!user || !user.vk_id)) {
+        if (updatedUser.vk_id && user && !user.vk_id) {
           console.log('VK is linked on backend but not on frontend.');
 
           // Начисляем бонус за привязку VK
