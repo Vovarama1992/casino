@@ -6,6 +6,7 @@ import { getUserData } from '@/api/user';
 import styles from './Bonuses.module.scss';
 import PageTitle from '@/components/elements/PageTitle';
 import { createBonusDeposit } from '@/api/wallet';
+import { getUserBalance } from '@/api/user';
 import PromoCodeIcon from './icons/PromoCodeIcon';
 import MarkIcon from './icons/MarkIcon';
 import Image from 'next/image';
@@ -44,17 +45,6 @@ export default function Bonuses() {
         if (updatedUser.vk_id && (!user || !user.vk_id)) {
           console.log('VK is linked on backend but not on frontend.');
 
-          // Обновляем состояние пользователя на фронте
-          setUser({
-            ...user, // Берем текущие данные пользователя
-            vk_id: updatedUser.vk_id, // Добавляем vk_id
-          } as IUser);
-
-          // Устанавливаем состояние VK привязано
-          setIsVKLinked(true);
-
-          toast.success('VK успешно привязан!');
-
           // Начисляем бонус за привязку VK
           try {
             await createBonusDeposit({
@@ -66,10 +56,33 @@ export default function Bonuses() {
           } catch (bonusError) {
             console.error('Failed to credit bonus:', bonusError);
             toast.error('Не удалось начислить бонус. Попробуйте позже.');
+            return; // Прерываем выполнение, если бонус начислить не удалось
+          }
+
+          // Устанавливаем vk_id на фронте
+          setUser({
+            ...(user || {}), // Безопасно берем текущие данные пользователя
+            vk_id: updatedUser.vk_id, // Обновляем поле vk_id
+          } as IUser);
+
+          // Получаем обновленный баланс
+          try {
+            const balanceResponse = await getUserBalance({
+              url: '/wallet/balance',
+            });
+            console.log('Updated balance:', balanceResponse);
+
+            // Обновляем бонусный баланс на фронте
+            setUser({
+              ...(user || {}), // Безопасно берем текущие данные пользователя
+              bonuse_balance: updatedUser.bonuse_balance, // Обновляем поле vk_id
+            } as IUser);
+          } catch (balanceError) {
+            console.error('Failed to update balance:', balanceError);
+            toast.error('Не удалось обновить баланс. Попробуйте позже.');
           }
         } else {
           console.log('No action needed. VK link status is consistent.');
-          setIsVKLinked(!!updatedUser.vk_id); // Устанавливаем состояние привязки
         }
       } catch (error) {
         console.error('Error during VK link check:', error);
