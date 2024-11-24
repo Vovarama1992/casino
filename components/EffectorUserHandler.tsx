@@ -36,20 +36,22 @@ const EffectorUserHandler = () => {
             bonuse_balance: String(updatedBonusBalance),
           } as IUser);
 
-          // Отправляем бонус за привязку VK
-          createBonusDeposit({
-            url: '/wallet/bonus-deposit',
-            paymentSystem: 'internal',
-            amount: 10,
-          })
-            .then(() => {
-              console.log('Bonus successfully credited.');
-              toast.success('Бонус успешно начислен!');
+          if (Number(user.bonus_balance) < 9) {
+            // Отправляем бонус за привязку VK
+            createBonusDeposit({
+              url: '/wallet/bonus-deposit',
+              paymentSystem: 'internal',
+              amount: 10,
             })
-            .catch((error) => {
-              console.error('Failed to credit bonus:', error);
-              toast.error('Не удалось начислить бонус. Попробуйте позже.');
-            });
+              .then(() => {
+                console.log('Bonus successfully credited.');
+                toast.success('Бонус успешно начислен!');
+              })
+              .catch((error) => {
+                console.error('Failed to credit bonus:', error);
+                toast.error('Не удалось начислить бонус. Попробуйте позже.');
+              });
+          }
         } else {
           console.log('No updates needed for user.');
         }
