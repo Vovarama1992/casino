@@ -1,9 +1,12 @@
 'use client';
 import React from 'react';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PageTitle from '@/components/elements/PageTitle';
+import { createBonusDeposit } from '@/api/wallet';
+import { getUserBalance } from '@/api/user';
 import styles from './Profile.module.scss';
+import { IUser } from '@/types/user';
 import Image from 'next/image';
 import PasswordInput from '@/components/elements/Inputs/PasswordInput';
 import { ProfileSocialMedia } from '@/data/profile';
@@ -31,6 +34,75 @@ export default function Profile() {
   const [avatarId, setAvatarId] = useState<number | null>(
     user && +user?.avatar,
   );
+  const [bonusGranted, setBonusGranted] = useState(false);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRefreshTrigger((prev) => prev + 1);
+    }, 5000);
+
+    return () => clearInterval(interval); // Очищаем интервал
+  }, []);
+
+  useEffect(() => {
+    const handleVkLink = async () => {
+      try {
+        // Получаем данные пользователя с бэка
+        const response = await getUserData({ url: '/users/me' }); // Запрос на получение данных пользователя
+        const updatedUser = response.data;
+
+        // Проверяем, если на бэке есть vk_id, а на фронте его нет
+        if (updatedUser.vk_id && user && !user.vk_id && !bonusGranted) {
+          console.log('VK is linked on backend but not on frontend.');
+
+          // Начисляем бонус за привязку VK
+          try {
+            await createBonusDeposit({
+              url: '/wallet/bonus-deposit',
+              paymentSystem: 'internal', // Укажите систему платежей
+              amount: 10, // Сумма бонуса
+            });
+            setBonusGranted(true);
+            console.log('Bonus successfully credited.');
+          } catch (bonusError) {
+            console.error('Failed to credit bonus:', bonusError);
+            toast.error('Не удалось начислить бонус. Попробуйте позже.');
+            return; // Прерываем выполнение, если бонус начислить не удалось
+          }
+
+          // Устанавливаем vk_id на фронте
+          setUser({
+            ...(user || {}), // Безопасно берем текущие данные пользователя
+            vk_id: updatedUser.vk_id, // Обновляем поле vk_id
+          } as IUser);
+
+          // Получаем обновленный баланс
+          try {
+            const balanceResponse = await getUserBalance({
+              url: '/wallet/balance',
+            });
+            console.log('Updated balance:', balanceResponse);
+
+            // Обновляем бонусный баланс на фронте
+            setUser({
+              ...(user || {}), // Безопасно берем текущие данные пользователя
+              bonuse_balance: updatedUser.bonuse_balance, // Обновляем поле vk_id
+            } as IUser);
+          } catch (balanceError) {
+            console.error('Failed to update balance:', balanceError);
+            toast.error('Не удалось обновить баланс. Попробуйте позже.');
+          }
+        } else {
+          console.log('No action needed. VK link status is consistent.');
+        }
+      } catch (error) {
+        console.error('Error during VK link check:', error);
+      }
+    };
+
+    handleVkLink(); // Вызываем асинхронную функцию
+  }, [refreshTrigger]);
 
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
