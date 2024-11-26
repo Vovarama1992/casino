@@ -52,6 +52,10 @@ export default function Bonuses() {
         const response = await getUserData({ url: '/users/me' }); // Запрос на получение данных пользователя
         const updatedUser = response.data;
 
+        console.log('vk_onBackend: ' + updatedUser.vk_id);
+        console.log('vk_on_frontend: ' + user?.vk_id);
+        console.log('bonus_not_granted?: ' + !bonusGranted);
+
         // Проверяем, если на бэке есть vk_id, а на фронте его нет
         if (updatedUser.vk_id && user && !user.vk_id && !bonusGranted) {
           console.log('VK is linked on backend but not on frontend.');
