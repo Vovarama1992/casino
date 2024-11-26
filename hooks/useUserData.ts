@@ -15,7 +15,7 @@ export const useUserData = () => {
         });
         console.log('User data:', data);
 
-        if (data?.vk_id && user && !user?.vk_id) {
+        if (data?.vk_id && user && user.balance && !user?.vk_id) {
           await createBonusDeposit({
             url: '/wallet/bonus-deposit',
             paymentSystem: 'internal', // Укажите систему платежей
