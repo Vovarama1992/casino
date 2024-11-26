@@ -1,8 +1,11 @@
 import { getUserBalance, getUserData } from '@/api/user';
-import { setUser } from '@/context/user';
+import { useUnit } from 'effector-react';
+import { $user, setUser } from '@/context/user';
+import { createBonusDeposit } from '@/api/wallet';
 import { useEffect } from 'react';
 
 export const useUserData = () => {
+  const user = useUnit($user);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -11,6 +14,14 @@ export const useUserData = () => {
           url: '/users/me',
         });
         console.log('User data:', data);
+
+        if (data?.vk_id && user && !user?.vk_id) {
+          await createBonusDeposit({
+            url: '/wallet/bonus-deposit',
+            paymentSystem: 'internal', // Укажите систему платежей
+            amount: 10, // Сумма бонуса
+          });
+        }
 
         console.log('Fetching user balance...');
         const { balance, bonus_balance, pure_balance } = await getUserBalance({
