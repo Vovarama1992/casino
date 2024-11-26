@@ -192,10 +192,17 @@ export default function Bonuses() {
       toast.success(`Промокод успешно применен: ${data.amount} лун`);
 
       if (user) {
+        // Преобразуем балансы и сумму промокода в числа
+        const updatedBonusBalance =
+          (parseFloat(user.bonus_balance) || 0) +
+          (parseFloat(data.amount) || 0);
+        const updatedBalance =
+          (parseFloat(user.balance) || 0) + (parseFloat(data.amount) || 0);
+
         setUser({
           ...user,
-          bonus_balance: user.bonus_balance + data.amount,
-          balance: user.balance + data.amount,
+          bonus_balance: String(updatedBonusBalance),
+          balance: String(updatedBalance),
         });
       }
     } catch (error: any) {
@@ -206,6 +213,7 @@ export default function Bonuses() {
       );
     }
   };
+
   return (
     <section className={styles.Bonuses}>
       <PageTitle title="Бонусы" />
