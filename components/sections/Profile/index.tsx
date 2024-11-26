@@ -164,6 +164,8 @@ export default function Profile() {
         setUser({
           ...data,
           avatar: String(avatarId),
+          bonuse_balance: user?.bonus_balance || 0,
+          balance: user?.balance || 0,
         });
         toast.success('Аватар изменён');
       } catch (error: any) {
