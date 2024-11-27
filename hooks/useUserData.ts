@@ -1,16 +1,14 @@
 import { getUserBalance, getUserData } from '@/api/user';
 import { useUnit } from 'effector-react';
 import { $user, setUser } from '@/context/user';
-//import { createBonusDeposit } from '@/api/wallet';
+import { createBonusDeposit } from '@/api/wallet';
 import { useEffect } from 'react';
 
 // Функция для получения кешированных данных
-{
-  /*const getCachedUserData = () => {
+const getCachedUserData = () => {
   const cachedUser = localStorage.getItem('user_data');
   return cachedUser ? JSON.parse(cachedUser) : null;
-};*/
-}
+};
 
 // Функция для кеширования данных пользователя
 const setCachedUserData = (data: any) => {
@@ -28,8 +26,7 @@ export const useUserData = () => {
         console.log('User data:', data);
 
         // Проверяем, если в новых данных есть vk_id, а в кешированных нет
-        {
-          /*} const cachedUser = getCachedUserData();
+        const cachedUser = getCachedUserData();
         if (data?.vk_id && cachedUser && !cachedUser?.vk_id) {
           // Если vk_id появился, делаем бонусный депозит
           await createBonusDeposit({
@@ -37,7 +34,6 @@ export const useUserData = () => {
             paymentSystem: 'internal', // Укажите систему платежей
             amount: 10, // Сумма бонуса
           });
-        }*/
         }
 
         console.log('Fetching user balance...');
