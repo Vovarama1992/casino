@@ -60,5 +60,5 @@ export const useUserData = () => {
     };
 
     fetchData();
-  }, [user]);
+  }, []);
 };
