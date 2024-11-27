@@ -1,11 +1,9 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { DepositPaymentSystems } from '@/data/payments';
 import Link from 'next/link';
 import styles from './Banners.module.scss';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
-import { createBonusDeposit } from '@/api/wallet';
 import 'swiper/css';
 import NavigationArrow from './icons/NavigationArrow';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
@@ -65,11 +63,7 @@ export default function Banners() {
             if (user) {
               user.is_vk_linked = true;
             }
-            await createBonusDeposit({
-              url: '/wallet/bonus-deposit', // Используем маршрут для бонусного депозита
-              paymentSystem: DepositPaymentSystems[0].slug,
-              amount: 10,
-            });
+
             toast.success('10 лун зачислено за привязку ВК');
             // Очищаем URL от параметров
             window.history.replaceState(null, '', window.location.pathname);
