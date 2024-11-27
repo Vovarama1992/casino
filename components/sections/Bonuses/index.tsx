@@ -5,7 +5,6 @@ import { ProfileSocialMedia } from '@/data/profile';
 import { getUserData } from '@/api/user';
 import styles from './Bonuses.module.scss';
 import PageTitle from '@/components/elements/PageTitle';
-import { createBonusDeposit } from '@/api/wallet';
 import { getUserBalance } from '@/api/user';
 import PromoCodeIcon from './icons/PromoCodeIcon';
 import MarkIcon from './icons/MarkIcon';
@@ -31,7 +30,6 @@ export default function Bonuses() {
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const [promoCode, setPromoCode] = useState<string>('');
   const [isVKLinked, setIsVKLinked] = useState<boolean>(false);
-  const [bonusGranted, setBonusGranted] = useState(false);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   useEffect(() => {
@@ -54,26 +52,12 @@ export default function Bonuses() {
 
         console.log('vk_onBackend: ' + updatedUser.vk_id);
         console.log('vk_on_frontend: ' + user?.vk_id);
-        console.log('bonus_not_granted?: ' + !bonusGranted);
 
         // Проверяем, если на бэке есть vk_id, а на фронте его нет
-        if (updatedUser.vk_id && user && !user.vk_id && !bonusGranted) {
+        if (updatedUser.vk_id && user && !user.vk_id) {
           console.log('VK is linked on backend but not on frontend.');
 
           // Начисляем бонус за привязку VK
-          try {
-            await createBonusDeposit({
-              url: '/wallet/bonus-deposit',
-              paymentSystem: 'internal', // Укажите систему платежей
-              amount: 10, // Сумма бонуса
-            });
-            setBonusGranted(true);
-            console.log('Bonus successfully credited.');
-          } catch (bonusError) {
-            console.error('Failed to credit bonus:', bonusError);
-            toast.error('Не удалось начислить бонус. Попробуйте позже.');
-            return; // Прерываем выполнение, если бонус начислить не удалось
-          }
 
           // Устанавливаем vk_id на фронте
           setUser({
